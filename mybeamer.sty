@@ -1,0 +1,134 @@
+% <<<   Packages   >>>
+
+%\usepackage{beamerthemesplit}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage{multirow} %used for crazy tables
+\usepackage{stmaryrd} %used for /shortrightarrow
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage{enumerate}
+\usepackage[noend,ruled,lined]{algorithm2e}
+%\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc,automata,positioning,shadows}
+
+
+%  <<<   New commands and environments   >>>
+
+\newcommand\vtextvisiblespace[1][.3em]{%
+  \mbox{\kern.06em\vrule height.3ex}%
+  \vbox{\hrule width#1}%
+  \hbox{\vrule height.3ex}}
+
+\newenvironment{tikzpic}{%
+	\begin{center}
+	\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]}
+	{\end{tikzpicture}\end{center}}
+
+%\newenvironment<>{varblock}[2][.9\textwidth]{%
+%  \setlength{\textwidth}{#1}
+%  \begin{actionenv}#3%
+%    \def\insertblocktitle{#2}%
+%    \par%
+%    \usebeamertemplate{block begin}}
+%  {\par%
+%    \usebeamertemplate{block end}%
+%  \end{actionenv}}
+  
+% template of center block with variable width.
+%\newenvironment{myblock}[2]
+%    {\begin{center}
+%    	\begin{minipage}{#1}
+%		\begin{block}{#2}
+%    }
+%    { 
+%    \end{block}
+%    \end{minipage} 
+%    \end{center}
+%    }
+
+
+% Use tikz to create a command that wrap a circle aorund a text.
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+    \node[shape=rounded rectangle,%drop shadow={opacity=.5,shadow xshift=0pt},
+			 draw,inner sep=2pt] (char) {#1};}}
+    
+\newenvironment{myblock}[2]
+  {\begin{columns}[c]
+	\column{#1}
+	\begin{block}{#2}}
+	{\end{block}
+	\end{columns}
+	\vspace{0.1in}
+	}
+
+
+% <<<   Beamer styles   >>>
+\definecolor{ao}{rgb}{0.0, 0.3, 0.0}
+\definecolor{green}{rgb}{0.0, 0.3, 0.0}
+\newcommand{\white}[1]{\textcolor{white}{#1}}
+\newcommand{\wh}[1]{\textcolor{white}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\bl}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\gr}[1]{\textcolor{green}{#1}}
+\newcommand{\ogr}[1]{\textcolor{OliveGreen}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\magenta}[1]{\textcolor{magenta}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+
+% <<< Symbols from package 'pifont'
+\newcommand{\cmark}{\ding{52}}%
+\newcommand{\xmark}{\ding{56}}%
+
+
+%%\usetheme{AnnArbor}
+%%\usetheme{Bergen}
+%%\usetheme{Antibes}
+%%\usetheme{Berlin}
+%%\usetheme{Boadilla}
+%%\usetheme{CambridgeUS}
+%%\usetheme{Copenhagen}+
+%%\usetheme{Darmstadt}
+%%\usetheme{Dresden}
+%%\usetheme{Frankfurt}
+%%\usetheme{Goettingen}
+%%\usetheme{Hannover}
+%%\usetheme{Ilmenau}
+%%\usetheme{JuanLesPins}
+%%\usetheme{Luebeck}+
+%\usetheme{Madrid}
+%%\usetheme{Malmoe}
+%%\usetheme{Marburg}
+%%\usetheme{Montpellier}
+%%\usetheme{PaloAlto}
+%%\usetheme{Pittsburgh}
+%%\usetheme{Rochester}
+%%\usetheme{Singapore}+
+%%\usetheme{Szeged}
+%%\usetheme{Warsaw}+
+%%\usetheme{boxes}+
+%%\usetheme{default}
+%%\usefonttheme{serif}
+%%\usecolorheme{albatross} 
+%\usecolortheme[RGB={0,100,0}]{structure} 
+%\setbeamertemplate{items}[circle] 
+%\setbeamertemplate{navigation symbols}{} 
+%%\setbeamerfont{structure}{family=\rmfamily,shape=\bfshape} 
+%\setbeamerfont{structure}{series=\bfseries} 
+%%\setbeamertemplate{background canvas}{\includegraphics[width=50mm,height=50mm]{usf-logo.eps}}
+%\setbeamersize{text margin left=4mm, text margin right=4mm} 
+%
+%\setlength{\leftmargini}{12pt}
+%\setlength{\leftmarginii}{12pt}
+%

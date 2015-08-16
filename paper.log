@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  14 AUG 2015 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  16 AUG 2015 19:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -830,14 +830,7 @@ Package: everypage 2007/06/20 1.1 Hooks to run on every page
 )
 \sc@wm@fontsize=\skip64
 )
-(./paper.aux
-
-LaTeX Warning: Label `fig_example1.ps' multiply defined.
-
-
-LaTeX Warning: Label `fig_example1.ps' multiply defined.
-
-)
+(./paper.aux)
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 354.
@@ -854,7 +847,8 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 354.
 LaTeX Font Info:    ... okay on input line 354.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 354.
 LaTeX Font Info:    ... okay on input line 354.
- (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count138
 \scratchdimen=\dimen187
@@ -1014,37 +1008,38 @@ Underfull \hbox (badness 1859) in paragraph at lines 1036--1038
 []$\OT1/ptm/m/n/10 , and $[]$. Some of
  []
 
-<figures/Fig4.png, id=470, 807.015pt x 479.7925pt>
+<figures/Fig4.png, id=469, 874.26625pt x 758.835pt>
 File: figures/Fig4.png Graphic file (type png)
  <use figures/Fig4.png>
 Package pdftex.def Info: figures/Fig4.png used on input line 1057.
-(pdftex.def)             Requested size: 289.07999pt x 171.86859pt.
+(pdftex.def)             Requested size: 274.6262pt x 238.36272pt.
 
-Underfull \vbox (badness 1701) has occurred while \output is active []
-
- [7]
-<figures/Fig5.png, id=480, 676.5275pt x 920.43875pt>
+<figures/Fig5.png, id=472, 592.2125pt x 1025.8325pt>
 File: figures/Fig5.png Graphic file (type png)
  <use figures/Fig5.png>
 Package pdftex.def Info: figures/Fig5.png used on input line 1069.
-(pdftex.def)             Requested size: 216.81pt x 294.9818pt.
+(pdftex.def)             Requested size: 267.39877pt x 463.20131pt.
 
-<figures/Fih6.png, id=481, 682.55pt x 924.45375pt>
+
+LaTeX Warning: Float too large for page by 26.66324pt on input line 1099.
+
+[7] <figures/Fih6.png, id=483, 800.9925pt x 1081.03876pt>
 File: figures/Fih6.png Graphic file (type png)
- <use figures/Fih6.png>
-Package pdftex.def Info: figures/Fih6.png used on input line 1082.
-(pdftex.def)             Requested size: 216.81pt x 293.6448pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+<use figures/Fih6.png>
+Package pdftex.def Info: figures/Fih6.png used on input line 1108.
+(pdftex.def)             Requested size: 289.07999pt x 390.14688pt.
 
- [8 <./figures/Fig4.png> <./figures/Fig5.png>]
-<figures/Fig.png, id=490, 482.80376pt x 333.245pt>
-File: figures/Fig.png Graphic file (type png)
- <use figures/Fig.png>
-Package pdftex.def Info: figures/Fig.png used on input line 1098.
-(pdftex.def)             Requested size: 289.07999pt x 199.53665pt.
 
-[9 <./figures/Fih6.png> <./figures/Fig.png>] (./paper.bbl
+LaTeX Warning: Float too large for page by 16.60881pt on input line 1146.
+
+
+Overfull \hbox (20.2218pt too wide) in paragraph at lines 1163--1176
+ [] 
+ []
+
+[8 <./figures/Fig4.png>] (./paper.bbl [9] [10 <./figures/Fig5.png> <./figures/F
+ih6.png>]
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `English'. Using the pattern for
 ** the default language instead.
@@ -1069,12 +1064,14 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1191.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1191.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1270.
+[11
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1270.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1191.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1191.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1270.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1270.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 66F519F88F0970258E1F2F48971647E0;838.
@@ -1082,16 +1079,13 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1191.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1270.
  ) 
 Here is how much of TeX's memory you used:
- 21476 strings out of 493117
- 420249 string characters out of 6135433
- 559932 words of memory out of 5000000
- 24437 multiletter control sequences out of 15000+600000
+ 21475 strings out of 493117
+ 420194 string characters out of 6135433
+ 562089 words of memory out of 5000000
+ 24436 multiletter control sequences out of 15000+600000
  50827 words of font info for 116 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  62i,14n,84p,1893b,847s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1115,10 +1109,10 @@ type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/ur
 w/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/ut
 mbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (10 pages, 917006 bytes).
+Output written on paper.pdf (11 pages, 807497 bytes).
 PDF statistics:
- 585 PDF objects out of 1000 (max. 8388607)
- 414 compressed objects within 5 object streams
- 57 named destinations out of 1000 (max. 500000)
- 251 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 593 PDF objects out of 1000 (max. 8388607)
+ 423 compressed objects within 5 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 246 words of extra memory for PDF output out of 10000 (max. 10000000)
 

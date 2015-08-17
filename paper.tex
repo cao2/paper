@@ -1054,12 +1054,12 @@ At the end of the analysis, all possible flow execution scenarios are returned t
 
 \begin{figure} 
 \centerline{
-\includegraphics[width=3.8in]{figures/Fig4.png}}
+\includegraphics[width=3.7in]{figures/Fig4.png}}
 \caption{SoC platform structure.}
 \label{SoC}
 \end{figure}
 
-The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a SoC design from GEM5 with two ARM CPU cores, each with 16KB data cache and 16KB instruction cache. A simple memory controller with 1GB capacity is connected with CPUs and caches by an interconnect bus as shown in Fig.~\ref{SoC}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled. Instead, the modeling focuses on how they participate in flows for different system level use cases. Originally all of the components are connected by ports in GEM5. Ports exist in peers, and by connecting them, one component can send request or response through ports. In order to trace the communication inside the system, we added an communication monitor between each components connection. The communication monitor is a MemObject that monitors the communication  between two ports in the system.
+The proposed trace analysis method is demonstrated on a transaction level model of a SoC design from GEM5. The SoC platform built for this case study has two ARM CPU cores, each with 16KB data cache and 16KB instruction cache. A simple memory controller with 1GB capacity is connected with CPUs and caches by an interconnect bus as shown in Fig.~\ref{SoC}.  This modeling focuses on how they participate in flows for different system level use cases. Originally all of the components are connected by ports in GEM5. Ports exist in peers, and by connecting them, one component can send request or response through ports. In order to trace the communication inside the system, we added an communication monitor between each components connection. The communication monitor is an Object that monitors the communication  between two ports in the system. The communication monitor will not affect any functionality of the system, it only record the communication activities into an output file.
 
 By combining the informations from all of the nine communication monitors, required communication traces are obtained. As a virtualized SoC platform, GEM5 has three types of request: timing, atomic and functional. Timing request include the modeling of queuing delay and resource contention. Atomic request is a faster than timing request with no delay.  Functional request is used for loading binaries, examining/changing variables in the simulated system, and so on. In our case, we specify all our request to be timed as it's the most detailed one.However, some of the system initiation is still atomic and it's not related to our research, so we only took the messages that are timing request from our collected data. 
 
@@ -1153,52 +1153,12 @@ The LPN specification as shown in Fig.~\ref{read-flow} captures the system flow 
 \subsection{Results and Discussions}
 We produce a result file including all of the communication messages between every components from two simple programs running simultaneously on each CPU.  The program assigned to CPU1 read one file three times for one letter and writing one letter for three times to the same file. CPU2's program will do the same read and write functionalities to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even when we run these two programs concurrently, it will attempt to produce a concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did was it allowed two CPUs to execute its own instruction in turn, therefore the order was deterministic. Therefore, no matter how many times we ran the program, it produced the same result. We tried other virtual SoC platform softwares, and this was the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still surve our purpose of testing the correctness of our algorithm.
 
-As we mentioned before, we will take away unrelated messages for easier testing purpose. After taking out non-timing request, the number of communication messages reduced from 343581 to 133676, and after removing the message that's not related to tested flow specification, number of messages became 120949. 
+As we mentioned before, we will take away unrelated messages for easier testing purpose. After removing the message that's not related to tested flow specification, the number of communication messages reduced from 343581 to 120949. 
 
-The total time we used for processing the filtered data is 3 seconds, with 12MB data usage. 
-
-
-\begin{table*}
-\caption{{Example of trace result}}
-\label{example-trace}
-\begin{center}
-{\footnotesize
-
-\begin{tabular}{llll}
-1~~ (cpu0,cache0,readreq)				&2~~ (cache0,membus,LoadLockedreq)		&3~~ (membus,mem,LoadLockedreq) 		&4~~ (membus,cache0,LoadLockedreq)\\
-
-5~~(cache0,cpu0,LoadLockedreq)		&6~~(cpu0,cache0,readreq)		&7~~(cache0,membus,StoreCondreq)		&8~~(membus,mem,StoreCondreq)\\
-
-9~~(membus,cache0,StoreCondreq)		&10~~(cache0,cpu0,StoreCondreq)		&11~~(membus,cache1,StoreCondreq)		&12~~(cache1,cpu1,StoreCondreq)\\
-
-13~~(membus,cache1,StoreCondreq)		&14~~(cache1,cpu1,StoreCondreq)		&15~~(membus,cache1,LoadLockedreq)	&16~~(cache1,cpu1,LoadLockedreq)\\
-
-17~~(membus,cache1,LoadLockedreq)	&18~~(cache1,cpu1,LoadLockedreq)		&19~~(mem,membus,readres)			&20~~(cache0,cpu0,readres)\\
-
-20~~(membus,cache0,readres)			&22~~(mem,membus,readres)			&23~~(membus,cache0,readres)				&24~~(cache0,cpu0,readres)\\
-\end{tabular}}
-\end{center}
-\end{table*}
-
-Even though this example is conceptually simple, getting the model to correctly implement the flow specifications is not straightforward. On the other hand, results from the trace analysis greatly help the debugging process by providing information to locate problems quickly. For example, the following trace as shown in Table~\ref{example-trace} is observed.
-\
-The trace analysis finds out that messages 1-18 maps to two CPU0 read as
-\vspace{2 mm}
-
-$\{(F2^1,<p29>),  (F2^2, <p13>)\}$
-
-\vspace{2 mm}
-
-message 19 can be result of either flow instances, therefore it leads to two floowling flow execution scenarios:
-\vspace{2 mm}
-
-$\{(F2^1,<p30>),  (F2^2, <p13>)\}$
-
-$\{(F2^1,<p29>),  (F2^2, <p14>)\}$
-\vspace{2 mm}
+The total time we used for processing the filtered data is 3 seconds, with 12MB data usage. The 120949 messages matche to 3370 CPU write flows generated from CPU1 and 3308 CPU write flows from CPU2. There are also 21584 CPU read flows from CPU1 and 21341 CPU read flows generated from CPU2. The number of read and write generated from each CPU is very similar as both of them are doing the same times of read and write functions.
 
 
-In either scenario, message 20 can't be mapped to any existing flow instance or to a new flow instance. From this example, we can see that the error is originated by CPU0, and the problem is cache0 send the read response to CPU0 before it received any response from memory bus.%% In a few more iterations of analysis and debugging, the trace analysis can eventually extract all initiated flow instances in the model, all in their terminal states, thus showing that the model implements the two flows correctly.
+
 
 
 %=====

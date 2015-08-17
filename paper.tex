@@ -40,7 +40,7 @@
 %% ** renaming them and changing author support contact information. **
 %%
 %% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
-%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compSoC.tex
 %%*************************************************************************
 
 % *** Authors should verify (and, if needed, correct) their LaTeX system  ***
@@ -64,7 +64,7 @@
 % draft mode.
 %
 \documentclass[conference]{IEEEtran}
-% Add the compsoc option for Computer Society conferences.
+% Add the compSoC option for Computer SoCiety conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
@@ -174,7 +174,7 @@
 % *** MATH PACKAGES ***
 %
 %\usepackage[cmex10]{amsmath}
-% A popular package from the American Mathematical Society that provides
+% A popular package from the American Mathematical SoCiety that provides
 % many useful and powerful commands for dealing with mathematics. If using
 % it, be sure to load this package with the cmex10 option to ensure that
 % only type 1 fonts will utilized at all point sizes. Without this option,
@@ -510,7 +510,7 @@ s' = (s - \bullet{t}) \cup t\bullet,
 and the emission of event $e$ labeled for $t$. 
 
 
-A simple communication protocol specification between two components represented by a LPN is shown in~Figure~\ref{fig-flow-ex-1}.  In this and the following figures for LPNs, the labeled circles denote places, and the labeled boxes denote transitions.  Each transition is labeled with its name and the associated event.  The solid black places without outgoing edges are {\em terminals}, which indicate termination of protocols represented by the LPNs.  In this LPN, the initial state $\mathit{init} = \{p_1\}$.  In this protocol, component~1 sends two consecutive messages $\mathit{msg}_1$ to component~2, which responds with either $\mathit{msg}_2$ or $\mathit{msg}_3$ non-deterministically.  If $\mathit{msg}_2$ is responded, component~1 repeats the protocol by sending two consecutive $\mathit{msg}_1$ again.  Otherwise, component~1 stops the protocol upon receiving $\mathit{msg}_3$.  This LPN represents two possible communication sequences as shown below.
+A simple communication protocol specification between two components represented by a LPN is shown in~Figure~\ref{fig-flow-ex-1}.  In this and the following figures for LPNs, the labeled circles denote places, and the labeled boxes denote transitions.  Each transition is labeled with its name and the asSoCiated event.  The solid black places without outgoing edges are {\em terminals}, which indicate termination of protocols represented by the LPNs.  In this LPN, the initial state $\mathit{init} = \{p_1\}$.  In this protocol, component~1 sends two consecutive messages $\mathit{msg}_1$ to component~2, which responds with either $\mathit{msg}_2$ or $\mathit{msg}_3$ non-deterministically.  If $\mathit{msg}_2$ is responded, component~1 repeats the protocol by sending two consecutive $\mathit{msg}_1$ again.  Otherwise, component~1 stops the protocol upon receiving $\mathit{msg}_3$.  This LPN represents two possible communication sequences as shown below.
 \[
 \begin{array}{l}
 \mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_1\;\ldots \\
@@ -696,13 +696,13 @@ Alternatively, if all derived execution scenarios seem to be plausible, the impl
 %=====
 \section{Case Study}
 
-The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a simple SoC design with two CPU cores, memory, and a peripheral device connected by an interconnect as shown in Fig.~\ref{fig-soc-ex}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled.  Instead, the modeling is focused on how they participate in flows for different system level use cases.
+The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a simple SoC design with two CPU cores, memory, and a peripheral device connected by an interconnect as shown in Fig.~\ref{fig-SoC-ex}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled.  Instead, the modeling is focused on how they participate in flows for different system level use cases.
 
 \begin{figure}[tb]
 \begin{center}
 \includegraphics[width=2in]{figures/simple-ex}
 \caption{A simple SoC example.}
-\label{fig-soc-ex}
+\label{fig-SoC-ex}
 \end{center}
 \end{figure}
 
@@ -1056,19 +1056,19 @@ At the end of the analysis, all possible flow execution scenarios are returned t
 \centerline{
 \includegraphics[width=3.8in]{figures/Fig4.png}}
 \caption{SoC platform structure.}
-\label{SOC}
+\label{SoC}
 \end{figure}
 
-The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a SoC design from GEM5 with two ARM CPU cores, each with 16KB data cache and 16KB instruction cache. One simple memory with 1GB capacity is connected with cache by an interconnect bus as shown in Fig~\ref{SOC}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled. Instead, the modeling is focused on how they participate in flows for different system level use cases. Originally all the component is connected by ports in GEM5, in order to trace the communication inside the system, we added an communicate monitor between each components connection. As showed in Fig~\ref{SOC}, take CPU0 and instruction cache for example, the communicate monitor between is called icache0. When CPU0 is about to send a command (read request as example), it will send to communicate monitor first, where it will store the request information in a file, and forward the request packet to instruction cache.
+The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a SoC design from GEM5 with two ARM CPU cores, each with 16KB data cache and 16KB instruction cache. A simple memory controller with 1GB capacity is connected with CPUs and caches by an interconnect bus as shown in Fig.~\ref{SoC}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled. Instead, the modeling focuses on how they participate in flows for different system level use cases. Originally all of the components are connected by ports in GEM5. Ports exist in peers, and by connecting them, one component can send request or response through ports. In order to trace the communication inside the system, we added an communication monitor between each components connection. The communication monitor is a MemObject that monitors the communication  between two ports in the system.
 
-By combining information from all 9 of the communicate monitors, we will have all the communication traces we need. As an virtualized SOC platform, GEM5 has three types of request: timing, atomic and functional. Timing request are the most detailed request. This type of request include the modeling of queuing delay and resource contention. A successfully sent timing will receive an response at some point in the future. Atomic accesses are a faster than detailed access. They are used for fast forwarding and warming up caches and return an approximate time to complete the request without any resource contention or queuing delay. Functional accesses are used for things such as loading binaries, examining/changing variables in the simulated system, and allowing a remote debugger to be attached to the simulator. In our case, we specified all our request to be timing. However, some of the system initiation is still atomic and it's useless for our research, so we only took the messages that are timing request from our collected data. (From GEM5 online documentaries)
-
+By combining the informations from all of the nine communication monitors, required communication traces are obtained. As a virtualized SoC platform, GEM5 has three types of request: timing, atomic and functional. Timing request include the modeling of queuing delay and resource contention. Atomic request is a faster than timing request with no delay.  Functional request is used for loading binaries, examining/changing variables in the simulated system, and so on. In our case, we specify all our request to be timed as it's the most detailed one.However, some of the system initiation is still atomic and it's not related to our research, so we only took the messages that are timing request from our collected data. 
 
 \subsection{Flow Specification}
 
-In this case study, two system flows are implemented in the SoC model. They include a cache coherent read request from CPU and a cache coherent write request from CPU. To avoid messages that are not included in this two flow, like write back, cache flushing, we only use data that is related to these two flow. 
+In this case study, two system flows are implemented in the SoC model. They include a cache coherent read request from CPU and a cache coherent write request from CPU.  To avoid messages that are not included in these two flows, like write back and cache flushing, we only use data that are related to these two flows.
 
-In the following , a brief overview for the implemented instances of these flows is given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
+
+In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
 \begin{figure} 
 \centerline{
 \includegraphics[width=3.7In]{figures/Fig5.png}}
@@ -1103,9 +1103,7 @@ msg_{20}: (&\mbox{ cache1},&\mbox{ WriteRes},&\mbox{ CPU1 })\\
 \label{write-flow}
 \end{figure}
 
-The LPN as shown in Fig~\ref{write-flow} specifies a system flow where CPU1 initiates a memory write operation. In this flow, CPU1 initiates a memory write request to L1 Cache. Next, depends on whether the required data is included in cache1, the cache1 will generate three possible responses. First, the cache1 will send read exclusive request message msg2 to interconnect if data not present in cache; Or if the data is shared by CPU0, it will send upgrade message msg16 to interconnect to disable CPU0's ownership of this block of data, else if CPU1 has exclusive right of required data, cache1 will perform the write operation and sent an response message msg15 to CPU1. Afterward, interconnect will sent request to all connected component (data cache and instruction cache of each CPU and memory). Once the interconnect get the response from either CPU0 or memory, it will generate a response message to cache1 and cache1 will generate a write response message msg14 (or msg 21 ) to CPU1. The flow is symmetric for CPU2.
-
-
+The LPN as shown in Fig.~\ref{write-flow} specifies a system flow where CPU1 initiates a memory write operation. In this flow, CPU1 initiates a memory write request to L1 Cache. Next, depends on whether the required data is included in cache1, the cache1 will generate three possible responses. First, the cache1 will send read exclusive request message msg2 to interconnect if data is not present in cache.; Or if the data is shared by CPU0, it will send upgrade message msg16 to interconnect to disable CPU0's ownership of this block of data, else if CPU1 has exclusive right of required data, cache1 will perform the write operation and sent an response message msg15 to CPU1. Afterwards, interconnect will sent request to all connected component (data cache and instruction cache of each CPU and memory). Once the interconnect obtains the response from either CPU0 or memory, it will generate a response message to cache1, then cache1 will generate a write response message msg14 (or msg 21 ) to CPU1. The flow is symmetric for CPU2.
 
 
 \begin{figure} 
@@ -1149,14 +1147,15 @@ t33: (&\mbox{ cache1},&\mbox{ ReadRes},&\mbox{ CPU1 })\\
 \label{read-flow}
 
 \end{figure}
-The LPN specification as shown in Fig~\ref{read-flow} captures the system flow where CPU1 initiate a memory read operation. Similar to memory write, CPU1 will first initiate a memory read request message msg1 to cache1. Cache1 can generate three possible responses. If the requested data is not in cache1, cache1 will generate an storeCondReq message msg2 to interconnect asking for data. Else if the requested data is inside of cache1 but it's shared, cache1 will generate a upgrade request message msg22 to make sure it has the newest data; Else if cache1 has and data and it's not shared, it will generate a read response message msg15 to CPU1. Afterward, interconnect will send corresponding request to all its connected component and when it received the response, generate response message to cache1 and cache1 will generate the read response message msg14 or msg34 to CPU1. This specification is also symmetric for CPU2.
+The LPN specification as shown in Fig.~\ref{read-flow} captures the system flow where CPU1 initiate a memory read operation. Similar to memory write, CPU1 will first initiate a memory read request message msg1 to cache1. Cache1 can generate three possible responses. First, if the requested data is not in cache1, cache1 will generate an storeCondReq message msg2 to interconnect asking for data. Second, if the requested data is inside of cache1 but it's shared, cache1 will generate a upgrade request message msg22 to make sure it has the newest data; Last,  if cache1 has and data and it's not shared, it will generate a read response message msg15 to CPU1. Afterwards, interconnect will send corresponding request to all of its connected components. When interconnect receives the response, it will generate response message to cache1. Then cache1 will generate the read response message msg14 or msg34 to CPU1. This specification is also symmetric for CPU2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results and Discussions}
-We produce a result file including all the communication between each components by running two simple programs on each CPU simultaneously, . The executable assigned to CPU1 is read one file three times for one letter and writing one letter for three times to the same file. CPU2's executable will do the same functionality to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even if we specify these two program two be ran concurrently, and GEM5 try to produce an concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did is letting the two CPU execute one instruction in turn, so the order is determined, no matter how many time we run the program, it will always produce the same result. We tried other virtual SOC platform softwares, and this is the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still suit our purpose of testing the correctness of our algorithm.
+We produce a result file including all of the communication messages between every components from two simple programs running simultaneously on each CPU.  The program assigned to CPU1 read one file three times for one letter and writing one letter for three times to the same file. CPU2's program will do the same read and write functionalities to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even when we run these two programs concurrently, it will attempt to produce a concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did was it allowed two CPUs to execute its own instruction in turn, therefore the order was deterministic. Therefore, no matter how many times we ran the program, it produced the same result. We tried other virtual SoC platform softwares, and this was the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still surve our purpose of testing the correctness of our algorithm.
 
 As we mentioned before, we will take away unrelated messages for easier testing purpose. After taking out non-timing request, the number of communication messages reduced from 343581 to 133676, and after removing the message that's not related to tested flow specification, number of messages became 120949. 
 
+The total time we used for processing the filtered data is 3 seconds, with 12MB data usage. 
 
 
 \begin{table*}
@@ -1255,7 +1254,7 @@ The trace analysis approach presented in this paper needs to be iterated with di
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{soc}
+\bibliography{SoC}
 %
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references

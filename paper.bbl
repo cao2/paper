@@ -39,6 +39,12 @@ S.~Krstic, J.~Yang, D.~Palmer, R.~Osborne, and E.~Talmor, ``Security of soc
   firmware load protocols,'' in \emph{Hardware-Oriented Security and Trust
   (HOST), 2014 IEEE International Symposium on}, May 2014, pp. 70--75.
 
+\bibitem{Binkert2011}
+N.~Binkert, B.~Beckmann, G.~Black, S.~K. Reinhardt, A.~Saidi, A.~Basu,
+  J.~Hestness, D.~R. Hower, T.~Krishna, S.~Sardashti, R.~Sen, K.~Sewell,
+  M.~Shoaib, N.~Vaish, M.~D. Hill, and D.~A. Wood, ``The gem5 simulator,''
+  \emph{SIGARCH Comput. Archit. News}, vol.~39, no.~2, pp. 1--7, Aug. 2011.
+
 \bibitem{Goossens2007NOCS}
 K.~Goossens, B.~Vermeulen, R.~v. Steeden, and M.~Bennebroek,
   ``Transaction-based communication-centric debug,'' in \emph{Proceedings of

@@ -1068,7 +1068,10 @@ In this model, components communicate with each other by sending and receiving v
 
 %\subsection{Flow Specification}
 
-For this model, we consider the flow specification describing the cache coherence protocol supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  This specification consists of two flows, one for cache coherent read requests and one for  cache coherent write requests, from CPUs.  Two such flows describe the cache coherent protocol for each CPU.  As there are two CPUs in this model, there are actually four such flows considered for this model.  More detailed information about the flow specification can be found at \red{github???}
+For this model, we consider the flow specification describing the cache coherence protocol supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  This specification consists of two flows, one for cache coherent read requests and one for  cache coherent write requests, from CPUs.  Two such flows describe the cache coherent protocol for each CPU.  As there are two CPUs in this model, there are actually four such flows considered for this model.  
+%More detailed information about the flow specification is explained in the following section. 
+
+%found at \red{github???}
 
 
 %In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
@@ -1155,7 +1158,7 @@ For this model, we consider the flow specification describing the cache coherenc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Results and Discussions}
 
-In order to trigger cache coherence protocols, a simple two-threaded program including one producer and one consumer is created and executed on the CPUs, each of which executes one thread.  \red{How is shared memory is simulated???}  GEM5 does not support true concurrency.  When there are two programs running on the CPUs, GEM5 alternates the executions between the two  CPUs.  
+In order to trigger cache coherence protocols, a simple two-threaded program including one producer and one consumer is created and executed on the CPUs, each of which executes one thread.  \red{How is shared memory is simulated???} . The producer will write to a specified memory address, and the consumer will read from the same address. GEM5 does not support true concurrency.  When there are two programs running on the CPUs, GEM5 alternates the executions between the two  CPUs.  
 
 %We produce a result file including all of the communication messages between every components from two simple programs running simultaneously on each CPU.  The program assigned to CPU1 read one file three times for one letter and writing one letter for three times to the same file. CPU2's program will do the same read and write functionalities to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even when we run these two programs concurrently, it will attempt to produce a concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did was it allowed two CPUs to execute its own instruction in turn, therefore the order was deterministic. Therefore, no matter how many times we ran the program, it produced the same result. We tried other virtual SoC platform softwares, and this was the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still surve our purpose of testing the correctness of our algorithm.
 

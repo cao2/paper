@@ -1059,11 +1059,28 @@ At the end of the analysis, all possible flow execution scenarios are returned t
 \label{SoC}
 \end{figure}
 
+<<<<<<< Updated upstream
 In order to find out the efficiency of the trace analysis method for more realistic examples, in this case study, a more detailed transaction level model of a SoC is constructed within the GEM5 environment~\cite{Binkert2011}.  This SoC model consists of two ARM Cortex-A9 cores, each of which contains two separate 16KB data and instruction caches.  The caches are connected to a 1GB memory through a memory bus model.  The architecture of this SoC model is shown in Fig.~\ref{SoC}.  
+=======
+The proposed trace analysis method is demonstrated on a transaction level model of a SoC design from GEM5. The SoC platform built for this case study has two ARM CPU cores, each with 16KB data cache and 16KB instruction cache. A simple memory controller with 1GB capacity is connected with CPUs and caches by an interconnect bus as shown in Fig.~\ref{SoC}.  Originally all of the components are connected by ports in GEM5. Ports exist in peers, and by connecting them, one component can send request or receive response through connection between peer ports. In order to trace the communication inside the system, we added an communication monitor between each components connection. The communication monitor is an Object that monitors the communication  between two ports in the system. The communication monitor will not affect any functionality of the system, it only record the communication activities into an output file.
+
+By combining the informations from all of the nine communication monitors, required communication traces are obtained. As a virtualized SoC platform, GEM5 has three types of request: timing, atomic and functional. Timing request include the modeling of queuing delay and resource contention. Atomic request is a faster than timing request with no delay.  Functional request is used for loading binaries, examining/changing variables in the simulated system, and so on. In our case, we specify all our request to be timed as it's the most detailed one.However, some of the system initiation is still atomic and it's not related to our research, so we only took the messages that are timing request from our collected data. 
+
+\subsection{Flow Specification}
+
+In this case study, two system flows are implemented in the SoC model. They include a cache coherent read request from CPU and a cache coherent write request from CPU.  To avoid messages that are not included in these two flows, like write back and cache flushing, we only use data that are related to these two flows.
+>>>>>>> Stashed changes
 
 In this model, components communicate with each other by sending and receiving various request and response messages.  In order to observe and trace communications occurring inside this model during execution, monitors are attached to links connecting the components. These monitors record the messages flowing through the links they are attached to, and store them into output trace files.
 
+<<<<<<< Updated upstream
 %By combining the informations from all of the nine communication monitors, required communication traces are obtained. As a virtualized SoC platform, GEM5 has three types of request: timing, atomic and functional. Timing request include the modeling of queuing delay and resource contention. Atomic request is a faster than timing request with no delay.  Functional request is used for loading binaries, examining/changing variables in the simulated system, and so on. In our case, we specify all our request to be timed as it's the most detailed one.However, some of the system initiation is still atomic and it's not related to our research, so we only took the messages that are timing request from our collected data. 
+=======
+In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases.% In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
+\begin{figure} 
+\centerline{
+\includegraphics[width=3.7In]{figures/Fig5.png}}
+>>>>>>> Stashed changes
 
 
 %\subsection{Flow Specification}
@@ -1153,7 +1170,12 @@ For this model, we consider the flow specification describing the cache coherenc
 %The LPN specification as shown in Fig.~\ref{read-flow} captures the system flow where CPU1 initiate a memory read operation. Similar to memory write, CPU1 will first initiate a memory read request message msg1 to cache1. Cache1 can generate three possible responses. First, if the requested data is not in cache1, cache1 will generate an storeCondReq message msg2 to interconnect asking for data. Second, if the requested data is inside of cache1 but it's shared, cache1 will generate a upgrade request message msg22 to make sure it has the newest data; Last,  if cache1 has and data and it's not shared, it will generate a read response message msg15 to CPU1. Afterwards, interconnect will send corresponding request to all of its connected components. When interconnect receives the response, it will generate response message to cache1. Then cache1 will generate the read response message msg14 or msg34 to CPU1. This specification is also symmetric for CPU2.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<<<<<< Updated upstream
 %\subsection{Results and Discussions}
+=======
+\subsection{Results and Discussions}
+We produce a result file including all of the communication messages between every components from two simple programs running simultaneously on each CPU.  The program assigned to CPU1 read one file three times for one letter and writing one letter for three times to the same file. CPU2's program will do the same read and write functionalities to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even when we run these two programs concurrently, it will attempt to produce a concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did was it allowed two CPUs to execute its own instruction in turn, therefore the order was deterministic. Therefore, no matter how many times we ran the program, it produced the same result. We tried other virtual SoC platform softwares, and this was the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still serve our purpose of testing the correctness of our algorithm.
+>>>>>>> Stashed changes
 
 In order to trigger cache coherence protocols, a simple two-threaded program including one producer and one consumer is created and executed on the CPUs, each of which executes one thread.  \red{How is shared memory is simulated???}  GEM5 does not support true concurrency.  When there are two programs running on the CPUs, GEM5 alternates the executions between the two  CPUs.  
 

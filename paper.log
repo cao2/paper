@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 AUG 2015 16:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  18 AUG 2015 20:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -896,7 +896,7 @@ LaTeX Info: Redefining \nameref on input line 354.
 \openout5 = `paper.out'.
 
  ABD: EveryShipout initializing macros
-<figures/bpmn-flow-ex.pdf, id=83, 204.8303pt x 210.48256pt>
+<figures/bpmn-flow-ex.pdf, id=71, 204.8303pt x 210.48256pt>
 File: figures/bpmn-flow-ex.pdf Graphic file (type pdf)
 
 <use figures/bpmn-flow-ex.pdf>
@@ -967,7 +967,7 @@ LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 677
 LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 679
 .
 
-[4] <figures/simple-ex.pdf, id=377, 363.96297pt x 372.34227pt>
+[4] <figures/simple-ex.pdf, id=364, 363.96297pt x 372.34227pt>
 File: figures/simple-ex.pdf Graphic file (type pdf)
 
 <use figures/simple-ex.pdf>
@@ -989,9 +989,18 @@ Overfull \hbox (0.94846pt too wide) in paragraph at lines 940--978
  []
 
 [6]
+
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1020
+.
+
+
 Overfull \hbox (11.57797pt too wide) in paragraph at lines 1025--1033
  [] 
  []
+
+
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1036
+.
 
 
 Underfull \hbox (badness 3312) in paragraph at lines 1036--1038
@@ -1008,13 +1017,40 @@ Underfull \hbox (badness 1859) in paragraph at lines 1036--1038
 []$\OT1/ptm/m/n/10 , and $[]$. Some of
  []
 
-<figures/Fig4.png, id=461, 618.31pt x 593.21625pt>
+
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1046
+.
+
+<figures/Fig4.png, id=446, 618.31pt x 593.21625pt>
 File: figures/Fig4.png Graphic file (type png)
  <use figures/Fig4.png>
 Package pdftex.def Info: figures/Fig4.png used on input line 1057.
 (pdftex.def)             Requested size: 238.49121pt x 228.80986pt.
 
-[7] [8 <./figures/Fig4.png>] (./paper.bbl
+
+LaTeX Warning: Reference `SoC' on page 7 undefined on input line 1063.
+
+
+LaTeX Warning: Reference `SoC' on page 7 undefined on input line 1065.
+
+[7]
+Underfull \vbox (badness 3679) has occurred while \output is active []
+
+
+<figures/Fig5.png, id=457, 592.2125pt x 1025.8325pt>
+File: figures/Fig5.png Graphic file (type png)
+ <use figures/Fig5.png>
+Package pdftex.def Info: figures/Fig5.png used on input line 1082.
+(pdftex.def)             Requested size: 267.39877pt x 463.20131pt.
+
+
+LaTeX Warning: Reference `SoC' on page 8 undefined on input line 1088.
+
+
+LaTeX Warning: Reference `table-case-2' on page 8 undefined on input line 1186.
+
+
+(./paper.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `English'. Using the pattern for
 ** the default language instead.
@@ -1039,53 +1075,153 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1256.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1256.
- (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1256.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1256.
+
+./paper.tex:1278: LaTeX Error: \begin{figure} on input line 1080 ended by \end{
+document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1278 \end{document}
+                     
+? 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1278.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1278.
+(./paper.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1278.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1278.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: B272950D9D72AA5A068ED07964BABF19;697.
+(rerunfilecheck)             Checksum: A77ED7DDF754E90187718BBCE27D21A6;556.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1256.
- ) 
-Here is how much of TeX's memory you used:
- 21457 strings out of 493117
- 419926 string characters out of 6135433
- 559944 words of memory out of 5000000
- 24425 multiletter control sequences out of 15000+600000
- 50827 words of font info for 116 fonts, out of 8000000 for 9000
- 1144 hyphenation exceptions out of 8191
- 62i,14n,84p,1893b,847s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
-xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texli
-ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive
-/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2014/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2014/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2014/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2014/texmf-dist/font
-s/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2014/texmf-dist/fonts/
-type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/ur
-w/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/ut
-mbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-</usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (9 pages, 720248 bytes).
-PDF statistics:
- 568 PDF objects out of 1000 (max. 8388607)
- 404 compressed objects within 5 object streams
- 53 named destinations out of 1000 (max. 500000)
- 220 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1278.
+./paper.tex:1278: You can't use `\end' in internal vertical mode.
+\enddocument ...es \z@ \Call@AtVeryVeryEnd \@@end 
+                                                  
+l.1278 \end{document}
+                     
+? 
+
+./paper.tex:1278: LaTeX Error: \begin{figure} on input line 1080 ended by \end{
+document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1278 \end{document}
+                     
+? 
+./paper.tex:1278: Missing } inserted.
+<inserted text> 
+                }
+l.1278 \end{document}
+                     
+? 
+)
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*\end
+
+*
+Runaway argument?
+! Paragraph ended before \end was complete.
+<to be read again> 
+                   \par 
+<*> 
+    
+? 
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*\end
+
+*
+Runaway argument?
+! Paragraph ended before \end was complete.
+<to be read again> 
+                   \par 
+<*> 
+    
+? 
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\end')
+*
+(Please type a command or say `\en

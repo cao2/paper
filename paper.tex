@@ -100,7 +100,13 @@
 \usepackage{amsmath}
 \usepackage{mybeamer}
 \usepackage{draftwatermark}
-
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
 
 
@@ -1068,10 +1074,7 @@ In this model, components communicate with each other by sending and receiving v
 
 %\subsection{Flow Specification}
 
-For this model, we consider the flow specification describing the cache coherence protocol supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  This specification consists of two flows, one for cache coherent read requests and one for  cache coherent write requests, from CPUs.  Two such flows describe the cache coherent protocol for each CPU.  As there are two CPUs in this model, there are actually four such flows considered for this model.  
-%More detailed information about the flow specification is explained in the following section. 
-
-%found at \red{github???}
+For this model, we consider the flow specification describing the cache coherence protocol supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  This specification consists of two flows, one for cache coherent read requests and one for  cache coherent write requests, from CPUs.  Two such flows describe the cache coherent protocol for each CPU.  As there are two CPUs in this model, there are actually four such flows considered for this model.  More detailed information about the flow specification can be found at \url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}
 
 
 %In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 

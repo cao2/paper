@@ -8,15 +8,25 @@
 
 \begin{document}
 
-\title{Flow Specification in GEM5}
+\title{Flow Specification of Cache Coherence Protocol in GEM5}
 
 \maketitle
 
 
 \begin{abstract}
-This paper will go through a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
+This paper will go through a brief overview for the implemented instances of given GEM5 flow specifications. These flow specifications capture how messages are exchanged for different use cases. 
 \end{abstract}
 
+The flow specifications are implemented in a SoC model using GEM5. The architecture of this SoC model is shown in Fig.~\ref{SoC}. This SoC model consists of two ARM Cortex-A9 cores, each of which contains two separate 16KB data and instruction caches.  The caches are connected to a 1GB memory through a memory bus model.  .  
+
+In this model, components communicate with each other by sending and receiving various request and response messages.  In order to observe and trace communications occurring inside this model during execution, monitors are attached to links connecting the components. These monitors record the messages flowing through the links they are attached to, and store them into output trace files. The recorded mssage is defined in the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
+
+\begin{figure} 
+\centerline{
+\includegraphics[width=3.3in]{figures/Fig4.png}}
+\caption{SoC platform structure.}
+\label{SoC}
+\end{figure}
 
 
 \section{write flow specification}

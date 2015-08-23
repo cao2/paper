@@ -128,5 +128,23 @@ This paper will go through a brief overview for the implemented instances of the
 
 The LPN specification shown in Fig.~\ref{read-dcahce} describes the system flow when CPU1 initiate a memory read operation to its data cache. DCache1 can also generate two possible responses to the read request. First, if the requested data is included in DCache1 but it's shared, cache1 will generate a load locked data request message msg21 to make sure it has the newest data. Second possibility is that when DCache1 has the requested, it will directly issue a read response message msg 33 to CPU1.
 
-This two specifications are also symmetric for CPU2.
+
+\begin{figure} 
+ \centerline{
+ \includegraphics[width=1.5in]{figures/storeFail.png}}
+ 
+ {\footnotesize
+ \[
+ \begin{array}{llll}
+ msg0: (&\mbox{ CPU1},&\mbox{StoreFailedReq},&\mbox{ICache1})\\                   
+ msg1: (&\mbox{ ICache1},&\mbox{ StoreFailedRes},&\mbox{ CPU1 })\\
+ \end{array}
+ \]}
+ \caption{Flow specification ($F_2$) of a cache coherent read operation initiated from CPU1 to  data cache}
+ \label{storefail}
+ 
+ \end{figure}
+Another flow implemented in GEM5 is when CPU initiate a store failed request to instruction cache, with a simple store failed response from instruction cache. Detailed flow specification is specified in Fig.~\ref{storefail}
+
+This three specifications are also symmetric for CPU2.
 \end{document}

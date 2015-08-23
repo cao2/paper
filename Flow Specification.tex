@@ -33,32 +33,31 @@ In this model, components communicate with each other by sending and receiving v
 
 In this section, we will take CPU1 as an example to explain how write flow specification works in our SoC system.
  
+Coherence protocol for write operation can be triggered by CPU1 initiating a memory write request to its data cache. Next, depends on whether the required data is included in cache1, and the status of requested data,  cache1 can generate three possible responses. 
 
-Write flow specification will be triggered by CPU1 initiating a memory write request to its data cache. Next, depends on whether the required data is included in cache1, and the status of requested data,  ICache1 can generate three possible responses. 
-
-First, the cache1 will send read exclusive request message msg2 to interconnect if data is not present in cache, as shown in Fig.~\ref{write3}; 
+First, the cache1 will send read exclusive request message msg2 to interconnect if data is not present in cache, as shown in Fig.~\ref{write3}.
 
  \begin{figure} 
  \centerline{
- \includegraphics[width=3.9In]{figures/write3.png}}
+ \includegraphics[width=4In]{figures/write3.png}}
  \caption{Flow sequence chart of write operation when requested data is not included in Dcache. ReadExRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
  \label{write3}
  \end{figure}
  
  \begin{figure} 
  \centerline{
- \includegraphics[width=3.9In]{figures/write2.png}}
+ \includegraphics[width=4In]{figures/write2.png}}
  \caption{Flow sequence chart of write operation when requested data is shared by another component. UpgradeRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
  \label{write2}
  \end{figure}
 
  \begin{figure} 
- \includegraphics[width=2In]{figures/write1.png}
+ \includegraphics[width=1.9In]{figures/write1.png}
  \caption{Flow sequence chart of write operation when XCache has the exclusive right of requested data. XCache can be instruction cache or data cache. This sequence chart is symmetric for CPU2. }
  \label{write1}
  \end{figure}
  
-Second, if the data is shared by CPU0, it will send upgrade request message msg16 to interconnect to disable CPU0's ownership of this block of data, as shown in Fig.!\ref{write2}; 
+Second, if the data is shared by CPU2, it will send upgrade request message msg16 to interconnect request disabling  CPU2's ownership of the data, as shown in Fig.~\ref{write2}. 
 
 Last, if CPU1 has exclusive right of required data, ICache1 will perform the write operation and sent an response message msg15 to CPU1, as shown in Fig.~\ref{write1}.
 
@@ -98,48 +97,49 @@ Last, if CPU1 has exclusive right of required data, ICache1 will perform the wri
  \end{figure}
 
 
- Afterwards, interconnect will sent received request to all connected component (data cache and instruction cache of each CPU and memory). Once the interconnect obtains the response from either CPU2 or memory, it will generate a response message to cache1, ICache1 will generate a write response message msg14 (or msg 21 ) to CPU1. These three flow sequence charts are implemented as on flow specification in GEM5, as specified in Fig.~\ref{write-flow}.
- 
+ Afterwards, interconnect will sent received request to all connected component (data cache and instruction cache of each CPU and memory). Once the interconnect obtains the response from either CPU2 or memory, it will generate a response message to cache1, cache1 will generate a write response message msg14 (or msg 21 ) to CPU1. These three flow sequence charts are implemented together in one flow specification in GEM5, as specified in Fig.~\ref{write-flow}.
  
  
  \section{read flow specification}
- In this section, we will take CPU1 as an example to explain how read flow specification works in our SoC system.
+ In this section, we will also take CPU1 as an example to explain how read flow specification works in our SoC system.
 
 
  
  \begin{figure} 
  \centerline{
  \includegraphics[width=3.9In]{figures/read3.png}}
- \caption{Flow sequence chart of write operation when requested data is not included in Dcache. ReadExRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
+ \caption{Flow sequence chart of read operation when requested data is shared by another component. LoadLockedRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
  \label{read3}
  \end{figure}
  
  \begin{figure} 
  \centerline{
  \includegraphics[width=3.9In]{figures/read2.png}}
- \caption{Flow sequence chart of write operation when requested data is shared by another component. UpgradeRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
+ \caption{Flow sequence chart of read operation when requested data is not present. StoreCondRes can also be sent from Memory if Dcache2 doesn't have requested data. This sequence chart is symmetric for CPU2. }
  \label{read2}
  \end{figure}
 
  \begin{figure} 
  \includegraphics[width=2In]{figures/read1.png}
- \caption{Flow sequence chart of write operation when XCache has the exclusive right of requested data. XCache can be instruction cache or data cache. This sequence chart is symmetric for CPU2. }
+ \caption{Flow sequence chart of read operation when XCache has the exclusive right of requested data. XCache can be instruction cache or data cache. This sequence chart is symmetric for CPU2. }
  \label{read1}
  \end{figure}
 
  
-Read coherence protocol will be triggered by CPU1 initiating a memory read request to its cache. Depending on whether the required data is included in its cache, the status of requested data,  and which cache the request is sent to, cache can generate three possible responses. 
+Read coherence protocol can be triggered by CPU1 initiating a memory read request to its cache. Depending on whether the required data is included in its cache, the status of requested data,  and which cache the request is sent to, cache can generate three possible responses. 
 
-First, for both instruction cache and data cache, if they have the exclusive right of requested data, they will generate a read response carrying the data back to CPU. Detailed flow sequence chart is displayed in Fig.~\ref{read1}.
+First, for both instruction cache and data cache, if they have the exclusive right of requested data, they can generate a read response carrying the data back to CPU. Detailed flow sequence chart is displayed in Fig.~\ref{read1}.
 
-Second, when ICache1 decide that the requested data is not present, it will issue an StoreCondReq to memory bus asking for data. Finally, if DCache1 has the data, but it's shared, it will issue an LoadLockedReq to memory bus. Flow sequence charts for these two possibility are shown in Fig.\~ref{read1} and Fig.\~ref{read}.
+Second, when ICache1 decide that the requested data is not present, it will issue an StoreCondReq to memory bus asking for data. 
+
+Finally, if DCache1 has the data, but it's shared, it will issue an LoadLockedReq to memory bus requesting exclusive right of the data. Flow sequence charts for these two possibility are shown in Fig.\~ref{read1} and Fig.\~ref{read}.
  
 Since instruction cache and data cache have different coherence protocol, there are two flow specifications for read operation generated by CPU1. The LPN specification as shown in Fig.~\ref{read-flow} captures the system flow where CPU1 initiate a memory read to instruction cache. And Fig.~\ref{read-dcache} specifies read operation to data cache from CPU1.
 
 
  \begin{figure} 
  \centerline{
- \includegraphics[width=3.33in]{figures/Fih6.png}}
+ \includegraphics[width=3in]{figures/Fih6.png}}
  
  {\footnotesize
  \[
@@ -170,7 +170,7 @@ Since instruction cache and data cache have different coherence protocol, there 
 
  \begin{figure} 
  \centerline{
- \includegraphics[width=3.1in]{figures/readDcache.png}}
+ \includegraphics[width=3in]{figures/readDcache.png}}
  
  {\footnotesize
  \[
@@ -200,8 +200,7 @@ Since instruction cache and data cache have different coherence protocol, there 
 \section{failed read specification}
 
 \begin{figure} 
- \centerline{
- \includegraphics[width=1.5in]{figures/storeFail.png}}
+ \includegraphics[width=1.5in]{figures/storeFail.png}
  
  {\footnotesize
  \[

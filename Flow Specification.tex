@@ -64,7 +64,7 @@ Last, if CPU1 has exclusive right of required data, ICache1 will perform the wri
 
 \begin{figure} 
  \centerline{
- \includegraphics[width=3.4In]{figures/Fig5.png}}
+ \includegraphics[width=3.7In]{figures/Fig5.png}}
  
  {\footnotesize
  \[
@@ -98,6 +98,28 @@ Last, if CPU1 has exclusive right of required data, ICache1 will perform the wri
 
 
  Afterwards, interconnect will sent received request to all connected component (data cache and instruction cache of each CPU and memory). Once the interconnect obtains the response from either CPU2 or memory, it will generate a response message to cache1, cache1 will generate a write response message msg14 (or msg 21 ) to CPU1. These three flow sequence charts are implemented together in one flow specification in GEM5, as specified in Fig.~\ref{write-flow}.
+ 
+ 
+ \section{failed read specification}
+
+\begin{figure} 
+ \includegraphics[width=1.5in]{figures/storeFail.png}
+ 
+ {\footnotesize
+ \[
+ \begin{array}{llll}
+ msg0: (&\mbox{ CPU1},&\mbox{StoreCondFailedReq},&\mbox{ICache1})\\                   
+ msg1: (&\mbox{ ICache1},&\mbox{ StoreCondFailedRes},&\mbox{ CPU1 })\\
+ \end{array}
+ \]}
+ \caption{Flow specification of failed read. This flow is symmetric for CPU2. }
+ \label{storefail}
+ 
+ \end{figure}
+Another flow implemented in GEM5 is when CPU initiate a store failed request to instruction cache, with a simple store failed response from instruction cache. Detailed flow specification is specified in Fig.~\ref{storefail}
+
+This three specifications are also symmetric for CPU2.
+
  
  
  \section{read flow specification}
@@ -197,23 +219,4 @@ Since instruction cache and data cache have different coherence protocol, there 
  
  \end{figure}
 
-\section{failed read specification}
-
-\begin{figure} 
- \includegraphics[width=1.5in]{figures/storeFail.png}
- 
- {\footnotesize
- \[
- \begin{array}{llll}
- msg0: (&\mbox{ CPU1},&\mbox{StoreCondFailedReq},&\mbox{ICache1})\\                   
- msg1: (&\mbox{ ICache1},&\mbox{ StoreCondFailedRes},&\mbox{ CPU1 })\\
- \end{array}
- \]}
- \caption{Flow specification of failed read. This flow is symmetric for CPU2. }
- \label{storefail}
- 
- \end{figure}
-Another flow implemented in GEM5 is when CPU initiate a store failed request to instruction cache, with a simple store failed response from instruction cache. Detailed flow specification is specified in Fig.~\ref{storefail}
-
-This three specifications are also symmetric for CPU2.
 \end{document}

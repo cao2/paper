@@ -361,22 +361,27 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{Flow-Directed Trace Analysis for Post-Silicon Validation}
+\title{\Large {\bf Flow-guided Analysis of System-level Post-silicon
+  Traces Under Limited Observability}}
 
+\author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
+$^1$Dept. of Computer Science and Engg., University of South Florida, Tampa, Fl 33620. USA. \\
+$^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
+\maketitle
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-\author{\IEEEauthorblockN{Hao Zheng, Yuting Cao}
-\IEEEauthorblockA{Computer Science and Engineering\\
-University of South Florida\\
-Tampa, Florida 33620}
-\and
-\IEEEauthorblockN{Sandip Ray, Jin Yang}
-\IEEEauthorblockA{Strategic CAD Labs\\
-Intel Corporation\\
-Portland, Oregon
-}}
+%% % author names and affiliations
+%% % use a multiple column layout for up to three different
+%% % affiliations
+%% \author{\IEEEauthorblockN{Hao Zheng, Yuting Cao}
+%% \IEEEauthorblockA{Computer Science and Engineering\\
+%% University of South Florida\\
+%% Tampa, Florida 33620}
+%% \and
+%% \IEEEauthorblockN{Sandip Ray, Jin Yang}
+%% \IEEEauthorblockA{Strategic CAD Labs\\
+%% Intel Corporation\\
+%% Portland, Oregon
+%% }}
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -409,8 +414,11 @@ Portland, Oregon
 
 
 
+
+
+
 % make the title area
-\maketitle
+%\maketitle
 
 
 \begin{abstract}
@@ -436,7 +444,7 @@ Validation of multicore systems-on-chip (SoC) is very challenging, and main reas
 %
 % For peerreview papers, this IEEEtran command inserts a page break and
 % creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+% \IEEEpeermaketitle
 
 
 
@@ -448,8 +456,6 @@ Validation of multicore systems-on-chip (SoC) is very challenging, and main reas
 %Using system level flows in silicon trace analysis helps to reduce the volume of data to be stored and analyzed, difficulty caused by inherent non-determinism.  
 %
 %Also, abstracts signal traces to system use cases, which helps validation engineering better understand the behavior displayed by the signal traces. 
-
-System-on-chip designs 
 
 Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 
 

@@ -128,7 +128,7 @@
 % http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
 % The documentation is contained in the cite.sty file itself.
 
-
+\newcommand{\eg}{\mbox{{\em e.g.}}}
 
 
 
@@ -476,26 +476,38 @@ design validation cost.  Consequently, it is crucial to
 develop techniques for streamlining and automating
 post-silicon validation activities.
 
-A central component of post-silicon validation is to
-correlate trace from silicon execution with the intended
-behavior of the sysem.  As an example, consider a silicon
-execution of a smartphone executing a post-silicon use case
-where the end-user browses the Web while listening to music
-and sending and receiving occasional text messages.  Such a
-an execution trace would involve activities from the CPU,
-audio controller, display controller, wireless radio
-antenna, etc., reflecting the interleaved execution of
-several communication protocols.  On the other hand, due to
-observability limitations, only a small small number of
-participating signals can be actually traced during silicon
-execution.  Furthermore, due to electrical perturbations,
-silicon data can be noisy, lossy, and ambiguous.
-Consequently, it is non-trivial to identify all
-participating protocols and pinpoint the ``right''
+A central component of post-silicon validation of SoC
+designs is to correlate trace from silicon execution with
+the intended system-level transactions.  An SoC design is
+typically composed of a large number of pre-designed
+hardware or software blocks (often referred to as
+``intellectual properties'' or ``IPs'') that coordinate
+through complex protocols to implement system-level
+behavior.  Any execution trace of the system involves a
+large number of interleaved instances of these protocols.
+For example, consider a smartphone executing a usage
+scenerio where the end-user browses the Web while listening
+to music and sending and receiving occasional text messages.
+Typical post-silicon validation use-case involve exercising
+such scenarios.  An execution trace for this scenario would
+involve activities from the CPU, audio controller, display
+controller, wireless radio antenna, etc., reflecting the
+interleaved execution of several communication protocols.
+On the other hand, due to observability limitations, only a
+small small number of participating signals can be actually
+traced during silicon execution.  Furthermore, due to
+electrical perturbations, silicon data can be noisy, lossy,
+and ambiguous.  Consequently, it is non-trivial to identify
+all participating protocols and pinpoint the ``right''
 interleaving that results in an observed trace.
 
 In this paper, we consider the problem of reconstructing
 protocol-level behavior from silicon traces in SoC designs.
+More specifically, given a collection of system-level
+communication protocols and a trace of (partially observed)
+hardware signals, our approach infers, with a certain
+measure of confidence, the protocol instances (and their
+interleavings) being exercised by the trace.  We show how to use symbolic simulation and 
 
 
 Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 

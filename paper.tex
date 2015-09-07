@@ -457,6 +457,48 @@ Validation of multicore systems-on-chip (SoC) is very challenging, and main reas
 %
 %Also, abstracts signal traces to system use cases, which helps validation engineering better understand the behavior displayed by the signal traces. 
 
+Post-silicon validation makes use of pre-production silicon
+integrated circuit (IC) to ensure that the fabricated system
+works as desired under actual operating conditions with real
+software.  Since the silicon executes at target clock speed,
+post-silicon executions are billions of times faster than
+RTL simulations, and even provide speed-up of several orders
+of magnitude over other pre-silicon platforms (\eg, FPGA,
+system-level emulation, etc.).  This makes it possible to
+explore deep design states which cannot be exercised in
+pre-silicon, and identify errors missed during pre-silicon
+validation and debug.  Post-silicon validation is a critical
+component of the design validation life-cycle for modern
+microprocessors and SoC designs.  Unfortunately, it is also
+a highly complex component, performed under aggressive
+schedules and accounting for more than $50\%$ of the overall
+design validation cost.  Consequently, it is crucial to
+develop techniques for streamlining and automating
+post-silicon validation activities.
+
+A central component of post-silicon validation is to
+correlate trace from silicon execution with the intended
+behavior of the sysem.  As an example, consider a silicon
+execution of a smartphone executing a post-silicon use case
+where the end-user browses the Web while listening to music
+and sending and receiving occasional text messages.  Such a
+an execution trace would involve activities from the CPU,
+audio controller, display controller, wireless radio
+antenna, etc., reflecting the interleaved execution of
+several communication protocols.  On the other hand, due to
+observability limitations, only a small small number of
+participating signals can be actually traced during silicon
+execution.  Furthermore, due to electrical perturbations,
+silicon data can be noisy, lossy, and ambiguous.
+Consequently, it is non-trivial to identify all
+participating protocols and pinpoint the ``right''
+interleaving that results in an observed trace.
+
+In this paper, we consider the problem of reconstructing
+protocol-level behavior from silicon traces in SoC designs.  
+
+
+
 Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 
 
 To make validation even more challenging, the high degree of integration in current SoC designs causes traditional chip observation points to become inaccessible.  A SoC design usually contains millions of signals.  In post-silicon validation, thousands of those signals are tapped for observation.  Due to the limited availability of the chip pins, only about a hundred of the tapped signals can be traced.   This severely limits observability hinders post-silicon debuggers' capability to root cause an observed failure.  To make the situation even worse, the observed traces often display non-deterministic behavior due to many concurrent operations occurred in multiple clock domains in a design.  The above factors make debugging highly difficult in failure root-causing, and need to be addressed.

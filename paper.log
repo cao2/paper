@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  5 SEP 2015 12:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  7 SEP 2015 13:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -900,112 +900,257 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
 (Font)              using `U/stmry/m/n' instead on input line 371.
 
-<figures/bpmn-flow-ex.pdf, id=75, 204.8303pt x 210.48256pt>
+
+LaTeX Warning: Citation `Harel03' on page 1 undefined on input line 518.
+
+
+LaTeX Warning: Citation `Damm99' on page 1 undefined on input line 518.
+
+
+LaTeX Warning: Citation `Krstic14HOST' on page 1 undefined on input line 518.
+
+
+LaTeX Warning: Reference `flow-spec-ex' on page 1 undefined on input line 519.
+
+[1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+]
+<figures/bpmn-flow-ex.pdf, id=35, 204.8303pt x 210.48256pt>
 File: figures/bpmn-flow-ex.pdf Graphic file (type pdf)
 
 <use figures/bpmn-flow-ex.pdf>
-Package pdftex.def Info: figures/bpmn-flow-ex.pdf used on input line 470.
+Package pdftex.def Info: figures/bpmn-flow-ex.pdf used on input line 523.
 (pdftex.def)             Requested size: 175.83182pt x 180.67499pt.
- [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./figures/bpmn-flow-ex.pdf>]
-Underfull \hbox (badness 7362) in paragraph at lines 508--510
+LaTeX Warning: Citation `Krstic14HOST' on page 2 undefined on input line 524.
+
+
+LaTeX Warning: Citation `Krstic14HOST' on page 2 undefined on input line 524.
+
+
+LaTeX Warning: Reference `flow-spec-ex' on page 2 undefined on input line 534.
+
+
+Underfull \hbox (badness 7362) in paragraph at lines 561--563
 []\OT1/ptm/m/n/10 Specifically, a la-beled Petri-net (LPN) is a tu-ple
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 596--597
+
+LaTeX Warning: Reference `fig-flow-ex-1' on page 2 undefined on input line 579.
+
+
+[2 <./figures/bpmn-flow-ex.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 649--650
 []  \OT1/ptm/m/n/10 For each $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 F[]; s[]\OT1/cm
 r/m/n/10 ) \OMS/cmsy/m/n/10 2 []$\OT1/ptm/m/n/10 , if
  []
 
 
-Underfull \vbox (badness 1325) has occurred while \output is active []
+LaTeX Warning: Reference `fig-flow-ex-1' on page 3 undefined on input line 666.
 
- [3]
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+[3]
+
+LaTeX Warning: Reference `tr-analy-s1' on page 4 undefined on input line 681.
+
+
+LaTeX Warning: Reference `tr-analy-s2' on page 4 undefined on input line 695.
+
+
+LaTeX Warning: Reference `tr-analy-s3' on page 4 undefined on input line 695.
+
+
+LaTeX Warning: Reference `tr-analy-s3' on page 4 undefined on input line 695.
+
+
+LaTeX Warning: Reference `tr-analy-s3' on page 4 undefined on input line 697.
+
+
+Underfull \vbox (badness 1292) has occurred while \output is active []
+
+
+
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 690
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 743
 .
 
 
-LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 692
+LaTeX Warning: Command \textvisiblespace invalid in math mode on input line 745
 .
 
-[4] <figures/simple-ex.pdf, id=369, 363.96297pt x 372.34227pt>
+[4]
+
+LaTeX Warning: Reference `fig-SoC-ex' on page 5 undefined on input line 765.
+
+<figures/simple-ex.pdf, id=307, 363.96297pt x 372.34227pt>
 File: figures/simple-ex.pdf Graphic file (type pdf)
 
 <use figures/simple-ex.pdf>
-Package pdftex.def Info: figures/simple-ex.pdf used on input line 716.
+Package pdftex.def Info: figures/simple-ex.pdf used on input line 769.
 (pdftex.def)             Requested size: 144.54pt x 147.86615pt.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 789.
+
+
+LaTeX Warning: Reference `fig-cpu-write' on page 5 undefined on input line 780.
+
+
+[5 <./figures/simple-ex.pdf>]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 842.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-Overfull \hbox (36.18852pt too wide) detected at line 876
+
+LaTeX Warning: Reference `fig-cpu-read' on page 6 undefined on input line 848.
+
+
+Overfull \hbox (36.18852pt too wide) detected at line 929
 []
  []
 
-[5 <./figures/simple-ex.pdf>]
-Overfull \hbox (0.94846pt too wide) in paragraph at lines 953--991
+
+LaTeX Warning: Reference `fig-peri-read' on page 6 undefined on input line 936.
+
+
+
+LaTeX Warning: Reference `fig-msi' on page 6 undefined on input line 1001.
+
+
+Overfull \hbox (0.94846pt too wide) in paragraph at lines 1006--1044
  [] 
  []
 
 
-Underfull \vbox (badness 6173) has occurred while \output is active []
+Underfull \vbox (badness 1590) has occurred while \output is active []
 
  [6]
-Overfull \hbox (11.57797pt too wide) in paragraph at lines 1038--1046
+
+LaTeX Warning: Reference `table-trace' on page 7 undefined on input line 1059.
+
+
+LaTeX Warning: Reference `fig-peri-read' on page 7 undefined on input line 1072
+.
+
+
+LaTeX Warning: Reference `table-trace' on page 7 undefined on input line 1086.
+
+
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1086
+.
+
+
+Overfull \hbox (11.57797pt too wide) in paragraph at lines 1091--1099
  [] 
  []
 
 
-Underfull \hbox (badness 3312) in paragraph at lines 1049--1051
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1102
+.
+
+
+Underfull \hbox (badness 3312) in paragraph at lines 1102--1104
 \OT1/ptm/m/n/10 the mes-sages of full ob-serv-abil-ity. The traces of su-
  []
 
 
-Underfull \hbox (badness 2293) in paragraph at lines 1049--1051
+Underfull \hbox (badness 2293) in paragraph at lines 1102--1104
 []$\OT1/ptm/m/n/10 , cor-re-sponds to four dis-
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 1049--1051
+Underfull \hbox (badness 1859) in paragraph at lines 1102--1104
 []$\OT1/ptm/m/n/10 , and $[]$. Some of
  []
 
-<figures/Fig4.png, id=454, 823.075pt x 735.74875pt>
+
+LaTeX Warning: Reference `table-trace-2' on page 7 undefined on input line 1112
+.
+
+
+LaTeX Warning: Reference `fig-cpu-write' on page 7 undefined on input line 1112
+.
+
+
+LaTeX Warning: Reference `fig-cpu-read' on page 7 undefined on input line 1112.
+
+
+[7] <figures/Fig4.png, id=390, 823.075pt x 735.74875pt>
 File: figures/Fig4.png Graphic file (type png)
  <use figures/Fig4.png>
-Package pdftex.def Info: figures/Fig4.png used on input line 1070.
+Package pdftex.def Info: figures/Fig4.png used on input line 1123.
 (pdftex.def)             Requested size: 238.49121pt x 213.18204pt.
 
-[7] [8 <./figures/Fig4.png>] (./paper.bbl
-Underfull \vbox (badness 1412) has occurred while \output is active []
+
+LaTeX Warning: Citation `Binkert2011' on page 8 undefined on input line 1128.
 
 
+LaTeX Warning: Reference `SoC' on page 8 undefined on input line 1128.
+
+
+LaTeX Warning: Reference `SoC' on page 8 undefined on input line 1137.
+
+
+LaTeX Warning: Reference `table-case-2' on page 8 undefined on input line 1230.
+
+
+[8 <./figures/Fig4.png>]
+
+LaTeX Warning: Citation `Goossens2007NOCS' on page 9 undefined on input line 12
+57.
+
+
+LaTeX Warning: Citation `Vermeulen2009VLSI-DAT' on page 9 undefined on input li
+ne 1257.
+
+
+LaTeX Warning: Citation `Goossens2009DATE' on page 9 undefined on input line 12
+57.
+
+
+LaTeX Warning: Citation `Gharehbaghi2012ISQED' on page 9 undefined on input lin
+e 1259.
+
+
+LaTeX Warning: Citation `Dehbash2014' on page 9 undefined on input line 1259.
+
+
+LaTeX Warning: Citation `Gharehbaghi2009ICCD' on page 9 undefined on input line
+ 1259.
+
+
+LaTeX Warning: Citation `Boule2007ISQED' on page 9 undefined on input line 1259
+.
+
+
+LaTeX Warning: Citation `Singerman2011DAC' on page 9 undefined on input line 12
+61.
+
+
+LaTeX Warning: Citation `Abarbanel2014DAC' on page 9 undefined on input line 12
+61.
+
+(./paper.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `English'. Using the pattern for
 ** the default language instead.
@@ -1018,7 +1163,7 @@ Missing character: There is no ™ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ” in font ptmr7t!
-)
+[9])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -1030,29 +1175,43 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1271.
-[9]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1271.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1324.
+[10
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1324.
  (./paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1271.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1271.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1324.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1324.
 
-Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: B272950D9D72AA5A068ED07964BABF19;697.
 
+
+Package rerunfilecheck Warning: File `paper.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `paper.out':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  B272950D9D72AA5A068ED07964BABF19;697.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1271.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1324.
  ) 
 Here is how much of TeX's memory you used:
- 19524 strings out of 493315
- 364734 string characters out of 6137904
- 533349 words of memory out of 5000000
- 22492 multiletter control sequences out of 15000+600000
- 54551 words of font info for 128 fonts, out of 8000000 for 9000
+ 19515 strings out of 493315
+ 364600 string characters out of 6137904
+ 540363 words of memory out of 5000000
+ 22480 multiletter control sequences out of 15000+600000
+ 56765 words of font info for 130 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
- 63i,14n,75p,1893b,818s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,14n,75p,1890b,820s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
@@ -1073,10 +1232,10 @@ type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/ur
 w/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/ut
 mbi8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (9 pages, 726141 bytes).
+Output written on paper.pdf (10 pages, 726217 bytes).
 PDF statistics:
- 563 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
- 53 named destinations out of 1000 (max. 500000)
- 220 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 490 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 124 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -99,7 +99,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{mybeamer}
-\usepackage{draftwatermark}
+%\usepackage{draftwatermark}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -361,11 +361,11 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{\Large {\bf Flow-guided Analysis of System-level Post-silicon
+\title{\Large {\bf Flow-Guided Analysis of System-level Post-silicon
   Traces Under Limited Observability}}
 
 \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
-$^1$Dept. of Computer Science and Engg., University of South Florida, Tampa, Fl 33620. USA. \\
+$^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
 $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
 \maketitle
 
@@ -1134,7 +1134,7 @@ In this model, components communicate with each other by sending and receiving v
 
 %\subsection{Flow Specification}
 
-For this model, we consider the flow specification describing the cache coherence protocol supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  This specification consists of two flows, one for cache coherent read requests and one for  cache coherent write requests, from CPUs.  Two such flows describe the cache coherent protocol for each CPU.  As there are two CPUs in this model, there are actually four such flows considered for this model.  More detailed information about the flow specification can be found at \url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}
+For this model, we consider the flow specifications describing the cache coherence protocols supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  These flow specifications describe data/instruction read operations and data write operations initiated from CPUs.  Three such flows describe the cache coherent protocols for each CPU.  As there are two CPUs in this model, there are actually six such flows considered for this model.  More detailed information about these protocols and the flow specifications can be found online\footnote{\url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}} to meet the page limit.
 
 
 %In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
@@ -1221,34 +1221,61 @@ For this model, we consider the flow specification describing the cache coherenc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Results and Discussions}
 
-In order to trigger cache coherence protocols, a simple two-threaded program including one producer and one consumer is created and executed on the CPUs, each of which executes one thread.  \red{How is shared memory is simulated???} . The producer will write to a specified memory address, and the consumer will read from the same address. GEM5 does not support true concurrency.  When there are two programs running on the CPUs, GEM5 alternates the executions between the two  CPUs.  
+Two simple programs are written, one for each CPU.  These simple programs read numbers from a file, perform some operations on these numbers, and store the results back to the file.  How GEM5 supports shared memory multi-threaded program execution is unclear.  Therefore, there is no data shared in both caches in this test.  Furthermore, GEM5 does not support true concurrency.  When there are two programs running on the CPUs, GEM5 alternates the executions between the two CPUs.  To simulate asynchronous concurrency with the interleaving semantics, those two simple programs are instrumented with pseudo-blocking commands, one placed before each statement.  A pseudo blocking command includes a random number generator that returns either $0$ or $1$ and a loop that only exits when the returned random number is $0$.  
 
 %We produce a result file including all of the communication messages between every components from two simple programs running simultaneously on each CPU.  The program assigned to CPU1 read one file three times for one letter and writing one letter for three times to the same file. CPU2's program will do the same read and write functionalities to the same file, only difference is that CPU2 will write first and then read. One thing we should know about GEM5 is that even when we run these two programs concurrently, it will attempt to produce a concurrent result. The data we collected shows that it's not the real nondeterministic concurrency. What GEM5 did was it allowed two CPUs to execute its own instruction in turn, therefore the order was deterministic. Therefore, no matter how many times we ran the program, it produced the same result. We tried other virtual SoC platform softwares, and this was the best nondeterministic concurrency we can get. Even if this is slightly off with what the real chip should work, it still surve our purpose of testing the correctness of our algorithm.
 
 After the SoC model finishes executing the program, there are totally $343581$ messages collected in the trace file.  Not all of the messages are relevant to the flow specification as many are used by GEM5 to initialize its simulation environment.  After removing those irrelevant messages, the number of messages in the trace file is to reduced to $121138$. 
 
-The time taken to remove the irrelevant messages from the trace is negligible.  The total runtime and the peak memory usage for the trace analysis algorithm to finish the reduced trace are 3 seconds and 12MB, respectively.  From the trace, Table~\ref{table-case-2} shows the number of instances extracted for the four flows describing cache coherent read/write operations. 
-\begin{table}[td]
-\caption{The number of flow instances derived by the trace analysis}
+The time taken to remove the irrelevant messages from the trace is negligible.  The total runtime and the peak memory usage for the trace analysis algorithm to finish the reduced trace are 3 seconds and 12MB, respectively.  From the trace, Table~\ref{table-case-2} shows the number of instances extracted for the six flows describing cache coherent read/write operations initiated from both CPUs. 
+\begin{table}[tb]
+\caption{The number of flow instances derived by the trace analysis with the full observability.}
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|c|}
 \hline
 Flows & $\#$Instances \\
 \hline
 \hline
-CPU1 Read		&  $4002$\\
-CPU1 Write	&  $3370$\\
-CPU1 Failed Read  &$95$\\
-CPU2 Read		&  $3955$\\
-CPU2 Write	&  $3308$\\
-CPU2 Failed Read  &$93$\\
+CPU1 Data Read			&  $17582$\\
+CPU1 Instruction Read		&  $4002$\\
+CPU1 Write				&  $3370$\\
+\hline
+CPU2 Data Read			&  $17386$\\
+CPU2 Instruction Read		&  $3955$\\
+CPU2 Write				&  $3308$\\
 \hline
 \end{tabular}
 \end{center}
 \label{table-case-2}
 \end{table}%
 
-\red{Also need to consider the case where some monitors are removed?}
+To take the partial observability into account, the four monitors attached to the links between two CPUs and their caches are disabled. Then, the trace is generated by the remaining five monitors from the SoC model executing the same program. After removing all non-observable messages, the trace only contains 15089 messages. The numbers of the flow instances extracted by the trace analysis method are shown in Table~\ref{table-par-obs}.  From these results, the numbers of the flow instances are dropped significantly compared to the results extracted from the trace with the full observability as shown in Table~\ref{table-case-2}. This difference is due to that some communications occurred in the system when executing the program involve the CPUs and their corresponding caches only, and the traffic on the links between the CPUs and their corresponding caches is not observable. Therefore, the instances of the flow specifications characterizing these communications do not exist in the trace. In other words, all extracted flow instances in Table~\ref{table-par-obs} characterize the communications that pass through the memory bus in the system model.  The runtime and memory usage is similar to that for analyzing the trace of the full observability as shown above.
+
+\begin{table}[tb]
+\caption{The number of flow instances derived by the trace analysis with certain monitors disabled.}
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+Flows & $\#$Instances \\
+\hline
+\hline
+CPU1 Data Read			&  $829$\\
+CPU1 Instruction Read		&  $169$\\
+CPU1 Write				&  $82$\\
+\hline
+CPU2 Data Read			&  $803$\\
+CPU2 Instruction Read		&  $190$\\
+CPU2 Write				&  $83$\\
+\hline
+\end{tabular}
+\end{center}
+\label{table-par-obs}
+\end{table}%
+
+In the third experiment, further partial observability is taken into consideration.  In this experiment, only the five links involving the memory bus are still considered.  However, an assumption is made that all messages passing the same link are not distinguishable due to the limitation of the observability.  More specifically, the monitors are modified such that whenever a message is captured on one of the links, it dumps a set of messages passing through the same link into the trace file.  Therefore, each line of the trace file corresponds to a set of messages.  After applying the trace analysis to this trace,  a total of 13944 flow execution scenarios are extracted.    This large number, compared to the number of extracted execution scenarios shown in the Table~\ref{table-case-2} and \ref{table-par-obs}, is due to the ambiguous interpretation of the messages with limited observability.  
+
+The whole experiment takes about $15$ minutes and $420$~MB to finish, significantly higher than the numbers for analyzing traces where there is no ambiguity in the observed messages.  This is due to the fact that a trace of ambiguous events is in fact a set of traces of original messages, which lead to large numbers of execution scenarios either during or at the end of the analysis.  In this experiment, the peak number of executions during the analysis process is $70384$.   Compared to the final number, many of the intermediate scenarios are invalid, and removed eventually.  However, controlling the number of intermediate scenarios during the trace analysis is critical in order for the analysis to be tractable.  Here, insights from validators can help.    
+
 
 
 %=====

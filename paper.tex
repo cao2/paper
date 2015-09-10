@@ -413,7 +413,18 @@ $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
 
 
 
-
+\begin{abstract}
+We consider the problem of reconstructing system-level
+behavior of an SoC design from a partially observed signal
+trace.  Solving this problem is a critical activity in
+post-silicon validation, and currently depends primarily on
+human creativity and insight.  We provide algorithms to
+automatically infer system-level transactions from
+incomplete, ambiguous, and noisy trace data, together with a
+measure of confidence.  We demonstrate the approach on
+illustrative system-level protocols for SoC models developed
+in SystemC as well as in an FPGA environment.
+\end{abstract}
 
 
 
@@ -421,9 +432,9 @@ $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
 %\maketitle
 
 
-\begin{abstract}
-Validation of multicore systems-on-chip (SoC) is very challenging, and main reasons include the limited internal operation observability and non-determinism due to multiple clock domains.   Very often, the observed signal traces offer limited values for debuggers to understand system internal behavior.  This paper presents a trace analysis approach for post-silicon validation.  This approach takes system flow specifications describing system behavior at a high level and an observed signal trace, and interprets the trace with respect to the system flow specification.  The result from the trace interpretation is a set of flow instances such that their execution during a test explains the observed signal trace.   This approach transforms partially observed and non-deterministic signal traces to a representation that is more understandable, and offers more helpful information to locate design defects and a measure to evaluate validation coverage.
-\end{abstract}
+%% \begin{abstract}
+%% Validation of multicore systems-on-chip (SoC) is very challenging, and main reasons include the limited internal operation observability and non-determinism due to multiple clock domains.   Very often, the observed signal traces offer limited values for debuggers to understand system internal behavior.  This paper presents a trace analysis approach for post-silicon validation.  This approach takes system flow specifications describing system behavior at a high level and an observed signal trace, and interprets the trace with respect to the system flow specification.  The result from the trace interpretation is a set of flow instances such that their execution during a test explains the observed signal trace.   This approach transforms partially observed and non-deterministic signal traces to a representation that is more understandable, and offers more helpful information to locate design defects and a measure to evaluate validation coverage.
+%% \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
 % if the conference you are submitting to favors bold math in the abstract,
@@ -507,30 +518,45 @@ More specifically, given a collection of system-level
 communication protocols and a trace of (partially observed)
 hardware signals, our approach infers, with a certain
 measure of confidence, the protocol instances (and their
-interleavings) being exercised by the trace.  We show how to
-use symbolic simulation and
+interleavings) being exercised by the trace.  Our approach
+is based on a formalization of system-level transactions via
+labeled Petri-Nets~\cite{petrinets}, which are capable of
+describing sequencing, concurrency, and choices of events.
+Given this formalization, we develop algorithms to infer
+system-level transactions from traces with missing, noisy,
+and ambiguous signal values, together with an estimate of
+confidence on the inference.  We demonstrate our approach on
+two SoC models: a SystemC prototype and a realistic
+implementation constructed within the GEM5
+environment~\cite{Binkert2011}.
 
 
-Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 
 
-To make validation even more challenging, the high degree of integration in current SoC designs causes traditional chip observation points to become inaccessible.  A SoC design usually contains millions of signals.  In post-silicon validation, thousands of those signals are tapped for observation.  Due to the limited availability of the chip pins, only about a hundred of the tapped signals can be traced.   This severely limits observability hinders post-silicon debuggers' capability to root cause an observed failure.  To make the situation even worse, the observed traces often display non-deterministic behavior due to many concurrent operations occurred in multiple clock domains in a design.  The above factors make debugging highly difficult in failure root-causing, and need to be addressed.
+%% Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 
 
-In a typical design flow, a design starts with some high-level specification, particularly for communication protocols.   The abstract protocol specification usually captures information exchanged among IP blocks and how it is exchanged to support functional behavior. 
-Graphical representations of protocols such as Message Sequence Charts~\cite{Harel03} or Live Sequence Charts~\cite{Damm99} describe protocols intuitively.  However, its success in hardware industry is limited.  Recently, message flows in BPMN~\cite{Krstic14HOST} have been being advocated as a formalism for specifying architecture requirements
- or system-level use cases such as power management, security, etc.  In general, a flow describes a set of message sequences across multiple IP blocks following a system communication protocol.  Specification of system flows BPMN is intuitive and easier for human to understand and to reason about system behavior.  An example of flow specification in BPMN is shown in Figure~\ref{flow-spec-ex}.
+%% To make validation even more challenging, the high degree of integration in current SoC designs causes traditional chip observation points to become inaccessible.  A SoC design usually contains millions of signals.  In post-silicon validation, thousands of those signals are tapped for observation.  Due to the limited availability of the chip pins, only about a hundred of the tapped signals can be traced.   This severely limits observability hinders post-silicon debuggers' capability to root cause an observed failure.  To make the situation even worse, the observed traces often display non-deterministic behavior due to many concurrent operations occurred in multiple clock domains in a design.  The above factors make debugging highly difficult in failure root-causing, and need to be addressed.
+
+%% In a typical design flow, a design starts with some high-level specification, particularly for communication protocols.   The abstract protocol specification usually captures information exchanged among IP blocks and how it is exchanged to support functional behavior. 
+%% Graphical representations of protocols such as Message Sequence Charts~\cite{Harel03} or Live Sequence Charts~\cite{Damm99} describe protocols intuitively.  However, its success in hardware industry is limited.  Recently, message flows in BPMN~\cite{Krstic14HOST} have been being advocated as a formalism for specifying architecture requirements
+%%  or system-level use cases such as power management, security, etc.  In general, a flow describes a set of message sequences across multiple IP blocks following a system communication protocol.  Specification of system flows BPMN is intuitive and easier for human to understand and to reason about system behavior.  An example of flow specification in BPMN is shown in Figure~\ref{flow-spec-ex}.
  
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[height=2.5in]{figures/bpmn-flow-ex}
-\caption{A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}.}
-\label{flow-spec-ex}
-\end{center}
-\end{figure}
+%% \begin{figure}[tb]
+%% \begin{center}
+%% \includegraphics[height=2.5in]{figures/bpmn-flow-ex}
+%% \caption{A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}.}
+%% \label{flow-spec-ex}
+%% \end{center}
+%% \end{figure}
   
-As indicated above, interpreting and understanding the raw signal traces observed from executing the chip is extremely difficult due to the limited observability and non-determinism.  This paper proposes a trace analysis method which analyzes and interprets the observed signal traces at the level of system flow specifications.  During the step of analysis and interpretation, this method tries to find out possible executions of system flows such that the observed signal trace is a result of such executions.  The resulting scenarios of flow executions often give debuggers more clear and better structured system-level views of the internal operations of the system under debug.  With a better understanding of system operations in a test environment, therefore, it would make easier for debuggers to pinpoint and root cause system failures.  In addition to debugging, another important benefit is better coverage evaluation as a scenario of flow executions captures the information about the types and number of instances of flows executed by the chip in a test environment.  That information can help to determine the quality and coverage of validation.   
+%% As indicated above, interpreting and understanding the raw signal traces observed from executing the chip is extremely difficult due to the limited observability and non-determinism.  This paper proposes a trace analysis method which analyzes and interprets the observed signal traces at the level of system flow specifications.  During the step of analysis and interpretation, this method tries to find out possible executions of system flows such that the observed signal trace is a result of such executions.  The resulting scenarios of flow executions often give debuggers more clear and better structured system-level views of the internal operations of the system under debug.  With a better understanding of system operations in a test environment, therefore, it would make easier for debuggers to pinpoint and root cause system failures.  In addition to debugging, another important benefit is better coverage evaluation as a scenario of flow executions captures the information about the types and number of instances of flows executed by the chip in a test environment.  That information can help to determine the quality and coverage of validation.   
 
 %---
-\section{Labeled Petri-Nets}
+
+\section{Background}
+
+\subsection{System-level Transactions in SoC Designs}
+
+\subsection{Labeled Petri-Nets}
 
 Although system flows depicted in BPMN as in Fig.~\ref{flow-spec-ex} are intuitive for system architects to understand communications across multiple components, they are not suitable for algorithmic analysis.  In this section, we present an alternative formalism, \emph{labeled Petri Nets}, to represent communication aspects of system flows with the intuitive descriptions of internal operations for IP blocks abstracted away whenever possible.  Labeled Petri nets are capable of describing sequencing, concurrency, and choices.   This formalism has well defined operational semantics, efficient analysis analysis algorithms and and has been used widely in modeling and analyzing communication protocols, concurrent programs, etc. 
 

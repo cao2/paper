@@ -361,7 +361,7 @@
 %
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
-\title{\Large {\bf Flow-Guided Analysis of System-level Post-silicon
+\title{\Large {\bf Protocol-Guided Analysis of Post-silicon
   Traces Under Limited Observability}}
 
 \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
@@ -555,6 +555,21 @@ environment~\cite{Binkert2011}.
 \section{Background}
 
 \subsection{System-level Transactions in SoC Designs}
+
+
+An SoC design is typically composed of a large number of
+pre-designed hardware or software blocks (often referred to
+as ``intellectual properties'' or ``IPs'') that coordinate
+through complex protocols to implement system-level
+behavior.  Fig.~\ref{fig:flow-spec-ex} shows one such
+protocol, involving th
+\begin{figure}[tb]
+\begin{center}
+\includegraphics[height=2.5in]{figures/bpmn-flow-ex}
+\caption{A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}.}
+\label{flow-spec-ex}
+\end{center}
+\end{figure}
 
 \subsection{Labeled Petri-Nets}
 

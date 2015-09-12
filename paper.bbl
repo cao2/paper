@@ -21,29 +21,20 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Harel03}
-D.~Harel and P.~S. Thiagarajan, ``Message sequence charts,'' in \emph{In UML
-  for Real: Design of Embedded Real-Time Systems}.\hskip 1em plus 0.5em minus
-  0.4em\relax Kluwer Academic Publishers, 2003, pp. 77--105.
-
-\bibitem{Damm99}
-W.~Damm and D.~Harel, ``\BIBforeignlanguage{English}{Lsc’s: Breathing life
-  into message sequence charts},'' in \emph{\BIBforeignlanguage{English}{Formal
-  Methods for Open Object-Based Distributed Systems}}, ser. IFIP — The
-  International Federation for Information Processing, P.~Ciancarini,
-  A.~Fantechi, and R.~Gorrieri, Eds.\hskip 1em plus 0.5em minus 0.4em\relax
-  Springer US, 1999, vol.~10, pp. 293--311.
+\bibitem{Binkert2011}
+N.~Binkert, B.~Beckmann, G.~Black, S.~K. Reinhardt, A.~Saidi, A.~Basu,
+  J.~Hestness, D.~R. Hower, T.~Krishna, S.~Sardashti, R.~Sen, K.~Sewell,
+  M.~Shoaib, N.~Vaish, M.~D. Hill, and D.~A. Wood, ``The gem5 simulator,''
+  \emph{SIGARCH Comput. Archit. News}, vol.~39, no.~2, pp. 1--7, Aug. 2011.
 
 \bibitem{Krstic14HOST}
 S.~Krstic, J.~Yang, D.~Palmer, R.~Osborne, and E.~Talmor, ``Security of soc
   firmware load protocols,'' in \emph{Hardware-Oriented Security and Trust
   (HOST), 2014 IEEE International Symposium on}, May 2014, pp. 70--75.
 
-\bibitem{Binkert2011}
-N.~Binkert, B.~Beckmann, G.~Black, S.~K. Reinhardt, A.~Saidi, A.~Basu,
-  J.~Hestness, D.~R. Hower, T.~Krishna, S.~Sardashti, R.~Sen, K.~Sewell,
-  M.~Shoaib, N.~Vaish, M.~D. Hill, and D.~A. Wood, ``The gem5 simulator,''
-  \emph{SIGARCH Comput. Archit. News}, vol.~39, no.~2, pp. 1--7, Aug. 2011.
+\bibitem{Murata89}
+T.~Murata, ``Petri nets: Properties, analysis and applications,''
+  \emph{Proceedings of the IEEE}, vol.~77, no.~4, pp. 541--580, Apr 1989.
 
 \bibitem{Goossens2007NOCS}
 K.~Goossens, B.~Vermeulen, R.~v. Steeden, and M.~Bennebroek,

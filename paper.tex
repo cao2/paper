@@ -520,13 +520,13 @@ hardware signals, our approach infers, with a certain
 measure of confidence, the protocol instances (and their
 interleavings) being exercised by the trace.  Our approach
 is based on a formalization of system-level transactions via
-labeled Petri-Nets~\cite{petrinets}, which are capable of
+labeled Petri-Nets, which are capable of
 describing sequencing, concurrency, and choices of events.
 Given this formalization, we develop algorithms to infer
 system-level transactions from traces with missing, noisy,
 and ambiguous signal values, together with an estimate of
 confidence on the inference.  We demonstrate our approach on
-two SoC models: a SystemC prototype and a realistic
+two SoC models: a SystemC prototype and a more realistic
 implementation constructed within the GEM5
 environment~\cite{Binkert2011}.
 
@@ -552,6 +552,58 @@ environment~\cite{Binkert2011}.
 
 %---
 
+\begin{figure*}[tb]
+\begin{center}
+\begin{tabular}{cc}
+\begin{minipage}{3in}
+\includegraphics[height=2.5in]{figures/bpmn-flow-ex}
+\end{minipage}
+&
+\begin{minipage}{3in}
+\resizebox{2.8in}{!}{
+\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
+\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
+\tikzset{circ/.style={circle, draw,thick}}
+\tikzset{terminal/.style={circle, draw,line width=.8mm}}
+\tikzset{weight3/.style={line width=.3mm}}
+	% Nodes:
+	\node[circ]		(p1) 		at (0,0) {$p_1$};
+	\node[rectbox]	(t1)	at	($(p1) + (0,-1.1)$) {$t_1:\langle {\tt Driver:Device:Load} \_fw\rangle$};
+	\node[circ] 	(p2) 		at ($(t1) + (0,-1.1)$) {$p_2$};
+	\node[rectbox]	(t2)	at	($(p2) + (0,-1.1)$) {$t_2:\langle {\tt Device:CE:Auth\_req} \rangle$};
+	\node[circ] 	(p3) 		at ($(t2) + (0,-1.1)$) {$p_3$};
+	\node[rectbox]	(t3)	at	($(p3) + (0,-1.1)$) {$t_3:\langle {\tt CE:Device:Auth\_resp}\rangle$};
+	\node[circ] 	(p4) 		at ($(t3) + (0,-1.1)$) {$p_4$};
+	\node[rectbox]	(t4)	at	($(p4) + (-3,-1.1)$) {$t_4:\langle {\tt Device:Driver:Report} \rangle$};
+	\node[rectbox]	(t5)	at	($(p4) + (3,-1.1)$) {$t_5:\langle {\tt Device:CE:Ack} \rangle$};
+	\node[circ,fill=black] 	(term1) 		at ($(t4) + (0,-1.1)$) {$~~~$};
+	\node[circ,fill=black] 	(term2) 		at ($(t5) + (0,-1.1)$) {$~~~$};
+	
+	% Edges
+	\draw[->,weight3]	(p1) -- (t1);
+	\draw[->,weight3]	(t1) -- (p2);
+	\draw[->,weight3]	(p2) -- (t2);
+	\draw[->,weight3]	(t2) -- (p3);
+	\draw[->,weight3]	(p3) -- (t3);
+	\draw[->,weight3]	(t3) -- (p4);
+	\draw[->,weight3]	(p4) -- ($(p4)+(-3,0)$) -- (t4);
+	\draw[->,weight3]	(p4) -- ($(p4)+(3,0)$) -- (t5);
+	\draw[->,weight3]	(t4) -- (term1);	
+	\draw[->,weight3]	(t5) -- (term2);	
+	
+\end{tikzpicture}
+}
+\end{minipage}
+\\
+(a) & (b)
+\end{tabular}
+\caption{(a) A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}, and (b) the LPN capturing the communication protocol in (a).}
+\label{flow-spec-ex}
+\end{center}
+\end{figure*}
+
+
+
 \section{Background}
 
 \subsection{System-level Transactions in SoC Designs}
@@ -563,17 +615,11 @@ as ``intellectual properties'' or ``IPs'') that coordinate
 through complex protocols to implement system-level
 behavior.  Fig.~\ref{fig:flow-spec-ex} shows one such
 protocol, involving th
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[height=2.5in]{figures/bpmn-flow-ex}
-\caption{A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}.}
-\label{flow-spec-ex}
-\end{center}
-\end{figure}
+
 
 \subsection{Labeled Petri-Nets}
 
-Although system flows depicted in BPMN as in Fig.~\ref{flow-spec-ex} are intuitive for system architects to understand communications across multiple components, they are not suitable for algorithmic analysis.  In this section, we present an alternative formalism, \emph{labeled Petri Nets}, to represent communication aspects of system flows with the intuitive descriptions of internal operations for IP blocks abstracted away whenever possible.  Labeled Petri nets are capable of describing sequencing, concurrency, and choices.   This formalism has well defined operational semantics, efficient analysis analysis algorithms and and has been used widely in modeling and analyzing communication protocols, concurrent programs, etc. 
+Although system flows depicted in BPMN as in Fig.~\ref{flow-spec-ex} are intuitive for system architects to understand communications across multiple components, they are not suitable for algorithmic analysis.  In this section, we present an alternative formalism, \emph{labeled Petri Nets}, to represent communication aspects of system flows with the intuitive descriptions of internal operations for IP blocks abstracted away whenever possible.  Labeled Petri nets, which are a subclass of traditional Petri-nets~\cite{Murata89} where Petri-net transitions are labeled with user defined information,  are capable of describing sequencing, concurrency, and choices.   This formalism has well defined operational semantics, efficient analysis analysis algorithms and and has been used widely in modeling and analyzing communication protocols, concurrent programs, etc. 
 
 %--- LPN definition with levels
 %Specifically, a labeled Petri-net (LPN) is a tuple $(P, T, M_0, V, E, L)$ where
@@ -617,50 +663,9 @@ s' = (s - \bullet{t}) \cup t\bullet,
 \]
 and the emission of event $e$ labeled for $t$. 
 
-
-A simple communication protocol specification between two components represented by a LPN is shown in~Figure~\ref{fig-flow-ex-1}.  In this and the following figures for LPNs, the labeled circles denote places, and the labeled boxes denote transitions.  Each transition is labeled with its name and the asSoCiated event.  The solid black places without outgoing edges are {\em terminals}, which indicate termination of protocols represented by the LPNs.  In this LPN, the initial state $\mathit{init} = \{p_1\}$.  In this protocol, component~1 sends two consecutive messages $\mathit{msg}_1$ to component~2, which responds with either $\mathit{msg}_2$ or $\mathit{msg}_3$ non-deterministically.  If $\mathit{msg}_2$ is responded, component~1 repeats the protocol by sending two consecutive $\mathit{msg}_1$ again.  Otherwise, component~1 stops the protocol upon receiving $\mathit{msg}_3$.  This LPN represents two possible communication sequences as shown below.
-\[
-\begin{array}{l}
-\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_1\;\ldots \\
-\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\ldots, \mathit{msg}_3\;
-\end{array}
-\] 
+The communication protocol in the BMPN shown in~Fig.~\ref{flow-spec-ex}(a) is represented by the LPN shown in~Figure~\ref{flow-spec-ex}(b).  In this and the following figures for LPNs, the labeled circles denote places, and the labeled boxes denote transitions.  Each transition is labeled with its name and the associated event.  Each event has a form of $\langle {\tt src, dest, cmd} \rangle$ where ${\tt cmd}$ is a command sent from a source component ${\tt src}$ to a destination component ${\tt dest}$. The solid black places without outgoing edges are {\em terminals}, which indicate termination of protocols represented by the LPNs.  The initial marking is $\mathit{init} = \{p_1\}$.  In this LPN model, only the communication portion of the BPMN specification is represented while the computation portion is ignored.  
 
 
-\begin{figure}[tb]
-\begin{center}
-\resizebox{2.5in}{!}{
-\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
-\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
-\tikzset{circ/.style={circle, draw,thick}}
-\tikzset{terminal/.style={circle, draw,line width=.8mm}}
-\tikzset{weight3/.style={line width=.3mm}}
-	% Nodes:
-	\node[circ]		(p1) 		at (0,0) {$p_1$};
-	\node[rectbox]	(t1)	at	($(p1) + (0,-1.1)$) {$t_1:msg_1$};
-	\node[circ] 	(p2) 		at ($(t1) + (0,-1.1)$) {$p_2$};
-	\node[rectbox]	(t2)	at	($(p2) + (0,-1.1)$) {$t_2:msg_2$};
-	\node[circ] 	(p3) 		at ($(t2) + (0,-1.1)$) {$p_3$};
-	\node[rectbox]	(t3)	at	($(p3) + (3,0)$) {$t_3:msg_3$};
-	\node[rectbox]	(t4)	at	($(p3) + (-3,0)$) {$t_4:msg_4$};
-	\node[circ,fill=black] 	(term) 		at ($(t4) + (0,-1.1)$) {$~~~$};
-	
-	% Edges
-	\draw[->,weight3]	(p1) -- (t1);
-	\draw[->,weight3]	(t1) -- (p2);
-	\draw[->,weight3]	(p2) -- (t2);
-	\draw[->,weight3]	(t2) -- (p3);
-	\draw[->,weight3]	(p3) -- (t3);
-	\draw[->,weight3]	(p3) -- (t4);
-	\draw[->,weight3]	(t4) -- (term);	
-	\draw[->,weight3]	(t3) -- ($(p1)+(3,0)$) -- (p1);	
-	
-\end{tikzpicture}
-}
-\caption{An example of a LPN representing a system flow.}
-\label{fig-flow-ex-1}
-\end{center}
-\end{figure}
 
 
 % @COMMENT This example is for LPNs with guards.
@@ -703,7 +708,7 @@ An inconsistent event is the one produced by SUD execution but cannot be mapped 
 
 Based on the above discussion, the trace interpretation algorithm returns two pieces of information: 1) a set $G$ of flow execution scenarios where every flow instance in every scenario is in its terminal state, 2) a set $B$ of pairs, each of which includes a set of flow execution scenarios and an inconsistent event.  The set $B$ provides valuable information for debuggers to root cause system failures.  One of these two sets can empty.   With the full observability, the set $G$ includes a single flow execution scenario derived for a trace.  In reality, it is always the case that the SUD is only partially observable.  Therefore, due to the lack of information for precise interpretation, a set of flow execution scenarios is typically derived for a given trace as the result of the trace analysis.    
 
-% @Note  \red{\bf Another assumption:  the observed signal trace captures the values on the observed signals in every cycle from the beginning.  Too strong an assumption??} 
+\red{\bf The following illustration may not be needed (from here to the end of this subsection) if seciton IV is kept.  Or we keep the illustration below but remove section IV which uses 3 pages.}
 
 To illustrate the basic idea of the trace analysis method, consider the system flow shown in Figure~\ref{fig-flow-ex-1}.  Let $F_1$ denote such flow.  Suppose that a hardware system implements flow $F_1$, and the following trace of flow events is abstracted from an observed signal trace as a result of executing such system.     
 \[

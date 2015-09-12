@@ -1,12 +1,14 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Labeled Petri-Nets}{}% 2
-\BOOKMARK [1][-]{section.3}{Flow-Directed Trace Analysis}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Trace Analysis with Partial Observability}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{Inputs from Validators}{section.3}% 5
-\BOOKMARK [1][-]{section.4}{Case Study}{}% 6
-\BOOKMARK [2][-]{subsection.4.1}{Flow Specification}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.2}{Results and Discussions}{section.4}% 8
-\BOOKMARK [1][-]{section.5}{Case Study II}{}% 9
-\BOOKMARK [1][-]{section.6}{Related Work}{}% 10
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 11
-\BOOKMARK [1][-]{section*.4}{References}{}% 12
+\BOOKMARK [1][-]{section.2}{Background}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{System-level Transactions in SoC Designs}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Labeled Petri-Nets}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Flow-Directed Trace Analysis}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Trace Analysis with Partial Observability}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Inputs from Validators}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Case Study}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Flow Specification}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Results and Discussions}{section.4}% 10
+\BOOKMARK [1][-]{section.5}{Case Study II}{}% 11
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 12
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 13
+\BOOKMARK [1][-]{section*.4}{References}{}% 14

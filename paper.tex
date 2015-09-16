@@ -364,9 +364,9 @@
 \title{\Large {\bf Protocol-Guided Analysis of Post-silicon
   Traces Under Limited Observability}}
 
-\author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
-$^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
-$^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
+%% \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
+%% $^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
+%% $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
 \maketitle
 
 %% % author names and affiliations
@@ -520,13 +520,13 @@ hardware signals, our approach infers, with a certain
 measure of confidence, the protocol instances (and their
 interleavings) being exercised by the trace.  Our approach
 is based on a formalization of system-level transactions via
-labeled Petri-Nets, which are capable of
-describing sequencing, concurrency, and choices of events.
-Given this formalization, we develop algorithms to infer
-system-level transactions from traces with missing, noisy,
-and ambiguous signal values, together with an estimate of
-confidence on the inference.  We demonstrate our approach on
-two SoC models: a SystemC prototype and a more realistic
+labeled Petri-Nets, which are capable of describing
+sequencing, concurrency, and choices of events.  Given this
+formalization, we develop algorithms to infer system-level
+transactions from traces with missing, noisy, and ambiguous
+signal values, together with an estimate of confidence on
+the inference.  We demonstrate our approach on two SoC case
+studies: a SystemC prototype and a more realistic
 implementation constructed within the GEM5
 environment~\cite{Binkert2011}.
 
@@ -556,7 +556,7 @@ environment~\cite{Binkert2011}.
 \begin{center}
 \begin{tabular}{cc}
 \begin{minipage}{3in}
-\includegraphics[height=2.5in]{figures/bpmn-flow-ex}
+\includegraphics[height=2in]{figures/bpmn-flow-ex}
 \end{minipage}
 &
 \begin{minipage}{3in}
@@ -597,29 +597,45 @@ environment~\cite{Binkert2011}.
 \\
 (a) & (b)
 \end{tabular}
-\caption{(a) A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}, and (b) the LPN capturing the communication protocol in (a).}
+\caption{(a) A graphical representation of a SoC firmware
+  load protocol~\cite{Krstic14HOST}.  (b) LPN formalization.
+  Each event has a form of $\langle {\tt src, dest, cmd}
+  \rangle$ where ${\tt cmd}$ is a command sent from a source
+  component ${\tt src}$ to a destination component ${\tt
+    dest}$. The solid black places without outgoing edges
+  are {\em terminals}, which indicate termination of
+  protocols represented by the LPNs.}
 \label{flow-spec-ex}
 \end{center}
 \end{figure*}
 
 
 
-\section{Background}
+\section{Labeled Petri-Nets}
 
-\subsection{System-level Transactions in SoC Designs}
-
-
-An SoC design is typically composed of a large number of
-pre-designed hardware or software blocks (often referred to
-as ``intellectual properties'' or ``IPs'') that coordinate
-through complex protocols to implement system-level
-behavior.  Fig.~\ref{fig:flow-spec-ex} shows one such
-protocol, involving th
-
-
-\subsection{Labeled Petri-Nets}
-
-Although system flows depicted in BPMN as in Fig.~\ref{flow-spec-ex} are intuitive for system architects to understand communications across multiple components, they are not suitable for algorithmic analysis.  In this section, we present an alternative formalism, \emph{labeled Petri Nets}, to represent communication aspects of system flows with the intuitive descriptions of internal operations for IP blocks abstracted away whenever possible.  Labeled Petri nets, which are a subclass of traditional Petri-nets~\cite{Murata89} where Petri-net transitions are labeled with user defined information,  are capable of describing sequencing, concurrency, and choices.   This formalism has well defined operational semantics, efficient analysis analysis algorithms and and has been used widely in modeling and analyzing communication protocols, concurrent programs, etc. 
+Labeled Petri-nets (LPN) is a formalization of state
+transition systems that is capable of describing sequencing,
+concurrency, and choices.  Fig.~\ref{flow-spec-ex} shows the
+formalization of a simple SoC protocol with Petri-Nets.
+Formally, an LPN is a tuple $(P, T, s_0, E, L)$ where $P$ is
+a finite set of {\em places}, $T$ is a finite set of {\em
+  transitions}, $\mathit{init}$ is the set of initially
+marked places, also referred to as the {\em initial
+  marking}, $E$ is a finite set of {\em events}, and $L: T
+\rightarrow E$ is a labeling function that maps each
+transition $t \in T$ to an event $e \in E$.  For each
+transition $t \in T$, its preset, denoted as $\bullet{t}
+\subseteq P$, is the set of places connected to $t$, and its
+postset, denoted as $t\bullet \subseteq P$, is the set of
+places that $t$ is connected to.  A marking $s \subseteq P$
+of a LPN is a subset of places marked with tokens, and it is
+also referred to as a state of a LPN.  The initial marking
+$\mathit{init}$ is also the initial state of the LPN.
+  
+%% This formalism has well defined
+%% operational semantics, efficient analysis analysis
+%% algorithms and and has been used widely in modeling and
+%% analyzing communication protocols, concurrent programs, etc.
 
 %--- LPN definition with levels
 %Specifically, a labeled Petri-net (LPN) is a tuple $(P, T, M_0, V, E, L)$ where
@@ -646,24 +662,42 @@ Although system flows depicted in BPMN as in Fig.~\ref{flow-spec-ex} are intuiti
 %and $\alpha'$ is a new assignment where the values of the auxiliary variables are updated with respect to the assignments $A$.  Furthermore, when $t$ is executed, the event $e$ is emitted.  SoC
 
 
-Specifically, a labeled Petri-net (LPN) is a tuple $(P, T, s_0, E, L)$ where
-\begin{itemize}
-\item $P$ is a finite set of places,
-\item $T$ is a finite set of transitions,
-\item $\mathit{init}$ is the set of initially marked places, also referred to as the initial marking.
-\item $E$ is a finite set of events,
-\item $L: T \rightarrow E$ is a labeling function that maps each transition $t \in T$ to an event $e \in E$.
-\end{itemize}
+%% Formally, an LPN is a tuple $(P, T, s_0, E, L)$ where $P$ is
+%% a finite set of {\em places}, $T$ is a finite set of {\em
+%%   transitions}, $\mathit{init}$ is the set of initially
+%% marked places, also referred to as the {\em initial
+%%   marking}, $E$ is a finite set of {\em events}, and $L: T
+%% \rightarrow E$ is a labeling function that maps each
+%% transition $t \in T$ to an event $e \in E$.  For each
+%% transition $t \in T$, its preset, denoted as $\bullet{t}
+%% \subseteq P$, is the set of places connected to $t$, and its
+%% postset, denoted as $t\bullet \subseteq P$, is the set of
+%% places that $t$ is connected to.  A marking $s \subseteq P$
+%% of a LPN is a subset of places marked with tokens, and it is
+%% also referred to as a state of a LPN.  The initial marking
+%% $\mathit{init}$ is also the initial state of the LPN.
 
-For each transition $t \in T$, its preset, denoted as $\bullet{t} \subseteq P$, is the set of places connected to $t$, and its postset, denoted as $t\bullet \subseteq P$, is the set of places that $t$ is connected to.  A marking $s \subseteq P$ of a LPN is a subset of places marked with tokens, and it is also referred to as a state of a LPN.  The initial marking $\mathit{init}$ is also the initial state of the LPN. 
+%% The operational semantics of a LPN is defined by transition executions.  A transition can be executed after it is {\em enabled}.  A transition $t \in T$ is enabled in a state $s$ if every place in its preset is included in the marking, i.e. $\bullet{t} \subseteq s$.  Execution of $t$ results in a new state $s'$ such that 
+%% \[
+%% s' = (s - \bullet{t}) \cup t\bullet,
+%% \]
+%% and the emission of event $e$ labeled for $t$. 
 
-The operational semantics of a LPN is defined by transition executions.  A transition can be executed after it is {\em enabled}.  A transition $t \in T$ is enabled in a state $s$ if every place in its preset is included in the marking, i.e. $\bullet{t} \subseteq s$.  Execution of $t$ results in a new state $s'$ such that 
-\[
-s' = (s - \bullet{t}) \cup t\bullet,
-\]
-and the emission of event $e$ labeled for $t$. 
-
-The communication protocol in the BMPN shown in~Fig.~\ref{flow-spec-ex}(a) is represented by the LPN shown in~Figure~\ref{flow-spec-ex}(b).  In this and the following figures for LPNs, the labeled circles denote places, and the labeled boxes denote transitions.  Each transition is labeled with its name and the associated event.  Each event has a form of $\langle {\tt src, dest, cmd} \rangle$ where ${\tt cmd}$ is a command sent from a source component ${\tt src}$ to a destination component ${\tt dest}$. The solid black places without outgoing edges are {\em terminals}, which indicate termination of protocols represented by the LPNs.  The initial marking is $\mathit{init} = \{p_1\}$.  In this LPN model, only the communication portion of the BPMN specification is represented while the computation portion is ignored.  
+%% The communication protocol in the BMPN shown
+%% in~Fig.~\ref{flow-spec-ex}(a) is represented by the LPN
+%% shown in~Figure~\ref{flow-spec-ex}(b).  In this and the
+%% following figures for LPNs, the labeled circles denote
+%% places, and the labeled boxes denote transitions.  Each
+%% transition is labeled with its name and the associated
+%% event.  Each event has a form of $\langle {\tt src, dest,
+%%   cmd} \rangle$ where ${\tt cmd}$ is a command sent from a
+%% source component ${\tt src}$ to a destination component
+%% ${\tt dest}$. The solid black places without outgoing edges
+%% are {\em terminals}, which indicate termination of protocols
+%% represented by the LPNs.  The initial marking is
+%% $\mathit{init} = \{p_1\}$.  In this LPN model, only the
+%% communication portion of the BPMN specification is
+%% represented while the computation portion is ignored.
 
 
 

@@ -1,100 +1,4 @@
-
-%% bare_conf.tex
-%% V1.3
-%% 2007/01/11
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%
-%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
-%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compSoC.tex
-%%*************************************************************************
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices can trigger bugs that do  ***
-% *** not appear when using other class files.                            ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-
-% Note that the a4paper option is mainly intended so that authors in
-% countries using A4 can easily print to A4 and see how their papers will
-% look in print - the typesetting of the document will not typically be
-% affected with changes in paper size (but the bottom and side margins will).
-% Use the testflow package mentioned above to verify correct handling of
-% both paper sizes by the user's LaTeX system.
-%
-% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
-% should be used if it is desired that the figures are to be displayed in
-% draft mode.
-%
 \documentclass[conference]{IEEEtran}
-% Add the compSoC option for Computer SoCiety conferences.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
-
-
-
-
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
 \usepackage{pifont}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -110,308 +14,20 @@
 
 
 
-% *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
-% not currently provide for hyperlinked citations.
-% The latest version can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
-% The documentation is contained in the cite.sty file itself.
-
 \newcommand{\eg}{\mbox{{\em e.g.}}}
+\newcommand{\ie}{\mbox{{\em i.e.}}}
+\newcommand{\viz}{\mbox{{\em viz.}}}
 
-
-
-
-% *** GRAPHICS RELATED PACKAGES ***
-%
-\ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
-\else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
-\fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation can
-% be obtained at: 
-% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
-% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
-
-
-
-
-
-% *** MATH PACKAGES ***
-%
-%\usepackage[cmex10]{amsmath}
-% A popular package from the American Mathematical SoCiety that provides
-% many useful and powerful commands for dealing with mathematics. If using
-% it, be sure to load this package with the cmex10 option to ensure that
-% only type 1 fonts will utilized at all point sizes. Without this option,
-% it is possible that some math symbols, particularly those within
-% footnotes, will be rendered in bitmap form which will result in a
-% document that can not be IEEE Xplore compliant!
-%
-% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
-
-
-
-
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
-% There is also a support site at:
-% http://algorithms.berlios.de/index.html
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
-
-
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/tools/
-
-
-%\usepackage{mdwmath}
-%\usepackage{mdwtab}
-% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
-% especially mdwmath.sty and mdwtab.sty which are used to format equations
-% and tables, respectively. The MDWtools set is already installed on most
-% LaTeX systems. The lastest version and documentation is available at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-%\usepackage{eqparbox}
-% Also of notable interest is Scott Pakin's eqparbox package for creating
-% (automatically sized) equal width boxes - aka "natural width parboxes".
-% Available at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
-
-
-
-
-
-% *** SUBFIGURE PACKAGES ***
-%\usepackage[tight,footnotesize]{subfigure}
-% subfigure.sty was written by Steven Douglas Cochran. This package makes it
-% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
-% work, it is a good idea to load it with the tight package option to reduce
-% the amount of white space around the subfigures. subfigure.sty is already
-% installed on most LaTeX systems. The latest version and documentation can
-% be obtained at:
-% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
-% subfigure.sty has been superceeded by subfig.sty.
-
-
-
-%\usepackage[caption=false]{caption}
-%\usepackage[font=footnotesize]{subfig}
-% subfig.sty, also written by Steven Douglas Cochran, is the modern
-% replacement for subfigure.sty. However, subfig.sty requires and
-% automatically loads Axel Sommerfeldt's caption.sty which will override
-% IEEEtran.cls handling of captions and this will result in nonIEEE style
-% figure/table captions. To prevent this problem, be sure and preload
-% caption.sty with its "caption=false" package option. This is will preserve
-% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
-% (recommended due to many improvements over 1.2) of subfig.sty supports
-% the caption=false option directly:
-%\usepackage[caption=false,font=footnotesize]{subfig}
-%
-% The latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
-% The latest version and documentation of caption.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
-
-
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure. The latest version and documentation can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/base/
-
-
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
-% Documentation is contained in the stfloats.sty comments as well as in the
-% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
-% does not allow \baselineskip to stretch. Authors submitting work to the
-% IEEE should note that IEEE rarely uses double column equations and
-% that authors should try to avoid such use. Do not be tempted to use the
-% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
-% not format its papers in such ways.
-
-
-
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
-% Read the url.sty source comments for usage information. Basically,
-% \url{my_url_here}.
-
-
-
-
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
-
-% correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
-
-
-\begin{document}
-%
-% paper title
-% can use linebreaks \\ within to get better formatting as desired
 \title{\Large {\bf Protocol-Guided Analysis of Post-silicon
   Traces Under Limited Observability}}
 
 %% \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
 %% $^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
 %% $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
+
+\begin{document}
+
 \maketitle
-
-%% % author names and affiliations
-%% % use a multiple column layout for up to three different
-%% % affiliations
-%% \author{\IEEEauthorblockN{Hao Zheng, Yuting Cao}
-%% \IEEEauthorblockA{Computer Science and Engineering\\
-%% University of South Florida\\
-%% Tampa, Florida 33620}
-%% \and
-%% \IEEEauthorblockN{Sandip Ray, Jin Yang}
-%% \IEEEauthorblockA{Strategic CAD Labs\\
-%% Intel Corporation\\
-%% Portland, Oregon
-%% }}
-
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
-
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
-
 
 \begin{abstract}
 We consider the problem of reconstructing system-level
@@ -426,47 +42,7 @@ illustrative system-level protocols for SoC models developed
 in SystemC as well as in an FPGA environment.
 \end{abstract}
 
-
-
-% make the title area
-%\maketitle
-
-
-%% \begin{abstract}
-%% Validation of multicore systems-on-chip (SoC) is very challenging, and main reasons include the limited internal operation observability and non-determinism due to multiple clock domains.   Very often, the observed signal traces offer limited values for debuggers to understand system internal behavior.  This paper presents a trace analysis approach for post-silicon validation.  This approach takes system flow specifications describing system behavior at a high level and an observed signal trace, and interprets the trace with respect to the system flow specification.  The result from the trace interpretation is a set of flow instances such that their execution during a test explains the observed signal trace.   This approach transforms partially observed and non-deterministic signal traces to a representation that is more understandable, and offers more helpful information to locate design defects and a measure to evaluate validation coverage.
-%% \end{abstract}
-% IEEEtran.cls defaults to using nonbold math in the Abstract.
-% This preserves the distinction between vectors and scalars. However,
-% if the conference you are submitting to favors bold math in the abstract,
-% then you can use LaTeX's standard command \boldmath at the very start
-% of the abstract to achieve this. Many IEEE journals/conferences frown on
-% math in the abstract anyway.
-
-% no keywords
-
-
-
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-% \IEEEpeermaketitle
-
-
-
 \section{Introduction}
-% no \IEEEPARstart
-%
-%Post silicon debug is getting more challenging for current complex system-on-chip design.
-%
-%Using system level flows in silicon trace analysis helps to reduce the volume of data to be stored and analyzed, difficulty caused by inherent non-determinism.  
-%
-%Also, abstracts signal traces to system use cases, which helps validation engineering better understand the behavior displayed by the signal traces. 
 
 Post-silicon validation makes use of pre-production silicon
 integrated circuit (IC) to ensure that the fabricated system
@@ -487,70 +63,48 @@ design validation cost.  Consequently, it is crucial to
 develop techniques for streamlining and automating
 post-silicon validation activities.
 
-A central component of post-silicon validation of SoC
-designs is to correlate trace from silicon execution with
-the intended system-level transactions.  An SoC design is
-typically composed of a large number of pre-designed
-hardware or software blocks (often referred to as
-``intellectual properties'' or ``IPs'') that coordinate
-through complex protocols to implement system-level
-behavior.  Any execution trace of the system involves a
-large number of interleaved instances of these protocols.
-For example, consider a smartphone executing a usage
-scenerio where the end-user browses the Web while listening
-to music and sending and receiving occasional text messages.
-Typical post-silicon validation use-case involve exercising
-such scenarios.  An execution trace for this scenario would
-involve activities from the CPU, audio controller, display
-controller, wireless radio antenna, etc., reflecting the
-interleaved execution of several communication protocols.
-On the other hand, due to observability limitations, only a
-small small number of participating signals can be actually
-traced during silicon execution.  Furthermore, due to
-electrical perturbations, silicon data can be noisy, lossy,
-and ambiguous.  Consequently, it is non-trivial to identify
-all participating protocols and pinpoint the ``right''
-interleaving that results in an observed trace.
+A key component of post-silicon validation of SoC designs is
+to correlate trace from silicon execution with the intended
+system-level transactions.  An SoC design is typically
+composed of a large number of pre-designed hardware or
+software blocks (often referred to as ``intellectual
+properties'' or ``IPs'') that coordinate through complex
+protocols to implement the system-level behavior.  Any
+execution trace of the system involves a large number of
+interleaved instances of these protocols.  For example,
+consider a smartphone executing a usage scenerio where the
+end-user browses the Web while listening to music and
+sending and receiving occasional text messages.  Typical
+post-silicon validation use-case involve exercising such
+scenarios.  An execution trace would involve activities from
+the CPU, audio controller, display controller, wireless
+radio antenna, etc., reflecting the interleaved execution of
+several communication protocols.  On the other hand, due to
+observability limitations, only a small small number of
+participating signals can be actually traced during silicon
+execution.  Furthermore, due to electrical perturbations,
+silicon data can be noisy, lossy, and ambiguous.
+Consequently, it is non-trivial to identify all
+participating protocols and pinpoint the interleaving that
+results in an observed trace.
 
 In this paper, we consider the problem of reconstructing
 protocol-level behavior from silicon traces in SoC designs.
-More specifically, given a collection of system-level
-communication protocols and a trace of (partially observed)
-hardware signals, our approach infers, with a certain
-measure of confidence, the protocol instances (and their
-interleavings) being exercised by the trace.  Our approach
-is based on a formalization of system-level transactions via
-labeled Petri-Nets, which are capable of describing
-sequencing, concurrency, and choices of events.  Given this
-formalization, we develop algorithms to infer system-level
-transactions from traces with missing, noisy, and ambiguous
-signal values, together with an estimate of confidence on
-the inference.  We demonstrate our approach on two SoC case
-studies: a SystemC prototype and a more realistic
-implementation constructed within the GEM5
+Given a collection of system-level communication protocols
+and a trace of (partially observed) hardware signals, our
+approach infers, with a certain measure of confidence, the
+protocol instances (and their interleavings) being exercised
+by the trace.  The approach is based on a formalization of
+system-level transactions via labeled Petri-Nets, which are
+capable of describing sequencing, concurrency, and choices
+over system events.  We develop algorithms to infer
+system-level transactions from traces with missing, noisy,
+and ambiguous signal values, together with an estimate of
+confidence on the inference.  We demonstrate our approach on
+two SoC case studies: a pedagogical SystemC prototype and a
+more realistic implementation constructed within the GEM5
 environment~\cite{Binkert2011}.
 
-
-
-%% Systems-on-chips (SoCs) have become more complex as more functionalities are integrated on chips.  To reduce design time, more external IPs are integrated into current SoC designs. At the high level, a SoC can be viewed as a network of IP blocks communicating by a large number of protocols.  A typical SoC design consists of multiple programmable processor cores where a number of software threads can be executed simultaneously.  The resulting designs usually operate in multiple clock domains, and show a high degree of concurrency.  Due to the sophisticated communication mechanisms employed in  current SoC designs to support complex functional behaviors, traditional processor-centric validation has to be enhanced to focus inter-core communications. 
-
-%% To make validation even more challenging, the high degree of integration in current SoC designs causes traditional chip observation points to become inaccessible.  A SoC design usually contains millions of signals.  In post-silicon validation, thousands of those signals are tapped for observation.  Due to the limited availability of the chip pins, only about a hundred of the tapped signals can be traced.   This severely limits observability hinders post-silicon debuggers' capability to root cause an observed failure.  To make the situation even worse, the observed traces often display non-deterministic behavior due to many concurrent operations occurred in multiple clock domains in a design.  The above factors make debugging highly difficult in failure root-causing, and need to be addressed.
-
-%% In a typical design flow, a design starts with some high-level specification, particularly for communication protocols.   The abstract protocol specification usually captures information exchanged among IP blocks and how it is exchanged to support functional behavior. 
-%% Graphical representations of protocols such as Message Sequence Charts~\cite{Harel03} or Live Sequence Charts~\cite{Damm99} describe protocols intuitively.  However, its success in hardware industry is limited.  Recently, message flows in BPMN~\cite{Krstic14HOST} have been being advocated as a formalism for specifying architecture requirements
-%%  or system-level use cases such as power management, security, etc.  In general, a flow describes a set of message sequences across multiple IP blocks following a system communication protocol.  Specification of system flows BPMN is intuitive and easier for human to understand and to reason about system behavior.  An example of flow specification in BPMN is shown in Figure~\ref{flow-spec-ex}.
- 
-%% \begin{figure}[tb]
-%% \begin{center}
-%% \includegraphics[height=2.5in]{figures/bpmn-flow-ex}
-%% \caption{A graphical representation of a SoC firmware load protocol in BPMN~\cite{Krstic14HOST}.}
-%% \label{flow-spec-ex}
-%% \end{center}
-%% \end{figure}
-  
-%% As indicated above, interpreting and understanding the raw signal traces observed from executing the chip is extremely difficult due to the limited observability and non-determinism.  This paper proposes a trace analysis method which analyzes and interprets the observed signal traces at the level of system flow specifications.  During the step of analysis and interpretation, this method tries to find out possible executions of system flows such that the observed signal trace is a result of such executions.  The resulting scenarios of flow executions often give debuggers more clear and better structured system-level views of the internal operations of the system under debug.  With a better understanding of system operations in a test environment, therefore, it would make easier for debuggers to pinpoint and root cause system failures.  In addition to debugging, another important benefit is better coverage evaluation as a scenario of flow executions captures the information about the types and number of instances of flows executed by the chip in a test environment.  That information can help to determine the quality and coverage of validation.   
-
-%---
 
 \begin{figure*}[tb]
 \begin{center}
@@ -610,13 +164,66 @@ environment~\cite{Binkert2011}.
 \end{figure*}
 
 
+\section{Background}
 
-\section{Labeled Petri-Nets}
+\subsection{SoC Protocols and Post-silicon Trace Analysis}
+
+An SoC design involves integration of a number of IPs that
+communicate through complex protocols.  Such system-level
+protocols are typically specified in architecture documents
+as message flow diagrams.  As illustration,
+Fig~\ref{flow-spec-ex}(a) shows one such diagram for a
+protcol to authenticate and load a firmware during system
+boot for firmware upgrade.  During validation, the system
+under debug (SUD) exercises some complex system-level
+use-case which involves interleaved execution of possibly a
+large number of such protocols.  A trace of a small number
+of hardware signals is then shipped off-chip analysis.  The
+off-chip analysis includes two broad phases: (1)~trace
+abstraction, and (2)~trace interpretation.  Trace
+abstraction maps the hardware trace into higher-level
+architectural constructs, \eg, messages, operations, etc.: a
+message such as {\tt Authorization request} may be
+implemented in hardware through a Boolean or temporal
+combination of specific hardware signals in the NoC fabric
+between {\tt Device} and {\tt CE}, \eg, as a sequence
+containing a header, a specific value of a sequence of data
+words, etc.  We will refer to such architectural constructs
+as {\em protocol events} or {\em flow events}.  Note that
+due to limited observability, it may not be possible to map
+a given set of (observed) hardware signals to uniquely to a
+flow event.  Finally, the trace may include several
+instances of the same protocol executing concurrently, \eg,
+a firmware authentication protocol may be invoked when
+another instance of the protocol has not completed.  
+
+Trace interpretation entails mapping flow events created
+during trace abstraction to system-level protocols in order
+to identify the set of protocol instances (and
+interleavings) responsible for creating the observed
+behavior.  The trace may identify a problem in the protocols
+themselves, \eg an interleaving of some protocol executions
+may lead to an unexpected message being sent or cause the
+system to crash.  More commonly, one finds a bug in the {\em
+  implementation} of the protocol, \ie, a trace inconsistent
+with any possible interleaving of the protocol executions.
+Identifying these problems involves significant human
+expertise, and can often take days to weeks of effort.
+
+
+%% In a typical validation setting, the system under debug
+%% (SUD) is executed in a test environment until it is
+%% terminated by the test environment or the system crashes
+%% due to a failure.  During the execution, a trace on a
+%% small number of observable signals is streamed off the
+%% chip for debugging.
+
+\subsection{Labeled Petri-Nets}
 
 Labeled Petri-nets (LPN) is a formalization of state
 transition systems that is capable of describing sequencing,
-concurrency, and choices.  Fig.~\ref{flow-spec-ex} shows the
-formalization of a simple SoC protocol with Petri-Nets.
+concurrency, and choices.  Fig.~\ref{flow-spec-ex}(b)
+illustrates how to use LPN to formalize protocols.
 Formally, an LPN is a tuple $(P, T, s_0, E, L)$ where $P$ is
 a finite set of {\em places}, $T$ is a finite set of {\em
   transitions}, $\mathit{init}$ is the set of initially
@@ -631,6 +238,34 @@ places that $t$ is connected to.  A marking $s \subseteq P$
 of a LPN is a subset of places marked with tokens, and it is
 also referred to as a state of a LPN.  The initial marking
 $\mathit{init}$ is also the initial state of the LPN.
+
+
+
+
+%% with respect to information captured in the system
+%% flows.  This requires recognizing signal events and mapping
+%% the signal events or sequences of the signal events to flow
+%% events appeared in system flow specifications.  For example,
+%% a data write message may be a single event in a system flow,
+%% however, such a flow event maybe implemented in hardware as
+%% a sequence of events including a header, a number of data
+%% word transfers and a tail.  This abstraction requires a
+%% mapping relation from flow events to sequences of signal
+%% events, and it is reasonable to assume that this relation is
+%% available.
+
+%% The trace interpretation takes a finite trace of flow events
+%% resulting from the trace abstraction and a set of system
+%% flows in LPNs $\vec{F}$, and generates a set of possible
+%% system flow execution scenarios.  A \emph{flow execution
+%%   scenario} is defined as $\{(F_{i,j}, s_{i,j})\}$ where in
+%% each element $(F_{i,j}, s_{i,j})$, $F_{i,j}$ is the $j$th
+%% activated instance of flow $F_i \in \vec{F}$, and $s_{i,j}$
+%% is a state of $F_{i,j}$.  A flow execution scenario
+%% indicates that at a certain point of SUD execution, what
+%% types of flows and the number of instances of a particular
+%% flow are activated and their corresponding current states.
+
   
 %% This formalism has well defined
 %% operational semantics, efficient analysis analysis
@@ -715,81 +350,245 @@ $\mathit{init}$ is also the initial state of the LPN.
 
 
 %=====
-\section{Flow-Directed Trace Analysis}
 
-In a typical validation setting, the system under debug (SUD) is executed in a test environment until it is terminated by the test environment or the system crashes due to a failure.  During the execution, a trace on a small number of observable signals is streamed off the chip for debugging.  Due to the limited observability and inherent non-determinism in today's SoC designs, the observed signal trace is difficult to understand, thus providing limited values for debugging.  In this section, we describe a trace analysis method where the observed signal traces are interpreted at the level of system flows.  In general, the trace analysis can offer debuggers a structured view of communications among the IP blocks during the SUD execution by deriving the types and numbers of system flows activated during SUD executions from the observed signal traces.
 
-The trace analysis method consists of two steps: \emph{trace abstraction} and \emph{interpretation}.  The trace abstraction takes a signal trace observed during the execution of the SUD, and abstracts it with respect to information captured in the system flows.  This requires recognizing signal events and mapping the signal events or sequences of the signal events to flow events appeared in system flow specifications.  For example, a data write message may be a single event in a system flow, however, such a flow event maybe implemented in hardware as a sequence of events including a header, a number of data word transfers and a tail.  This abstraction requires a mapping relation from flow events to sequences of signal events, and it is reasonable to assume that this relation is available.
 
-The trace interpretation takes a finite trace of flow events resulting from the trace abstraction and a set of system flows in LPNs $\vec{F}$, and generates a set of possible system flow execution scenarios.  A \emph{flow execution scenario} is defined as $\{(F_{i,j}, s_{i,j})\}$ where in each element $(F_{i,j}, s_{i,j})$, $F_{i,j}$ is the $j$th activated instance of flow $F_i \in \vec{F}$, and $s_{i,j}$ is a state of $F_{i,j}$.  A flow execution scenario indicates that at a certain point of SUD execution, what types of flows and the number of instances of a particular flow are activated and their corresponding current states.
 
-An observed trace of flow events $\rho = e_1e_2\ldots e_n$ is a result of SUD executing the flow instances of some flow execution scenario.  The goal of the trace interpretation is to derive such scenario.  Let $\mathit{accept(F_{i,j}, s_{i,j}, e)}$ be a function that determines if event $e$ can be emitted by $F_{i,j}$ in state $s_{i,j}$.  This function is used during the trace interpretation for checking whether an event of an observed trace is a result of executing some flow instance.  Formally,  $\mathit{accept(F_{i,j}, s_{i,j}, e)}$ returns $(F_{i,j}, s'_{i,j})$ if there exists a transition $t$ in $F_i$ such that $L(t) = e$ and $\bullet t \subseteq s_{i,j}$.  In this case, $s'_{i,j} = (s_{i,j} - \bullet t) \cup t\bullet$.  It returns $\emptyset$ if no such $t$ exists in $F_i$. 
+\section{Flow-Directed Trace Interpretation}
 
-Given a trace of flow events $\rho = e_1e_2\ldots e_n$, the trace interpretation algorithm starts with an empty set of of flow execution scenario $\mathit{Scen} = \emptyset$.  Then, for each $e_h$ where $1 \leq h \leq n$ starting $h=1$, and for each $\mathit{scen} \in \mathit{Scen}$, the following two steps are performed. 
-\begin{description}
-\item[Step 1]~~For each $(F_{i,j}, s_{i,j}) \in \mathit{scen}$, if $\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = (F_{i,j}, s'_{i,j})$, create a new scenario $\mathit{scen}' = (\mathit{scen} - (F_{i,j}, s_{i,j})) \cup (F_{i,j}, s'_{i,j})$, which is added into $\mathit{Scen}'$.
 
-\item[Step 2]~~For each $F_i \in \vec{F}$, create a new instance $F_{i, j+1}$.  If $\mathit{accept}(F_{i,j+1}, \mathit{init}_{i,j+1}, e_h) = (F_{i,j+1}, s'_{i,j+1})$,  create a new scenario $\mathit{scen}' = \mathit{scen} \cup (F_{i,j+1}, s'_{i,j+1})$, which is added into $\mathit{Scen}'$.
-\end{description}
-After $e_h$ is processed, $Scen = Scen'$, and the above two steps repeat for the next event $e_{h+1}$.
+%% In a typical validation setting, the system under debug
+%% (SUD) is executed in a test environment until it is
+%% terminated by the test environment or the system crashes
+%% due to a failure.  During the execution, a trace on a
+%% small number of observable signals is streamed off the
+%% chip for debugging.  Due to the limited observability and
+%% inherent non-determinism in today's SoC designs, the
+%% observed signal trace is difficult to understand, thus
+%% providing limited values for debugging.  In this section,
+%% we describe a trace analysis method where the observed
+%% signal traces are interpreted at the level of system
+%% flows.  In general, the trace analysis can offer
+%% debuggers a structured view of communications among the
+%% IP blocks during the SUD execution by deriving the types
+%% and numbers of system flows activated during SUD
+%% executions from the observed signal traces.
 
-If every events in $\rho$ is successfully mapped to some flow instance, this algorithm returns a set of flow execution scenarios such that every flow instance is in its terminal state.  On the other hand, inconsistent events can also be encountered.  An event $e$ is \emph{inconsistent} if for each flow execution scenario $\mathit{scen} \in \mathit{Scen}$, the following two conditions hold.
-\begin{enumerate}
-\item For each $(F_{i,j}, s_{i,j}) \in \mathit{scen}$, $\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = \emptyset$,
-\item For each $F_i \in \vec{F}$, $\mathit{accept}(F_{i}, \mathit{init}_{i}, e_h) = \emptyset$.
-\end{enumerate}
-An inconsistent event is the one produced by SUD execution but cannot be mapped to any flow instances no matter how the trace prior to event $e$ is interpreted.  Inconsistent events indicates possible causes of system failures.     
+%% The trace analysis method consists of two steps:
+%% \emph{trace abstraction} and \emph{interpretation}.  The
+%% trace abstraction takes a signal trace observed during
+%% the execution of the SUD, and abstracts it with respect
+%% to information captured in the system flows.  This
+%% requires recognizing signal events and mapping the signal
+%% events or sequences of the signal events to flow events
+%% appeared in system flow specifications.  For example, a
+%% data write message may be a single event in a system
+%% flow, however, such a flow event maybe implemented in
+%% hardware as a sequence of events including a header, a
+%% number of data word transfers and a tail.  This
+%% abstraction requires a mapping relation from flow events
+%% to sequences of signal events, and it is reasonable to
+%% assume that this relation is available.
 
-Based on the above discussion, the trace interpretation algorithm returns two pieces of information: 1) a set $G$ of flow execution scenarios where every flow instance in every scenario is in its terminal state, 2) a set $B$ of pairs, each of which includes a set of flow execution scenarios and an inconsistent event.  The set $B$ provides valuable information for debuggers to root cause system failures.  One of these two sets can empty.   With the full observability, the set $G$ includes a single flow execution scenario derived for a trace.  In reality, it is always the case that the SUD is only partially observable.  Therefore, due to the lack of information for precise interpretation, a set of flow execution scenarios is typically derived for a given trace as the result of the trace analysis.    
+In this section we formalize the trace interpretation
+problem in terms of labeled Petri-nets, and discuss our
+algorithms to address the problem.  For pedagogical reasons,
+here we assume full observability of all hardware signals
+involved in the flow events.  In the next section we will
+extend the approach to partial observability.
 
-\red{\bf The following illustration may not be needed (from here to the end of this subsection) if seciton IV is kept.  Or we keep the illustration below but remove section IV which uses 3 pages.}
+\medskip
 
-To illustrate the basic idea of the trace analysis method, consider the system flow shown in Figure~\ref{fig-flow-ex-1}.  Let $F_1$ denote such flow.  Suppose that a hardware system implements flow $F_1$, and the following trace of flow events is abstracted from an observed signal trace as a result of executing such system.     
-\[
-\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_3\;\ldots
-\]  
-This trace is interpreted from the first event to the last in order to derive all possible flow execution scenarios.  At the beginning, the first event $\mathit{msg}_1$ is processed.  According to the flow specification $F_1$, we know that one instance of such flow $F_1$, $F_{1,1}$,  is activated by the SUD as $\mathit{accept}(F_{1,1}, init_1, \mathit{msg}_1) = (F_{1,1}, \{p_2\})$ where $\mathit{init} = \{p_1\}$ is the initial state of $F_1$.  As the result, the flow execution scenario after interpreting the first event $\mathit{msg_1}$ is $\{(F_{1,1}, \{p_2\})\}$.  
+\noindent 
+{\bf Notations and formalization.}  We assume that the set
+of system flows is provided as a collection ${\vec{F}}$ of
+LPNs.  We define a {\em flow execution scenario} to be the
+set of pairs $(F_{i,j}, s_{i,j})$ where $F_{i,j}$ is the
+$j$th instance of flow $F_i \in {\vec{F}}$, and $s_{i,j}$ is
+a state of $F_{i,j}$.  A flow execution scenario indicates
+the set of protocols and the number of instances of a
+particular protocol are activated and their corresponding
+current states.  Since we assume full observability, we view
+an {\em observed trace} $\rho = e_1e_2\ldots e_n$ is a
+sequence of events.  Given an observed trace $\rho$, the
+goal of of trace interpretation is to construct a set of
+candidate flow execution scenarios whose execution can
+create the sequence of events in $\rho$.  We call such
+execution scenarios {\em compliant} with $\rho$.  Let
+$\mathit{accept(F_{i,j}, s_{i,j}, e)}$ be a function that
+determines if event $e$ can be emitted by $F_{i,j}$ in state
+$s_{i,j}$.  Formally, $\mathit{accept(F_{i,j}, s_{i,j}, e)}$
+returns $(F_{i,j}, s'_{i,j})$ if there exists a transition
+$t$ in $F_i$ such that $L(t) = e$ and $\bullet t \subseteq
+s_{i,j}$.  In this case, $s'_{i,j} = (s_{i,j} - \bullet t)
+\cup t\bullet$.  It returns $\emptyset$ if no such $t$
+exists in $F_i$.
 
-Next, the second $\mathit{msg}_1$ is interpreted on both scenarios   This event could be the result of two possible cases.  In the first case, this event is the result of the continuing execution of $F_{1,1}$ as $\mathit{accept}(F_{1,1}, \{p_2\}, \mathit{msg}_1) = (F_{1,1}, \{p_3\})$.  In the second case, the system may activate another instance of $F_1$, $F_{1,2}$ such that the second event $\mathit{msg_1}$ is a result of executing this new instance.  Therefore, the interpretation of the first two events $\mathit{msg}_1$ leads to two flow execution scenarios as shown below.
-\[
-\label{tr-analy-s1}\tag{1}
-\begin{array}{cl}
-1. & \{(F_{1,1}, \{p_3\})\},\\
-2. & \{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_2\})\} 
-\end{array}
-\]
+\medskip
 
-Now, consider the third $\mathit{msg}_1$ for each of the two scenario derived in~(\ref{tr-analy-s1}).    For the execution scenario~1, $F_{1,1}$ is not able to accept $\mathit{msg}_1$ as it is in state $\{p_3\}$.  On the other hand, this event could be the result of activation of a new flow instance.  Therefore, this execution scenario can be revised accordingly as 
-\[
-\label{tr-analy-s2}\tag{2}
-\{(F_{1,1}, \{p_3\}),(F_{1,2},\{p_2\})\}.
-\]   
-For the execution scenario~2, event $\mathit{msg}_1$ could be the result of continuing execution of $F_{1,1}$ or $F_{1,2}$, or it could be a result of activation of a new flow instance.  Therefore,  three new execution scenarios can be derived as shown below for this event.
-\[
-\label{tr-analy-s3}\tag{3}
-\begin{array}{l}
-\{(F_{1,1}, \{p_3\}), (F_{1,2}, \{p_2\})\},\\
-\{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_3\})\}, \\
-\{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_2\}), (F_{1,3}, \{p_2\})\}
-\end{array}
-\]
-Since the flow execution scenario in~(\ref{tr-analy-s2}) already exists in~(\ref{tr-analy-s3}), the three flow execution scenarios shown in~(\ref{tr-analy-s3}) is the result from the interpretation of the first three events $\mathit{msg}_1$.
+Given an obsered trace $\rho$ and the set $\vec{F}$ of LPNs,
+Algorithm~\ref{algo:compliance} provides the basic steps for
+computing a set of compliant flow execution scenarios.
+\begin{algorithm}[ht]
+\DontPrintSemicolon
+$\mathit{Scen} \gets \emptyset$\;
+\ForEach {$h, \; 1 \leq h \leq n $} {
+$\mathit{found} \gets {\tt true}$ \;
+  \ForEach {$(F_{i,j}, s_{i,j}) \in \mathit{scen}$} {
+    \If {$\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = (F_{i,j}, s'_{i,j})$} {
+      $\mathit{scen} \gets (\mathit{scen} - (F_{i,j}, s_{i,j})) \cup (F_{i,j}, s'_{i,j})$\;
+      $\mathit{scen} \gets \mathit{scen} \cup \mathit{Scen}'$\;
+      $\mathit{found} \gets {\tt false}$ \;
+    }
+  }
+  \ForEach {$F_i \in \vec{F}$} {
+      create a new instance $F_{i, j+1}$ \;
+      \If {$\mathit{accept}(F_{i,j+1},\mathit{init}_{i,j+1}, e_h) = (F_{i,j+1}, s'_{i,j+1})$} {
+    $\mathit{scen} \gets \mathit{scen} \cup (F_{i,j+1}, s'_{i,j+1})$ \;
+        $\mathit{found} \gets {\tt false}$ \;
+      }
+    }
+  \If {$\mathit{found} == {\tt true}$} {
+    \Return ${\tt Inconsistent}$\;
+  }
+}
+\Return $\mathit{scen}$ \;
+\caption{$\textsc{Check-Compliance}(\vec{F}, \, \rho)$}
+\label{algo:compliance}
+\end{algorithm}
+The algorithm operates by keeping track (in variable
+$\mathit{scen}$) of a set of candidate protocol instances
+compliant with each prefix of $\rho$.  At each iteration, we
+update this set by either extending some member of
+$\mathit{scen}$ or initiating a new protocol instance.  If
+neither is possible then we report that the trace is {\tt
+  inconsistent}, \ie, there is no possible interleaving of
+the protocol instances from $\vec{F}$ that is compliant with
+$\rho$.
 
-The next flow event in the trace $\mathit{msg_2}$ is analyzed for the flow execution scenarios as shown in~(\ref{tr-analy-s3}).   For the first scenario $\{(F_{1,1}, \{p_3\}), (F_{1,2}, \{p_2\})\}$, event $\mathit{msg_2}$ can only be the result from executing $F_{1,1}$ as $\mathit{accept}(F_{1,1}, \{p_3\}, \mathit{msg_2}) = (F_{1,1}, \{p_1\})$.   Based on the same reasoning, this event can only be the result from executing $F_{1,2}$ in the second scenario, and it moves $F_{1,2}$ to a new state $\{p_3\}$ too.  The interesting case is the third scenario where none of the flow instances can allow $\mathit{msg_2}$ to happen.  This is due to the fact that the flow must be in $\{p_3\}$ for $\mathit{msg_2}$ to happen.  This indicates the third system execution scenario is impossible for the prefix of the flow event trace upto $\mathit{msg_2}$, therefore this scenario is ignored from further analysis.  After analyzing event $\mathit{msg_2}$, the updated system execution scenarios are shown below.
-\[
-\begin{array}{l}
-\{(F_{1,1}, \{p_1\}), (F_{1,2}, \{p_2\})\},\ \{(F_{1,1}, \{p2\}), (F_{1,2}, \{p_1\})\}.
-\end{array}
-\]
 
-The last flow event in the trace is $\mathit{msg}_3$.  Considering the above two possible system executions, neither can allow this event to be produced as none of the flow instances in both system executions is in state $\{p_3\}$.  What this means is that the system does {\em not} implement the flow specification correctly as it produces something not allowed by the specification.  By examining the system executions right before the ``buggy'' event, debuggers may gain more information on when and where the problem might be.  The trace interpretation algorithm adds these two scenarios along with the fifth event $\mathit{msg_3}$ into $B$, and returns it for debuggers to analyze.
+%% Given a trace of flow events $\rho = e_1e_2\ldots e_n$, the
+%% trace interpretation algorithm starts with an empty set of
+%% of flow execution scenario $\mathit{Scen} = \emptyset$.
+%% Then, for each $e_h$ where $1 \leq h \leq n$ starting $h=1$,
+%% and for each $\mathit{scen} \in \mathit{Scen}$, the
+%% following two steps are performed.
+%% \begin{description}
+%% \item[Step 1]~~For each $(F_{i,j}, s_{i,j}) \in
+%%   \mathit{scen}$, if $\mathit{accept}(F_{i,j}, s_{i,j}, e_h)
+%%   = (F_{i,j}, s'_{i,j})$, create a new scenario
+%%   $\mathit{scen}' = (\mathit{scen} - (F_{i,j}, s_{i,j}))
+%%   \cup (F_{i,j}, s'_{i,j})$, which is added into
+%%   $\mathit{Scen}'$.
+
+%% \item[Step 2]~~For each $F_i \in \vec{F}$, create a new
+%%   instance $F_{i, j+1}$.  If $\mathit{accept}(F_{i,j+1},
+%%   \mathit{init}_{i,j+1}, e_h) = (F_{i,j+1}, s'_{i,j+1})$,
+%%   create a new scenario $\mathit{scen}' = \mathit{scen} \cup
+%%   (F_{i,j+1}, s'_{i,j+1})$, which is added into
+%%   $\mathit{Scen}'$.
+%% \end{description}
+
+%% After $e_h$ is processed, $Scen = Scen'$, and the above two
+%% steps repeat for the next event $e_{h+1}$.
+
+%% If every events in $\rho$ is successfully mapped to some
+%% flow instance, this algorithm returns a set of flow
+%% execution scenarios such that every flow instance is in its
+%% terminal state.  On the other hand, inconsistent events can
+%% also be encountered.  An event $e$ is \emph{inconsistent} if
+%% for each flow execution scenario $\mathit{scen} \in
+%% \mathit{Scen}$, the following two conditions hold.
+
+%% \begin{enumerate}
+%% \item For each $(F_{i,j}, s_{i,j}) \in \mathit{scen}$,
+%%   $\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = \emptyset$,
+%% \item For each $F_i \in \vec{F}$, $\mathit{accept}(F_{i},
+%%   \mathit{init}_{i}, e_h) = \emptyset$.
+%% \end{enumerate}
+
+%% An inconsistent event is the one produced by SUD execution
+%% but cannot be mapped to any flow instances no matter how the
+%% trace prior to event $e$ is interpreted.  Inconsistent
+%% events indicates possible causes of system failures.
+
+%% Based on the above discussion, the trace interpretation
+%% algorithm returns two pieces of information: 1) a set $G$ of
+%% flow execution scenarios where every flow instance in every
+%% scenario is in its terminal state, 2) a set $B$ of pairs,
+%% each of which includes a set of flow execution scenarios and
+%% an inconsistent event.  The set $B$ provides valuable
+%% information for debuggers to root cause system failures.
+%% One of these two sets can empty.  With the full
+%% observability, the set $G$ includes a single flow execution
+%% scenario derived for a trace.  In reality, it is always the
+%% case that the SUD is only partially observable.  Therefore,
+%% due to the lack of information for precise interpretation, a
+%% set of flow execution scenarios is typically derived for a
+%% given trace as the result of the trace analysis.
+
+%% \red{\bf The following illustration may not be needed (from here to the end of this subsection) if seciton IV is kept.  Or we keep the illustration below but remove section IV which uses 3 pages.}
+
+%% To illustrate the basic idea of the trace analysis method, consider the system flow shown in Figure~\ref{fig-flow-ex-1}.  Let $F_1$ denote such flow.  Suppose that a hardware system implements flow $F_1$, and the following trace of flow events is abstracted from an observed signal trace as a result of executing such system.     
+%% \[
+%% \mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_1\;\mathit{msg}_2\;\mathit{msg}_3\;\ldots
+%% \]  
+%% This trace is interpreted from the first event to the last in order to derive all possible flow execution scenarios.  At the beginning, the first event $\mathit{msg}_1$ is processed.  According to the flow specification $F_1$, we know that one instance of such flow $F_1$, $F_{1,1}$,  is activated by the SUD as $\mathit{accept}(F_{1,1}, init_1, \mathit{msg}_1) = (F_{1,1}, \{p_2\})$ where $\mathit{init} = \{p_1\}$ is the initial state of $F_1$.  As the result, the flow execution scenario after interpreting the first event $\mathit{msg_1}$ is $\{(F_{1,1}, \{p_2\})\}$.  
+
+%% Next, the second $\mathit{msg}_1$ is interpreted on both scenarios   This event could be the result of two possible cases.  In the first case, this event is the result of the continuing execution of $F_{1,1}$ as $\mathit{accept}(F_{1,1}, \{p_2\}, \mathit{msg}_1) = (F_{1,1}, \{p_3\})$.  In the second case, the system may activate another instance of $F_1$, $F_{1,2}$ such that the second event $\mathit{msg_1}$ is a result of executing this new instance.  Therefore, the interpretation of the first two events $\mathit{msg}_1$ leads to two flow execution scenarios as shown below.
+%% \[
+%% \label{tr-analy-s1}\tag{1}
+%% \begin{array}{cl}
+%% 1. & \{(F_{1,1}, \{p_3\})\},\\
+%% 2. & \{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_2\})\} 
+%% \end{array}
+%% \]
+
+%% Now, consider the third $\mathit{msg}_1$ for each of the two scenario derived in~(\ref{tr-analy-s1}).    For the execution scenario~1, $F_{1,1}$ is not able to accept $\mathit{msg}_1$ as it is in state $\{p_3\}$.  On the other hand, this event could be the result of activation of a new flow instance.  Therefore, this execution scenario can be revised accordingly as 
+%% \[
+%% \label{tr-analy-s2}\tag{2}
+%% \{(F_{1,1}, \{p_3\}),(F_{1,2},\{p_2\})\}.
+%% \]   
+%% For the execution scenario~2, event $\mathit{msg}_1$ could be the result of continuing execution of $F_{1,1}$ or $F_{1,2}$, or it could be a result of activation of a new flow instance.  Therefore,  three new execution scenarios can be derived as shown below for this event.
+%% \[
+%% \label{tr-analy-s3}\tag{3}
+%% \begin{array}{l}
+%% \{(F_{1,1}, \{p_3\}), (F_{1,2}, \{p_2\})\},\\
+%% \{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_3\})\}, \\
+%% \{(F_{1,1}, \{p_2\}), (F_{1,2}, \{p_2\}), (F_{1,3}, \{p_2\})\}
+%% \end{array}
+%% \]
+%% Since the flow execution scenario in~(\ref{tr-analy-s2}) already exists in~(\ref{tr-analy-s3}), the three flow execution scenarios shown in~(\ref{tr-analy-s3}) is the result from the interpretation of the first three events $\mathit{msg}_1$.
+
+%% The next flow event in the trace $\mathit{msg_2}$ is analyzed for the flow execution scenarios as shown in~(\ref{tr-analy-s3}).   For the first scenario $\{(F_{1,1}, \{p_3\}), (F_{1,2}, \{p_2\})\}$, event $\mathit{msg_2}$ can only be the result from executing $F_{1,1}$ as $\mathit{accept}(F_{1,1}, \{p_3\}, \mathit{msg_2}) = (F_{1,1}, \{p_1\})$.   Based on the same reasoning, this event can only be the result from executing $F_{1,2}$ in the second scenario, and it moves $F_{1,2}$ to a new state $\{p_3\}$ too.  The interesting case is the third scenario where none of the flow instances can allow $\mathit{msg_2}$ to happen.  This is due to the fact that the flow must be in $\{p_3\}$ for $\mathit{msg_2}$ to happen.  This indicates the third system execution scenario is impossible for the prefix of the flow event trace upto $\mathit{msg_2}$, therefore this scenario is ignored from further analysis.  After analyzing event $\mathit{msg_2}$, the updated system execution scenarios are shown below.
+%% \[
+%% \begin{array}{l}
+%% \{(F_{1,1}, \{p_1\}), (F_{1,2}, \{p_2\})\},\ \{(F_{1,1}, \{p2\}), (F_{1,2}, \{p_1\})\}.
+%% \end{array}
+%% \]
+
+%% The last flow event in the trace is $\mathit{msg}_3$.  Considering the above two possible system executions, neither can allow this event to be produced as none of the flow instances in both system executions is in state $\{p_3\}$.  What this means is that the system does {\em not} implement the flow specification correctly as it produces something not allowed by the specification.  By examining the system executions right before the ``buggy'' event, debuggers may gain more information on when and where the problem might be.  The trace interpretation algorithm adds these two scenarios along with the fifth event $\mathit{msg_3}$ into $B$, and returns it for debuggers to analyze.
 
 
 
 %---
-\subsection{Trace Analysis with Partial Observability}
+\section{Trace Analysis with Partial Observability}
 
-In hardware that implements a given system flow specification, a flow event is defined as an event or a sequence of events on a set of signals.  Due to the limited number of pins on the boundary of chips available for observation, only a small fraction of system signals can be observed during debug.  In this section, we discuss how the trace analysis method presented above can be adapted to deal with signal traces of partial observability.
+The trace interpretation discussion in the preceding section
+assumed full observability.  In this section, we discuss how
+to adapt the method to deal with silicon traces under
+limited (partial) obsrvability.
+
+
+
+%% In hardware that implements a given system flow
+%% specification, a flow event is defined as an event or a
+%% sequence of events on a set of signals.  Due to the limited
+%% number of pins on the boundary of chips available for
+%% observation, only a small fraction of system signals can be
+%% observed during debug.  In this section, we discuss how the
+%% trace analysis method presented above can be adapted to deal
+%% with signal traces of partial observability.
 
 In general, a signal trace of partial observability corresponding a set of traces of flow events due to the ambiguous interpretation of signal events.  In the following, we discuss two cases for trace abstraction on partial observability: mapping a single signal event to a flow event or mapping a sequence of signal events to a flow event.  A signal event is defined as a state on or an assignment to a set of signals.  
 

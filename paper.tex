@@ -64,7 +64,7 @@ develop techniques for streamlining and automating
 post-silicon validation activities.
 
 A key component of post-silicon validation of SoC designs is
-to correlate trace from silicon execution with the intended
+to correlate traces from silicon execution with the intended
 system-level transactions.  An SoC design is typically
 composed of a large number of pre-designed hardware or
 software blocks (often referred to as ``intellectual
@@ -72,15 +72,15 @@ properties'' or ``IPs'') that coordinate through complex
 protocols to implement the system-level behavior.  Any
 execution trace of the system involves a large number of
 interleaved instances of these protocols.  For example,
-consider a smartphone executing a usage scenerio where the
+consider a smartphone executing a usage scenario where the
 end-user browses the Web while listening to music and
 sending and receiving occasional text messages.  Typical
-post-silicon validation use-case involve exercising such
+post-silicon validation use-cases involve exercising such
 scenarios.  An execution trace would involve activities from
 the CPU, audio controller, display controller, wireless
 radio antenna, etc., reflecting the interleaved execution of
 several communication protocols.  On the other hand, due to
-observability limitations, only a small small number of
+observability limitations, only a small number of
 participating signals can be actually traced during silicon
 execution.  Furthermore, due to electrical perturbations,
 silicon data can be noisy, lossy, and ambiguous.
@@ -99,8 +99,9 @@ system-level transactions via labeled Petri-Nets, which are
 capable of describing sequencing, concurrency, and choices
 over system events.  We develop algorithms to infer
 system-level transactions from traces with missing, noisy,
-and ambiguous signal values, together with an estimate of
-confidence on the inference.  We demonstrate our approach on
+and ambiguous signal values.
+% together with an estimate of confidence on the inference.  
+We demonstrate our approach on
 two SoC case studies: a pedagogical SystemC prototype and a
 more realistic implementation constructed within the GEM5
 environment~\cite{Binkert2011}.
@@ -130,8 +131,8 @@ environment~\cite{Binkert2011}.
 	\node[circ] 	(p4) 		at ($(t3) + (0,-1.1)$) {$p_4$};
 	\node[rectbox]	(t4)	at	($(p4) + (-3,-1.1)$) {$t_4:\langle {\tt Device:Driver:Report} \rangle$};
 	\node[rectbox]	(t5)	at	($(p4) + (3,-1.1)$) {$t_5:\langle {\tt Device:CE:Ack} \rangle$};
-	\node[circ,fill=black] 	(term1) 		at ($(t4) + (0,-1.1)$) {$~~~$};
-	\node[circ,fill=black] 	(term2) 		at ($(t5) + (0,-1.1)$) {$~~~$};
+	\node[circ,fill=black] 	(term1) 		at ($(t4) + (0,-1.1)$) {\textcolor{white}{$p_5$}};
+	\node[circ,fill=black] 	(term2) 		at ($(t5) + (0,-1.1)$) {\textcolor{white}{$p_6$}};
 	
 	% Edges
 	\draw[->,weight3]	(p1) -- (t1);
@@ -191,8 +192,8 @@ containing a header, a specific value of a sequence of data
 words, etc.  We will refer to such architectural constructs
 as {\em protocol events} or {\em flow events}.  Note that
 due to limited observability, it may not be possible to map
-a given set of (observed) hardware signals to uniquely to a
-flow event.  Finally, the trace may include several
+a given set of (observed) hardware signals uniquely to a
+flow event.  Finally, the trace may a result from several
 instances of the same protocol executing concurrently, \eg,
 a firmware authentication protocol may be invoked when
 another instance of the protocol has not completed.  
@@ -202,7 +203,7 @@ during trace abstraction to system-level protocols in order
 to identify the set of protocol instances (and
 interleavings) responsible for creating the observed
 behavior.  The trace may identify a problem in the protocols
-themselves, \eg an interleaving of some protocol executions
+themselves, \eg~an interleaving of some protocol executions
 may lead to an unexpected message being sent or cause the
 system to crash.  More commonly, one finds a bug in the {\em
   implementation} of the protocol, \ie, a trace inconsistent
@@ -402,8 +403,8 @@ extend the approach to partial observability.
 \noindent 
 {\bf Notations and formalization.}  We assume that the set
 of system flows is provided as a collection ${\vec{F}}$ of
-LPNs.  We define a {\em flow execution scenario} to be the
-set of pairs $(F_{i,j}, s_{i,j})$ where $F_{i,j}$ is the
+LPNs.  We define a {\em flow execution scenario} to be a
+set $\{(F_{i,j}, s_{i,j})\}$ where $F_{i,j}$ is the
 $j$th instance of flow $F_i \in {\vec{F}}$, and $s_{i,j}$ is
 a state of $F_{i,j}$.  A flow execution scenario indicates
 the set of protocols and the number of instances of a
@@ -418,55 +419,97 @@ execution scenarios {\em compliant} with $\rho$.  Let
 $\mathit{accept(F_{i,j}, s_{i,j}, e)}$ be a function that
 determines if event $e$ can be emitted by $F_{i,j}$ in state
 $s_{i,j}$.  Formally, $\mathit{accept(F_{i,j}, s_{i,j}, e)}$
-returns $(F_{i,j}, s'_{i,j})$ if there exists a transition
+returns $(F_{i,j}, s'_{i,j})$ where $s'_{i,j} = (s_{i,j} - \bullet t)
+\cup t\bullet$ if there exists a transition
 $t$ in $F_i$ such that $L(t) = e$ and $\bullet t \subseteq
-s_{i,j}$.  In this case, $s'_{i,j} = (s_{i,j} - \bullet t)
-\cup t\bullet$.  It returns $\emptyset$ if no such $t$
+s_{i,j}$.  It returns $\emptyset$ if no such $t$
 exists in $F_i$.
 
 \medskip
 
 Given an obsered trace $\rho$ and the set $\vec{F}$ of LPNs,
-Algorithm~\ref{algo:compliance} provides the basic steps for
+Algorithm~\ref{algo:compliance} provides a basic procedure for
 computing a set of compliant flow execution scenarios.
 \begin{algorithm}[ht]
 \DontPrintSemicolon
-$\mathit{Scen} \gets \emptyset$\;
+Create an empty scenario $scen$\;
+$\mathit{Scen} = \{scen\}$\;
 \ForEach {$h, \; 1 \leq h \leq n $} {
-$\mathit{found} \gets {\tt true}$ \;
-  \ForEach {$(F_{i,j}, s_{i,j}) \in \mathit{scen}$} {
-    \If {$\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = (F_{i,j}, s'_{i,j})$} {
-      $\mathit{scen} \gets (\mathit{scen} - (F_{i,j}, s_{i,j})) \cup (F_{i,j}, s'_{i,j})$\;
-      $\mathit{scen} \gets \mathit{scen} \cup \mathit{Scen}'$\;
-      $\mathit{found} \gets {\tt false}$ \;
-    }
-  }
-  \ForEach {$F_i \in \vec{F}$} {
-      create a new instance $F_{i, j+1}$ \;
-      \If {$\mathit{accept}(F_{i,j+1},\mathit{init}_{i,j+1}, e_h) = (F_{i,j+1}, s'_{i,j+1})$} {
-    $\mathit{scen} \gets \mathit{scen} \cup (F_{i,j+1}, s'_{i,j+1})$ \;
-        $\mathit{found} \gets {\tt false}$ \;
-      }
-    }
+	$\mathit{found} \gets {\tt true}$ \;
+	$Scen' = \emptyset$\;
+	\ForEach {$scen \in Scen$} {
+  		\ForEach {$(F_{i,j}, s_{i,j}) \in \mathit{scen_1}$} {
+    		\If {$\mathit{accept}(F_{i,j}, s_{i,j}, e_h) = (F_{i,j}, s'_{i,j})$} {
+				Let $scen'$ be a copy of $scen$\;
+      		$\mathit{scen'} \gets (\mathit{scen'} - (F_{i,j}, s_{i,j})) \cup (F_{i,j}, s'_{i,j})$\;
+      		$\mathit{Scen'} \gets \mathit{scen'} \cup \mathit{Scen'}$\;
+      		$\mathit{found} \gets {\tt false}$ \;
+    		}
+  		}
+  		\ForEach {$F_i \in \vec{F}$} {
+      	create a new instance $F_{i, j+1}$ \;
+      	\If {$\mathit{accept}(F_{i,j+1},\mathit{init}_{i,j+1}, e_h) = (F_{i,j+1}, s'_{i,j+1})$} {
+    			Let $scen'$ be a copy of $scen$\;
+				$\mathit{scen'} \gets \mathit{scen'} \cup (F_{i,j+1}, s'_{i,j+1})$ \;
+				$\mathit{Scen'} \gets \mathit{scen'} \cup \mathit{Scen'}$\;
+        		$\mathit{found} \gets {\tt false}$ \;
+      	}
+    	}
+	}
   \If {$\mathit{found} == {\tt true}$} {
     \Return ${\tt Inconsistent}$\;
   }
+  $Scen = Scen'$\;
 }
 \Return $\mathit{scen}$ \;
 \caption{$\textsc{Check-Compliance}(\vec{F}, \, \rho)$}
 \label{algo:compliance}
 \end{algorithm}
 The algorithm operates by keeping track (in variable
-$\mathit{scen}$) of a set of candidate protocol instances
-compliant with each prefix of $\rho$.  At each iteration, we
-update this set by either extending some member of
-$\mathit{scen}$ or initiating a new protocol instance.  If
-neither is possible then we report that the trace is {\tt
-  inconsistent}, \ie, there is no possible interleaving of
+$\mathit{Scen}$) of a set of candidate flow execution scenarios
+compliant with each prefix of $\rho$.  At each iteration,
+for each event $e_h$ in the observed trace, we
+update $Scen$ by either extending a member of
+$\mathit{scen}$ or initiating a new protocol instance for 
+each $scen \in Scen$ with respect to $e_h$ in every possible way.
+If $e_h$ cannot be emitted by any existing or new flow instances, 
+then we report that the trace is {\tt  inconsistent}, \ie, 
+there is no possible interleaving of
 the protocol instances from $\vec{F}$ that is compliant with
 $\rho$.
 
-
+To illustrate the basic idea of the trace analysis method, 
+consider the system flow shown in Figure~Fig.~\ref{flow-spec-ex}(b).
+Let $F_1$ denote such flow.  Suppose that a hardware system 
+implements flow $F_1$, and the following flow trace is abstracted 
+from an observed signal trace as a result of executing such system.
+\[
+	t_1\;t_2\;t_1\;t_2\;t_3\;t_3\;t_4\;t_5\;t_5\;t_4\ldots
+\]  
+where transition names in the LPN are used to represent the 
+flow events in the trace.  The first four events results in
+the following flow execution scenario
+\[
+	\{(F_{1,1}, \{p_3\}),~(F_{1,2}, \{p_3\})\}.
+\]
+For the first event $t_3$, it results in two execution scenarios 
+below depending on which flow instance emits $t_3$.
+\[
+\begin{array}{l}
+	\{(F_{1,1}, \{p_4\}),~(F_{1,2}, \{p_3\})\} \\
+	\{(F_{1,1}, \{p_3\}),~(F_{1,2}, \{p_4\})\}.
+\end{array}
+\]
+After handing the next event $t_3$, the above two execution scenarios
+are reduced to the one as shown below.
+\[
+	\{(F_{1,1}, \{p_4\}),~(F_{1,2}, \{p_4\})\}.
+\]
+By following Algorithm~\ref{algo:compliance} to handle the remaining 
+four events, the following execution scenario can be derived.
+\[
+	\{(F_{1,1}, \{p_5, p_6\}),~(F_{1,2}, \{p_5, p_6\})\}
+\]
 %% Given a trace of flow events $\rho = e_1e_2\ldots e_n$, the
 %% trace interpretation algorithm starts with an empty set of
 %% of flow execution scenario $\mathit{Scen} = \emptyset$.
@@ -638,365 +681,15 @@ Alternatively, if all derived execution scenarios seem to be plausible, the impl
 
 
   
+%%-- Case study I
+%\input{case1}
 
-%=====
-\section{Case Study}
-
-The proof concept of the proposed trace analysis method is demonstrated on a transaction level model of a simple SoC design with two CPU cores, memory, and a peripheral device connected by an interconnect as shown in Fig.~\ref{fig-SoC-ex}.  Since the analysis method presented in this paper is communication centric, the detailed computations of these blocks are not modeled.  Instead, the modeling is focused on how they participate in flows for different system level use cases.
-
-\begin{figure}[tb]
-\begin{center}
-\includegraphics[width=2in]{figures/simple-ex}
-\caption{A simple SoC example.}
-\label{fig-SoC-ex}
-\end{center}
-\end{figure}
-
-
-\subsection{Flow Specification}
-
-In this case study, four system flows are implemented in the simple SoC model. They include cache coherent memory access operations and a memory-mapped peripheral read operation initiated from the CPUs, a message signaled interrupt operation initiated from the peripheral device.  These flow specifications capture how messages are exchanged for different use cases.  In this model, a message is defined with the following format, $(\mbox{Src}, \mbox{Dest}, \mathit{Cmd}, \mathit{Addr})$, where Src and Dest refer to the source and destination components of messages, $\mathit{Cmd}$ refers to the operations that the destination component should perform, and $\mathit{Addr}$ refers to memory addresses where $\mathit{Cmd}$ applies.  $\mathit{Cmd}$ can be memory accesses or not.  If it is not, then the $\mathit{Addr}$ field of messages is ignored.  In this case study, memory mapped IO mechanism is used.  Furthermore, detailed memory addresses are not modeled. Instead, the address space is partitioned to main memory addresses and peripheral addresses.  In messages, the $\mathit{Addr}$ field is replaced with either $M$ representing a memory address or $P$ representing an address to a peripheral device.  
-
-The LPN as shown in Fig.~\ref{fig-cpu-write} specifies a system flow where {CPU2} initiates a memory write operation.   In this flow, CPU2 initiates a memory write request followed by a data valid message to the interconnect.  The data valid messages are used to model availability or validity of data for transfer.  Concurrently, the interconnect inquiries CPU1 if it holds a more updated version of the data by sending a memory write message $\mathit{msg_2}$.   CPU1 generates one of two possible responses.  If CPU1 holds the more updated data in its cache in the same memory space that CPU2 intends to write, a cache hit message $\mathit{msg_4}$ followed by $\mathit{msg_6}$ are sent to the interconnect.  Otherwise, CPU1 sends a cache miss message $\mathit{msg_5}$.  After getting the response from CPU1, Interconnect sends a write request to the memory unit.  This flow is symmetric for CPU1.
-
-\begin{figure}[tb]
-\begin{center}
-\resizebox{2.8in}{!}{
-\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
-\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
-\tikzset{circ/.style={circle, draw,thick}}
-\tikzset{terminal/.style={circle, draw,line width=.8mm}}
-\tikzset{weight3/.style={line width=.3mm}}
-	% Nodes:
-	\node[circ]		(p1) 		at (0,0) {$p_1$};
-	\node[rectbox]	(msg1)	at	($(p1) + (0,-1.1)$) {$msg_1$};
-	\node[circ] 	(p2) 		at ($(msg1) + (-3,0)$) {$p_2$};
-	\node[circ] 	(p3) 		at ($(msg1) + (3,0)$) {$p_3$};
-	\node[rectbox]	(msg2)	at	($(p2) + (0,-1.1)$) {$msg_2$};
-	\node[rectbox]	(msg3)	at	($(p3) + (0,-1.5)$) {$msg_3$};
-	\node[circ] 	(p4) 		at ($(msg2) + (0,-1.1)$) {$p_4$};
-	\node[rectbox]	(msg4)	at	($(p4) + (0,-1.1)$) {$msg_4$};
-	\node[rectbox]	(msg5)	at	($(p4) + (3,0)$) {$msg_5$};
-	\node[circ] 	(p6) 		at ($(msg4) + (0,-1.1)$) {$p_6$};
-	\node[circ] 	(p5) 		at ($(msg3) + (0,-1.4)$) {$p_5$};
-	\node[rectbox,rotate=90]	(msg6)	at	($(p6) + (1.5,0)$) {$msg_6$};
-	\node[circ] 	(p7) 		at ($(msg6) + (1.5,0)$) {$p_7$};
-	\node[rectbox]	(msg7)	at	($(p5) + (0,-1.5)$) {$msg_7$};
-	\node[terminal]	(p8)	at	($(msg7) + (2,0)$) {$p_8$};
-	% Edges
-	\draw[->,weight3]	(p1) -- (msg1);
-	\draw[->,weight3]	(msg1) -- (p2);
-	\draw[->,weight3]	(msg1) -- (p3);
-	\draw[->,weight3]	(p2) -- (msg2);
-	\draw[->,weight3]	(msg2) -- (p4);
-	\draw[->,weight3]	(p4) -- (msg4);
-	\draw[->,weight3]	(p4) -- (msg5);
-	\draw[->,weight3]	(msg4) -- (p6);
-	\draw[->,weight3]	(p6) -- (msg6);
-	\draw[->,weight3]	(msg6) -- (p7);
-	\draw[->,weight3]	(p7) -- (msg7);
-	\draw[->,weight3]	(msg7) -- (p8);
-	\draw[->,weight3]	(msg5) -- (p7);
-	\draw[->,weight3]	(p3) -- (msg3);
-	\draw[->,weight3]	(msg3) -- (p5);
-	\draw[->,weight3]	(p5) -- (msg7);
-	
-	\node[]	(msg-def)	at	($(p1) + (0,-8.5)$) {
-	\begin{minipage}{3in}
-	Definition of the messages:
-\[
-\begin{array}{clllll}
-msg_1: & (\mbox{CPU2},	& \mbox{Icon},		& \mathit{Wr}, 	& M) \\
-msg_2: & (\mbox{Icon},	& \mbox{CPU1}, 	& \mathit{Wr},			& M) \\
-msg_3: & (\mbox{CPU2},	& \mbox{Icon}, 	& \mathit{DVal},	& -) \\
-msg_4: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{Hit},	& -) \\
-msg_5: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{Miss},	& -) \\
-msg_6: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{DVal},	& -) \\
-msg_7: & (\mbox{Icon},	& \mbox{Mem}, 		& \mathit{Wr},			& M) \\
-\end{array}
-\]
-\end{minipage}
-		};
-\end{tikzpicture}
-}
-\caption{Flow specification ($F_1$) of a cache coherent write operation initiated from \texttt{CPU2}.}
-\label{fig-cpu-write}
-\end{center}
-\end{figure}
-
-
-The LPN specification as shown in Fig.~\ref{fig-cpu-read} captures the system flow where CPU2 initiates a memory read operation.  Basically, CPU2 sends a memory read message to Interconnect, which then generates two concurrent threads, one checks if CPU1 has the more updated data in the memory space for the read operation, and the other thread to get data from the memory.  Once Interconnect gets both responses from CPU1 and memory, it synchronizes the responses, and writes the correct data to the CPU2's cache and memory in parallel.  Again, this specification is symmetric for CPU1.
-
-
-\begin{figure}[htbp]
-\begin{center}
-\resizebox{3.2in}{!}{
-\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
-\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
-\tikzset{circ/.style={circle, draw,thick}}
-\tikzset{terminal/.style={circle, draw,line width=.8mm}}
-\tikzset{weight3/.style={line width=.3mm}}
-	% Nodes:
-	\node[circ]		(p1) 		at (0,0) {$p_1$};
-	\node[rectbox]	(msg1)	at	($(p1) + (0,-1.1)$) {$msg_1$};
-	\node[circ] 	(p2) 		at ($(msg1) + (-3,0)$) {$p_2$};
-	\node[circ] 	(p3) 		at ($(msg1) + (2,0)$) {$p_3$};
-	\node[rectbox]	(msg2)	at	($(p2) + (0,-1.1)$) {$msg_2$};
-	\node[rectbox]	(msg3)	at	($(p3) + (2,0)$) {$msg_3$};
-	\node[circ] 	(p4) 		at ($(msg2) + (0,-1.1)$) {$p_4$};
-	\node[rectbox]	(msg4)	at	($(p4) + (0,-1.1)$) {$msg_4$};
-	\node[rectbox]	(msg5)	at	($(p4) + (3,0)$) {$msg_5$};
-	\node[circ] 	(p6) 		at ($(msg4) + (0,-1.1)$) {$p_6$};
-	\node[circ] 	(p5) 		at ($(msg3) + (0,-1.1)$) {$p_5$};
-	\node[rectbox,rotate=90]	(msg6)	at	($(p6) + (1.5,0)$) {$msg_6$};
-	\node[circ] 	(p7) 		at ($(msg6) + (1.5,0)$) {$p_7$};
-	\node[rectbox]	(msg7)	at	($(p5) + (0,-1.1)$) {$msg_7$};
-	\node[circ]	(p8)	at	($(msg7) + (0,-1.1)$) {$p_8$};
-	\node[rectbox]	(msg8)	at	($(p8) + (0,-1.1)$) {$msg_8$};
-	\node[circ]	(p9)	at	($(msg8) + (-1.5,-1.1)$) {$p_9$};
-	\node[circ]	(p10)	at	($(msg8) + (1.5,-1.1)$) {$p_{10}$};
-	\node[rectbox]	(msg9)	at	($(p9) + (0,-1.1)$) {$msg_9$};
-	\node[rectbox]	(msg10)	at	($(p10) + (0,-1.1)$) {$msg_{10}$};
-	\node[terminal]	(p11)	at	($(msg9) + (0,-1.1)$) {$p_{11}$};
-	\node[terminal]	(p12)	at	($(msg10) + (0,-1.1)$) {$p_{12}$};
-
-	% Edges
-	\draw[->,weight3]	(p1) -- (msg1);
-	\draw[->,weight3]	(msg1) -- (p2);
-	\draw[->,weight3]	(msg1) -- (p3);
-	\draw[->,weight3]	(p2) -- (msg2);
-	\draw[->,weight3]	(msg2) -- (p4);
-	\draw[->,weight3]	(p4) -- (msg4);
-	\draw[->,weight3]	(p4) -- (msg5);
-	\draw[->,weight3]	(msg4) -- (p6);
-	\draw[->,weight3]	(p6) -- (msg6);
-	\draw[->,weight3]	(msg6) -- (p7);
-	\draw[->,weight3]	(p7) -- (msg8);
-	\draw[->,weight3]	(msg7) -- (p8);
-	\draw[->,weight3]	(msg5) -- (p7);
-	\draw[->,weight3]	(p3) -- (msg3);
-	\draw[->,weight3]	(msg3) -- (p5);
-	\draw[->,weight3]	(p5) -- (msg7);
-	\draw[->,weight3]	(p8) -- (msg8);
-	\draw[->,weight3]	(msg8) -- (p9);
-	\draw[->,weight3]	(msg8) -- (p10);
-	\draw[->,weight3]	(p9)  -- (msg9);
-	\draw[->,weight3]	(p10)  -- (msg10);
-	\draw[->,weight3]	(msg9) -- (p11);
-	\draw[->,weight3]	(msg10) -- (p12);
-	
-	\node[]	(msg-def)	at	($(p1) + (-2.7,-10)$) {
-	\begin{minipage}{2in}
-	Definition of the messages:
-\[
-\begin{array}{clllll}
-msg_1: & (\mbox{CPU2},	& \mbox{Icon},		& \mathit{Rd}, 		& M) \\
-msg_2: & (\mbox{Icon},	& \mbox{CPU1}, 	& \mathit{Rd},	& M) \\
-msg_3: & (\mbox{Icon},	& \mbox{Mem}, 		& \mathit{Rd},			& M) \\
-msg_4: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{Hit},	& -) \\
-msg_5: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{Miss},& -) \\
-msg_6: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{DVal},	& -) \\
-msg_7: & (\mbox{Mem},		& \mbox{Icon}, & \mathit{DVal},			& -) \\
-msg_8: & (-,		& -, 		& -,				& -) \\
-msg_9: & (\mbox{Icon},	& \mbox{Mem}, 		& \mathit{Wr},			& M) \\
-msg_{10}: & (\mbox{Icon},	& \mbox{CPU2}, 		& \mathit{Wr},			& M) \\
-\end{array}
-\]
-\end{minipage}
-		};
-
-\end{tikzpicture}
-}
-\caption{Flow specification ($F_2$) of a cache coherent read operation from CPU2.}
-\label{fig-cpu-read}
-\end{center}
-\end{figure}
-
-
-The LPN specification as shown in Fig.~\ref{fig-peri-read} captures a system flow for CPU initiated memory mapped peripheral read operations.  When CPU2 tries to read the peripheral device (device hereafter), a read message with address $P$ is sent to Interconnect, which then sends this message to CPU1 and the device simultaneously.  When CPU1 sees this message, it responds with a cache miss message as the address $P$ points to the device.  At the meantime, the device responds with a data valid message indicating the availability of the requested data.  Finally, Interconnect synchronizes the both responses, and sends a data valid message back to CPU2.   This specification is also symmetric for CPU1.
-
-\begin{figure}[tb]
-\begin{center}
-\resizebox{3.2in}{!}{
-\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
-\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
-\tikzset{circ/.style={circle, draw,thick}}
-\tikzset{terminal/.style={circle, draw,line width=.8mm}}
-\tikzset{weight3/.style={line width=.3mm}}
-	% Nodes:
-	\node[circ]		(p1) 		at (0,0) {$p_1$};
-	\node[rectbox]	(msg1)	at	($(p1) + (0,-1.1)$) {$msg_1$};
-	\node[circ] 	(p2) 		at ($(msg1) + (-1.5,0)$) {$p_2$};
-	\node[circ] 	(p3) 		at ($(msg1) + (1.5,0)$) {$p_3$};
-	\node[rectbox]	(msg2)	at	($(p2) + (-1.5,0)$) {$msg_2$};
-	\node[rectbox]	(msg4)	at	($(p3) + (1.5,0)$) {$msg_4$};
-	\node[circ] 	(p4) 		at ($(msg2) + (-1.5,0)$) {$p_4$};
-	\node[rectbox]	(msg3)	at	($(p4) + (0,-1.2)$) {$msg_3$};
-	\node[circ] 	(p6) 		at ($(msg3) + (0,-1.2)$) {$p_6$};
-	\node[circ] 	(p5) 		at ($(msg4) + (1.5,0)$) {$p_5$};
-	\node[rectbox]	(msg5)	at	($(p5) + (0,-1.2)$) {$msg_5$};
-	\node[circ]	(p7)	at	($(msg5) + (0,-1.2)$) {$p_7$};
-	\node[rectbox]	(msg6)	at	($(p6) + (4.5,0)$) {$msg_6$};
-	\node[terminal]	(p8)	at	($(msg6) + (0,-1.2)$) {$p_8$};
-
-	% Edges
-	\draw[->,weight3]	(p1) -- (msg1);
-	\draw[->,weight3]	(msg1) -- (p2);
-	\draw[->,weight3]	(msg1) -- (p3);
-	\draw[->,weight3]	(p2) -- (msg2);
-	\draw[->,weight3]	(msg2) -- (p4);
-	\draw[->,weight3]	(p4) -- (msg3);
-	\draw[->,weight3]	(msg3) -- (p6);
-	\draw[->,weight3]	(p6) -- (msg6);
-	\draw[->,weight3]	(msg6) -- (p8);
-	\draw[->,weight3]	(p3) -- (msg4);
-	\draw[->,weight3]	(msg4) -- (p5);
-	\draw[->,weight3]	(p5) -- (msg5);
-	\draw[->,weight3]	(msg5) -- (p7);
-	\draw[->,weight3]	(p7) -- (msg6);
-	\draw[->,weight3]	(msg6) -- (p8);
-	
-		\node[]	(msg-def)	at	($(p8) + (0,-2.5)$) {
-	\begin{minipage}{3in}
-	Definition of the messages:
-\[
-\begin{array}{clllll}
-msg_1: & (\mbox{CPU2},	& \mbox{Icon},		& Rd, 	& P) \\
-msg_2: & (\mbox{Icon},	& \mbox{CPU1}, 	& Rd,		& P) \\
-msg_3: & (\mbox{CPU1},	& \mbox{Icon}, 	& Miss,			& -) \\
-msg_4: & (\mbox{Icon},	& \mbox{Dev}, 	& Rd,	& P) \\
-msg_5: & (\mbox{Dev},	& \mbox{Icon}, 	& Dval,	& -) \\
-msg_6: & (\mbox{Icon},	& \mbox{CPU2}, 	& Dval,	& -) \\\end{array}
-\]
-\end{minipage}
-		};
-\end{tikzpicture}
-}
-\caption{Flow specification ($F_3$) of a read access to peripheral device from CPU2.}
-\label{fig-peri-read}
-\end{center}
-\end{figure}
-
-
-The last LPN specification as shown in Fig.~\ref{fig-msi} captures how interrupts from the device are handled.  In this case study, all interrupts are directed to CPU1.  When the device triggers an interrupts, it sends a message with $\mathit{Intr}$ in the command field.  Then, Interconnect notifies CPU1 by sending a message with $\mathit{MSI}$ and $I$ in the command and address fields, respectively, where $I$ is the symbol referring to the entry points to interrupt service routines.   CPU1 responds with a cache miss message as the receipt of the interrupt.   
-
-
-\begin{figure}[htbp]
-\begin{center}
-\resizebox{3.5in}{!}{
-\begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
-\tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
-\tikzset{circ/.style={circle, draw,thick}}
-\tikzset{terminal/.style={circle, draw,line width=.8mm}}
-\tikzset{weight3/.style={line width=.3mm}}
-	% Nodes:
-	\node[circ]		(p1) 		at (0,0) {$p_1$};
-	\node[rectbox]	(msg1)	at	($(p1) + (1.5, 0)$) {$msg_1$};
-	\node[circ] 	(p2) 		at ($(msg1) + (1.5, 0)$) {$p_2$};
-	\node[rectbox]	(msg2)	at	($(p2) + (1.5,0)$) {$msg_2$};
-	\node[circ] 	(p3) 		at ($(msg2) + (1.5, 0)$) {$p_3$};
-	\node[rectbox]	(msg3)	at	($(p3) + (1.5, 0)$) {$msg_3$};
-	\node[terminal] 	(p4) 		at ($(msg3) + (1.5,0)$) {$p_4$};
-	
-	% Edges
-	\draw[->,weight3]	(p1) -- (msg1);
-	\draw[->,weight3]	(msg1) -- (p2);
-	\draw[->,weight3]	(p2) -- (msg2);
-	\draw[->,weight3]	(msg2) -- (p3);
-	\draw[->,weight3]	(p3) -- (msg3);
-	\draw[->,weight3]	(msg3) -- (p4);
-	
-	
-\node[]	(msg-def)	at	($(msg2) + (0,-2)$) {
-	\begin{minipage}{3in}
-	Definition of the messages:
-\[
-\begin{array}{clllll}
-msg_1: & (\mbox{Dev},	& \mbox{Icon},		& \mathit{Intr}, 	& -) \\
-msg_2: & (\mbox{Icon},	& \mbox{CPU1}, 	& \mathit{MSI},	& I) \\
-msg_3: & (\mbox{CPU1},	& \mbox{Icon}, 	& \mathit{Miss},	& -) \\
-\end{array}
-\]
-\end{minipage}
-		};
-\end{tikzpicture}
-}
-\caption{Flow specification ($F_4$) of handling interrupts from the peripheral device.}
-\label{fig-msi}
-\end{center}
-\end{figure}
-
-
-%
-%
-\subsection{Results and Discussions}
-%
-%
-The transaction level model of the simple system implementing the four flow specifications shown in the previous section is described in SystemC.  Each component is described as a SystemC module, which may include a number of threads to model concurrency.  The entire model is concurrent and operates in asynchronous mode.  
-
-When testing this model, both CPUs and the peripheral device are set up as flow instance generators.  They randomly generate the first message in a corresponding flow specification to start a flow instance, and react to incoming messages by generating new messages as defined in the flow specification.  In the model, monitors are embedded to observe the messages generated by each component.  When a message is observed, it is written to an output trace file for analysis.   
-
-Even though this example is conceptually simple, getting the model to correctly implement the flow specifications is not straightforward.  On the other hand, results from the trace analysis greatly help the debugging process by providing information to locate problems quickly.  For example, in an early version of the model, the trace shown in Table~\ref{table-trace} is observed.  
-\begin{table*}
-\caption{An observed trace of messages for trace analysis.}
-\label{table-trace}
-\begin{center}
-\begin{tabular}{llll}
-1~~(CPU2, Icon, Rd, M) & 2~~(Icon, CPU1, Rd, M) & 3~~(Icon, Mem, Rd, M) & 4~~(Mem,  Icon, DVal, -) \\
-5~~(CPU1, Icon, Hit, -) & 6~~(CPU1, Icon, DVal, -) & 7~~(Icon, CPU2, Wr, M) & 8~~(Icon, Mem, Wr, M) \\
-9~~(CPU2, Icon, Rd, M) & 10~(Icon, CPU1, Rd, M) & 11~(Icon, Mem, Rd, M) & 12~(CPU2, Icon, Rd, P) \\
-13~(Icon, CPU1, Rd, P) & 14~(CPU1, Icon, Miss, -) & 15~(Icon, Dev, Rd, P) & 16~(CPU1, Icon, DVal, -) \\
-\end{tabular}
-\end{center}
-\end{table*}
-The trace analysis finds out that messages~$1-8$ in the trace are the results of execution of an instance of flow $F_2$ as shown, and the flow execution scenario is $\{(F_{2,1}, \{p_{11}, p_{12}\})\}$.  Messages~$9-11$ are analyzed as the results of executing another instance of flow $F_2$, message~$12-13$ as the results of executing an instance of flow $F_3$ as shown in Fig.~\ref{fig-peri-read}.  The flow execution scenario after the first thirteen messages in the trace is 
-\[
-\{(F_{2,1}, \{p_{11}, p_{12}\}), (F_{2,2}, \{p_4, p_5\}), (F_{3,1}, \{p_4, p_3\})\}.
-\]  
-Message~$14$ can be  the result from executing $F_{2,2}$ or $F_{3,1}$, therefore it leads to two following flow execution scenarios:
-\begin{equation}
-\{(F_{2,1}, \{p_{11}, p_{12}\}), (F_{2,2}, \{p_7, p_5\}), (F_{3,1}, \{p_4, p_3\})\}
-\end{equation}
-\begin{equation}
-\{(F_{2,1}, \{p_{11}, p_{12}\}), (F_{2,2}, \{p_4, p_5\}), (F_{3,1}, \{p_6, p_3\})\}
-\end{equation}
-In either scenario, after mapping message~$15$ to flow $F_{3,1}$, message~$16$ cannot be mapped to any existing flow instance or to a new flow instance.  From this inconsistent message, we know that it is generated by CPU1.  In scenario~(1), CPU1 is in the state after generating the message reporting a cache miss.  In this case, the DataValid message should not generated.  In scenario~(2), CPU1 is in the state before generating the message reporting either a cache hit or miss, and again the DataValid message should not generated.   This inconsistent message helps to locate a bug in the CPU1 model where a DataValid message is generated after either a cache hit or miss message is generated.  After fixing this bug,  in a few more iterations of analysis and debugging, the trace analysis can eventually extract all initiated flow instances in the model, all in their terminal states, thus showing that the model implements the four flows correctly.
-
-
-In the second experiment, partial observability is taken into account during the trace analysis with the assumption that the command $\mathit{Wr}$ and $\mathit{Rd}$ and addresses $M$ and $P$ are indistinguishable due to the lack of observability.  This partial observability is simulated with a modification to the monitors such that in each observed message, command $\mathit{Wr}$ or $\mathit{Rd}$ is replaced with $(\mathit{Wr},\mathit{Rd})$ and address $M$ or $P$ is replaced with $(M,P)$.  The version of the model generating the trace shown in Table~\ref{table-trace} is reused with the modified the monitors, and the generated trace with the simulated partial observability is shown in Table~\ref{table-trace-2}.  Similarly, only the first sixteen messages are shown. 
-\begin{table*}
-\caption{A trace of messages with partial observability for trace analysis.}
-\label{table-trace-2}
-\begin{center}
-\resizebox{7.3in}{!}{
-\begin{tabular}{llll}
-1~~(CPU2, Icon, (Wr, Rd), (M, P)) & 2~~(Icon, CPU1, (Wr, Rd), (M, P)) & 3~~(Icon, Mem, (Wr, Rd), (M, P)) & 4~~(Mem,  Icon, DVal, -) \\
-5~~(CPU1, Icon, (Hit, Miss), -) & 6~~(CPU1, Icon, DVal, -) & 7~~(Icon, CPU2, (Wr, Rd), (M, P)) & 8~~(Icon, Mem, (Wr, Rd), (M, P)) \\
-9~~(CPU2, Icon, (Wr, Rd), (M, P)) & 10~(Icon, CPU1, (Wr, Rd), (M, P)) & 11~(Icon, Mem, (Wr, Rd), (M, P)) & 12~(CPU2, Icon, (Wr, Rd), (M, P)) \\
-13~(Icon, CPU1, (Wr, Rd), (M, P)) & 14~(CPU1, Icon, (Hit, Miss), -) & 15~(Icon, Dev, (Wr, Rd), (M, P)) & 16~(CPU1, Icon, DVal, -) \\
-\end{tabular}
-}
-\end{center}
-\end{table*}
-
-Each message in the trace with partial observability is referred to as an {\em super} message to distinguish it from the messages of full observability.  The traces of super messages are referred to as {\em super} traces.  For example, the first super message in the trace from Table~\ref{table-trace-2}, $\mbox{(CPU2, Icon, (Wr, Rd), (M, P))}$, corresponds to four distinct messages:
-$\mbox{(CPU2, Icon, Wr, M)}$, $\mbox{(CPU2, Icon, Wr, P)}$, $\mbox{(CPU2, Icon, Rd, M)}$, and $\mbox{(CPU2, Icon, Rd, P)}$.  Some of these messages do not exist in the flow specification, and are ignored during the trace analysis.   In the above example, message $\mbox{(CPU2, Icon, Wr, P)}$ is ignored.
-
-%Each super trace represents a set of traces, each of which is interpreted to derive a set of flow execution scenarios.  These flow execution scenarios can show different inconsistent messages.  For example, the particular trace of the super trace shown in Table~\ref{table-trace-2} below
-%\[
-%\mbox{1 (CPU2, Icon, Wr, M), 2~(Icon, CPU1, Rd, M)}, \ldots
-%\]
-%leads to the following flow execution scenario $\{(F_{1,1}, \langle p_2,p_3\rangle)\}$ showing that the second message is inconsistent.  In addition, this super trace also represents a trace as shown in Table~\ref{table-trace} that leads to a real bug in the model as discussed above.  It is also possible in some situation that a super trace may represent a trace with no inconsistent messages.  Therefore, the trace analysis on a super trace can result in a number of flow execution scenarios revealing different problems or no problem.  This ambiguity is caused by the partial observability.  
-
-Each super trace represents a set of traces, each of which is interpreted to derive a set of flow execution scenarios.
-Due to the partial observability, the number of traces represented by a super trace can become very large. For example, the super trace shown in Table~\ref{table-trace-2} represents about twelve thousand possible traces for that short sequence of messages.  The trace analysis algorithm returns the set of flow execution scenarios for each trace for examination, and a very large number of possible flow execution scenarios can be generated.  The large number of possible flow execution scenarios not only produces too much information that can overwhelm system validators, but also degrades the performance of the trace analysis algorithm by consuming too much memory.  As indicated above,  the validators' insights on the SUD can be utilized to trim the possibilities.  For example, if the validator knows that no flow $F_1$ in Fig.~\ref{fig-cpu-write} is activated in the testing environment, this insight helps to eliminate all flow execution scenarios that include instances of $F_1$ by interpreting message~$\#1$ as either $\mbox{(CPU2, Icon, Rd, M)}$ or $\mbox{(CPU2, Icon, Rd, P)}$.  Consider another insight such that a new instance of flow $F_2$ as in Fig.~\ref{fig-cpu-read} can be initiated only after the completion of the previous instance of $F_2$.  If an instant of $F_2$ is assumed to be initiated by the super message $\#9~\mbox{(CPU2, Icon, (Wr, Rd), (M, P))}$ by interpreting it to $\mbox{(CPU2, Icon, Rd, M)}$ during the trace analysis, the super message~$\#12$ can only be interpreted to $\mbox{(CPU2, Icon, Wr, M)}$ or $\mbox{(CPU2, Icon, Rd, P)}$ as the instance of $F_2$ initiated by the super message $\#9$ has not been completed yet at this point.   According to the above discussion, the validators' insights help restrict how super messages are interpreted, thus reducing the number of flow execution scenarios that can be generated.
-At the end of the analysis, all possible flow execution scenarios are returned to system validators for examination. 
 
 
 %
 %--
 %
-\section{Case Study II}
+\section{Case Study}
 
 \begin{figure} 
 \centerline{
@@ -1014,7 +707,8 @@ In this model, components communicate with each other by sending and receiving v
 
 %\subsection{Flow Specification}
 
-For this model, we consider the flow specifications describing the cache coherence protocols supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  These flow specifications describe data/instruction read operations and data write operations initiated from CPUs.  Three such flows describe the cache coherent protocols for each CPU.  As there are two CPUs in this model, there are actually six such flows considered for this model.  More detailed information about these protocols and the flow specifications can be found online\footnote{\url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}} to meet the page limit.
+For this model, we consider the flow specifications describing the cache coherence protocols supported in GEM5 that is used to build the model in Fig~\ref{SoC}.  These flow specifications describe data/instruction read operations and data write operations initiated from CPUs.  Three such flows describe the cache coherent protocols for each CPU.  As there are two CPUs in this model, there are actually six such flows considered for this model.  These flow specifications are derived from the cache coherence protocols supported in GEM5\footnote{The GEM5 cache coherence protocols can be found at \url{http://www.gem5.org/docs/html/gem5MemorySystem.html}.}.  More detailed information about the flow specifications used in this case study will be provided as a supplement document if this paper is accepted for publication.   
+%More detailed information about these protocols and the flow specifications can be found online\footnote{\url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}} to meet the page limit.
 
 
 %In the following section, a brief overview for the implemented instances of these flows are given. These flow specifications capture how messages are exchanged for different use cases. In this model, a message is defined with the following format, (Src,Dest,Cmd), where Src and Dest refer to the source and destination components of messages, Cmd refers to the operations that the destination component should perform. 
@@ -1152,11 +846,11 @@ CPU2 Write				&  $83$\\
 \label{table-par-obs}
 \end{table}%
 
-In the third experiment, further partial observability is taken into consideration.  In this experiment, only the five links involving the memory bus are still considered.  However, an assumption is made that all messages passing the same link are not distinguishable due to the limitation of the observability.  More specifically, the monitors are modified such that whenever a message is captured on one of the links, it dumps a set of messages passing through the same link into the trace file.  Therefore, each line of the trace file corresponds to a set of messages.  After applying the trace analysis to this trace,  a total of 13944 flow execution scenarios are extracted.    This large number, compared to the number of extracted execution scenarios shown in the Table~\ref{table-case-2} and \ref{table-par-obs}, is due to the ambiguous interpretation of the messages with limited observability.  
+In the third experiment, further partial observability is taken into consideration.  In this experiment, only the five links involving the memory bus are still considered.  However, an assumption is made that all events passing the same link are not distinguishable due to the limitation of the observability.  More specifically, the monitors are modified such that whenever an event is captured on one of the links, it dumps a set of events passing through the same link into the trace file.  Therefore, each line of the trace file corresponds to a set of events.  After applying the trace analysis to this trace,  a total of 13944 flow execution scenarios are extracted.    This large number, compared to the number of extracted execution scenarios shown in the Table~\ref{table-case-2} and \ref{table-par-obs}, is due to the ambiguous interpretation of the events with limited observability.  
 
-The whole experiment takes about $15$ minutes and $420$~MB to finish, significantly higher than the numbers for analyzing traces where there is no ambiguity in the observed messages.  This is due to the fact that a trace of ambiguous events is in fact a set of traces of original messages, which lead to large numbers of execution scenarios either during or at the end of the analysis.  In this experiment, the peak number of executions during the analysis process is $70384$.   Compared to the final number, many of the intermediate scenarios are invalid, and removed eventually.  However, controlling the number of intermediate scenarios during the trace analysis is critical in order for the analysis to be tractable.  Here, insights from validators can help.    
+The whole experiment takes about $15$ minutes and $420$~MB to finish, significantly higher than the numbers for analyzing traces where there is no ambiguity in the observed events.  This is due to the fact that a trace of ambiguous events is in fact a set of traces of original events, which lead to large numbers of execution scenarios either during or at the end of the analysis.  In this experiment, the peak number of execution scenarios during the analysis process is $70384$.   Compared to the final number, many of the intermediate execution scenarios are invalid, and removed eventually.  However, controlling the number of intermediate execution scenarios during the trace analysis is critical in order for the analysis to be tractable.  Here, insights from validators can help.    
 
-
+As shown above, the ambiguous interpretation of events can lead to large numbers of intermediate and final execution scenarios, which not only make the trace analysis more time consuming but also make it difficult to gain insightful understanding from the derived execution scenarios.  Careful selection of what to observe may have big impact on results from the trace analysis.  In this last experiment, we relax the assumption made in the previous experiment such that the events passing each link are partitioned into two groups, one for read operations and one for write operations.  Similar to the assumption made in the previous experiment, events in the same group are assumed to be non-distinguishable.  The monitors are modified accordingly such that they output all events in the same group into the trace file if an event from that group is captured.  After the trace analysis on this new partially observed trace is finished, only one execution scenario is derived where the distribution of the numbers of flow instances is the same as those shown in Table~\ref{table-par-obs}.  The peak number of execution scenarios encountered during the trace analysis is $4$.  The total runtime is about $1$~second.  Compared to the results from the previous experiment, the precision and the performance of the trace analysis are improved dramatically as a result of careful selection of observable signals. 
 
 %=====
 \section{Related Work}

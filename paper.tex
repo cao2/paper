@@ -34,12 +34,12 @@ We consider the problem of reconstructing system-level
 behavior of an SoC design from a partially observed signal
 trace.  Solving this problem is a critical activity in
 post-silicon validation, and currently depends primarily on
-human creativity and insight.  We provide algorithms to
+human creativity and insights.  In this paper, we provide an algorithm to
 automatically infer system-level transactions from
-incomplete, ambiguous, and noisy trace data, together with a
-measure of confidence.  We demonstrate the approach on
-illustrative system-level protocols for SoC models developed
-in SystemC as well as in an FPGA environment.
+incomplete, ambiguous, and noisy trace data.
+% together with a measure of confidence.  
+We demonstrate the approach on a multicore virtual platoform
+developed within the GEM5 environment.
 \end{abstract}
 
 \section{Introduction}
@@ -101,10 +101,8 @@ over system events.  We develop algorithms to infer
 system-level transactions from traces with missing, noisy,
 and ambiguous signal values.
 % together with an estimate of confidence on the inference.  
-We demonstrate our approach on
-two SoC case studies: a pedagogical SystemC prototype and a
-more realistic implementation constructed within the GEM5
-environment~\cite{Binkert2011}.
+We demonstrate our approach on a multicore virtual platform
+constructed within the GEM5 environment~\cite{Binkert2011}.
 
 
 \begin{figure*}[tb]
@@ -691,6 +689,9 @@ Alternatively, if all derived execution scenarios seem to be plausible, the impl
 %
 \section{Case Study}
 
+The proposed method is demonstrated on a transaction level model of a simple SoC design with CPU core, memory, and a peripheral device connected by a highly concurrent interconnect in SystemC.  Since the proposed method is communication centric, the detailed computations of these blocks are not modeled.  Instead, the modeling is focused on how they participate in system level protocols.  This simple case study shows that the proposed method is capable of providing useful information to help reveal and locate various bugs in the SystemC model, thus making the debugging more efficient.  Once a bug-free model is available, the trace analysis method can correctly derive the instances of system flows activated by various components in the design from the observed traces.  More details about the design model and system flows implemented by the design model will be provided in a supplement document stored online. 
+
+
 \begin{figure} 
 \centerline{
 \includegraphics[width=3.3in]{figures/Fig4.png}}
@@ -698,7 +699,7 @@ Alternatively, if all derived execution scenarios seem to be plausible, the impl
 \label{SoC}
 \end{figure}
 
-In order to find out the efficiency of the trace analysis method for more realistic examples, in this case study, a more detailed transaction level model of a SoC is constructed within the GEM5 environment~\cite{Binkert2011}.  This SoC model consists of two ARM Cortex-A9 cores, each of which contains two separate 16KB data and instruction caches.  The caches are connected to a 1GB memory through a memory bus model.  The architecture of this SoC model is shown in Fig.~\ref{SoC}.  
+In order to find out the efficiency of the trace analysis method for more realistic examples, in the case study described in this section, a more detailed transaction level model of a SoC is constructed within the GEM5 environment~\cite{Binkert2011}.  This SoC model consists of two ARM Cortex-A9 cores, each of which contains two separate 16KB data and instruction caches.  The caches are connected to a 1GB memory through a memory bus model.  The architecture of this SoC model is shown in Fig.~\ref{SoC}.  
 
 In this model, components communicate with each other by sending and receiving various request and response messages.  In order to observe and trace communications occurring inside this model during execution, monitors are attached to links connecting the components. These monitors record the messages flowing through the links they are attached to, and store them into output trace files.
 

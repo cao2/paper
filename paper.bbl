@@ -32,9 +32,16 @@ S.~Krstic, J.~Yang, D.~Palmer, R.~Osborne, and E.~Talmor, ``Security of soc
   firmware load protocols,'' in \emph{Hardware-Oriented Security and Trust
   (HOST), 2014 IEEE International Symposium on}, May 2014, pp. 70--75.
 
-\bibitem{Murata89}
-T.~Murata, ``Petri nets: Properties, analysis and applications,''
-  \emph{Proceedings of the IEEE}, vol.~77, no.~4, pp. 541--580, Apr 1989.
+\bibitem{nicolici}
+H.~F. Ko and N.~Nicolici, ``Algorithms for state restoration and trace-signal
+  selection for data acquisition in silicon debug,'' \emph{Computer-Aided
+  Design of Integrated Circuits and Systems, IEEE Transactions on}, vol.~28,
+  no.~2, pp. 285 --297, feb. 2009.
+
+\bibitem{basu}
+K.~Basu and P.~Mishra, ``Efficient trace signal selection for post silicon
+  validation and debug,'' in \emph{VLSI Design (VLSI Design), 2011 24th
+  International Conference on}, jan. 2011, pp. 352 --357.
 
 \bibitem{Goossens2007NOCS}
 K.~Goossens, B.~Vermeulen, R.~v. Steeden, and M.~Bennebroek,

@@ -21,9 +21,9 @@
 \title{\Large {\bf Protocol-Guided Analysis of Post-silicon
   Traces Under Limited Observability}}
 
-%% \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
-%% $^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
-%% $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
+ \author{\large Hao Zheng$^1$, Yuting Cao$^1$, Sandip Ray$^2$, Jin Yang$^2$ \\
+ $^1$Dept. of Computer Science and Eng., University of South Florida, Tampa, Fl 33620. USA. \\
+ $^2$Strategic CAD Labs, Intel Corporation, Hillsboro, OR 97124.  USA.}
 
 \begin{document}
 
@@ -58,7 +58,7 @@ component of the design validation life-cycle for modern
 microprocessors and SoC designs.  Unfortunately, it is also
 a highly complex component, performed under aggressive
 schedules and accounting for more than $50\%$ of the overall
-design validation cost.  Consequently, it is crucial to
+design validation cost~\cite{Patra2007}.  Consequently, it is crucial to
 develop techniques for streamlining and automating
 post-silicon validation activities.
 
@@ -111,7 +111,7 @@ environment~\cite{Binkert2011}.
 \end{minipage}
 &
 \begin{minipage}{3in}
-\resizebox{2.8in}{!}{
+\resizebox{2.4in}{!}{
 \begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
 \tikzset{rectbox/.style={rectangle, draw, align=flush center,thick, minimum size = 6mm}}
 \tikzset{circ/.style={circle, draw,thick}}
@@ -190,7 +190,7 @@ such architectural constructs as {\em protocol events} or
 {\em flow events}.  Note that due to limited observability,
 it may not be possible to map a given set of (observed)
 hardware signals uniquely to a flow event.  Finally, the
-trace may a result from several instances of the same
+trace may be a result from several instances of the same
 protocol executing concurrently, \eg, a firmware
 authentication protocol may be invoked when another instance
 of the protocol has not completed.
@@ -398,18 +398,18 @@ extend the approach to partial observability.
 \medskip
 
 \noindent 
-{\bf Notations and formalization.}  We assume that the set
-of system flows is provided as a collection ${\vec{F}}$ of
-LPNs.  We define a {\em flow execution scenario} to be a
+{\bf Notations and formalization.}  The set
+of system flows is a collection ${\vec{F}}$ of
+LPNs.  A {\em flow execution scenario} is defined as a
 set $\{(F_{i,j}, s_{i,j})\}$ where $F_{i,j}$ is the
 $j$th instance of flow $F_i \in {\vec{F}}$, and $s_{i,j}$ is
 a state of $F_{i,j}$.  A flow execution scenario indicates
 the set of protocols and the number of instances of a
 particular protocol are activated and their corresponding
 current states.  Since we assume full observability, we view
-an {\em observed trace} $\rho = e_1e_2\ldots e_n$ is a
+an {\em observed trace} $\rho = e_1e_2\ldots e_n$ as a
 sequence of events.  Given an observed trace $\rho$, the
-goal of of trace interpretation is to construct a set of
+goal of trace interpretation is to construct a set of
 candidate flow execution scenarios whose execution can
 create the sequence of events in $\rho$.  We call such
 execution scenarios {\em compliant} with $\rho$.  Let
@@ -419,14 +419,26 @@ $s_{i,j}$.  Formally, $\mathit{accept(F_{i,j}, s_{i,j}, e)}$
 returns $(F_{i,j}, s'_{i,j})$ where $s'_{i,j} = (s_{i,j} - \bullet t)
 \cup t\bullet$ if there exists a transition
 $t$ in $F_i$ such that $L(t) = e$ and $\bullet t \subseteq
-s_{i,j}$.  It returns $\emptyset$ if no such $t$
-exists in $F_i$.
+s_{i,j}$.  It returns $\emptyset$ otherwise.
 
-\medskip
+%\medskip
 
-Given an obsered trace $\rho$ and the set $\vec{F}$ of LPNs,
+Given an observed trace $\rho$ and the set $\vec{F}$ of LPNs,
 Algorithm~\ref{algo:compliance} provides a basic procedure for
-computing a set of compliant flow execution scenarios.
+computing a set of compliant flow execution scenarios. 
+The algorithm operates by keeping track (in variable
+$\mathit{Scen}$) of a set of candidate flow execution scenarios
+compliant with each prefix of $\rho$.  At each iteration,
+for each event $e_h$ in the observed trace, we
+update $Scen$ by either extending a member of
+$\mathit{scen}$ or initiating a new protocol instance for 
+each $scen \in Scen$ with respect to $e_h$ in every possible way.
+If $e_h$ cannot be emitted by any existing or new flow instances, 
+then we report that the trace is {\tt  inconsistent}, \ie, 
+there is no possible interleaving of
+the protocol instances from $\vec{F}$ that is compliant with
+$\rho$.
+
 \begin{algorithm}[ht]
 \DontPrintSemicolon
 Create an empty scenario $scen$\;
@@ -462,23 +474,11 @@ $\mathit{Scen} = \{scen\}$\;
 \caption{$\textsc{Check-Compliance}(\vec{F}, \, \rho)$}
 \label{algo:compliance}
 \end{algorithm}
-The algorithm operates by keeping track (in variable
-$\mathit{Scen}$) of a set of candidate flow execution scenarios
-compliant with each prefix of $\rho$.  At each iteration,
-for each event $e_h$ in the observed trace, we
-update $Scen$ by either extending a member of
-$\mathit{scen}$ or initiating a new protocol instance for 
-each $scen \in Scen$ with respect to $e_h$ in every possible way.
-If $e_h$ cannot be emitted by any existing or new flow instances, 
-then we report that the trace is {\tt  inconsistent}, \ie, 
-there is no possible interleaving of
-the protocol instances from $\vec{F}$ that is compliant with
-$\rho$.
 
 To illustrate the basic idea, consider the system flow in
 Fig.~\ref{flow-spec-ex}(b), which we will call $F_1$.
 Suppose that the following flow trace is abstracted from an
-observed signal trace of the system.
+observed signal trace.
 \[
 	t_1\;t_2\;t_1\;t_2\;t_3\;t_3\;t_4\;t_5\;t_5\;t_4\ldots
 \]  
@@ -625,7 +625,7 @@ derived.
 %% with signal traces of partial observability.
 
 In general, a signal trace of partial observability
-corresponding a set of traces of flow events due to the
+corresponds a set of traces of flow events due to the
 ambiguous interpretation of signal events.  In the
 following, we discuss two cases for trace abstraction on
 partial observability: mapping a single signal event to a
@@ -680,7 +680,7 @@ e_4e_4,\; \textvisiblespace e_4 \textvisiblespace,\;  e_4 \textvisiblespace \tex
 where $\textvisiblespace$ denotes signal events that are not
 mapped to any flow events.  Note that the above abstraction
 leads to three distinct flow traces as the middle three
-correspond to the same trace of flow events.
+correspond to the same flow trace.
 
 It is clear from above that a partial trace is viewed as a
 set of flow traces, and Algorithm~\ref{algo:compliance} can
@@ -701,7 +701,7 @@ is an important and orthogonal topic~\cite{nicolici,basu},
 and a detailed discussion of it is out of scope of this
 paper.  However, we briefly describe how the debuggers'
 insights of a system's architecture can help to address the
-complexity issue in the trace trace interpretation.
+complexity issue in the trace interpretation.
 
 
 \subsection{Interactive Trace Interpretation}
@@ -718,10 +718,12 @@ audio and Web browsing to initiate until the flows
 participating in boot are completed.  Our framework permits
 incorporating such insights as constraints in trace
 analysis; flow execution scenarios that violate these
-constraints are ignored.  Apart from the explosion problem,
-this permits the debugger to quickly filter out
-uninteresting combination of flows and focus on interesting
-interleavings.
+constraints are ignored.  \textcolor{red}{These insights can lead to two advantages.
+First, they help to reduce the potentially large number of partial
+scenarios generated during the trace interpretation step, thus making 
+the analysis more efficient.  Second, they permit the debugger
+to quickly filter out uninteresting combinations of flows and focus on interesting
+interleavings.}
 
 This approach can be flexible in that it allows a debugger
 to analyze the observed traces in a trail-and-error manner
@@ -779,7 +781,7 @@ results deemed meaningful are produced.
 
 \begin{figure} 
 \centerline{
-\includegraphics[width=3.3in]{figures/Fig4.png}}
+\includegraphics[width=3in]{figures/Fig4.png}}
 \caption{SoC platform structure.}
 \label{SoC}
 \end{figure}
@@ -788,11 +790,11 @@ In order to find out the efficiency of the trace analysis
 method for more realistic examples, in the case study
 described in this section, a more detailed transaction level
 model of a SoC is constructed within the GEM5
-environment~\cite{Binkert2011}.  This SoC model consists of
+environment~\cite{Binkert2011}.  This SoC model, as shown in Fig.~\ref{SoC},
+consists of
 two ARM Cortex-A9 cores, each of which contains two separate
 16KB data and instruction caches.  The caches are connected
-to a 1GB memory through a memory bus model.  The
-architecture of this SoC model is shown in Fig.~\ref{SoC}.
+to a 1GB memory through a memory bus model. 
 
 In this model, components communicate with each other by
 sending and receiving various request and response messages.
@@ -808,17 +810,15 @@ store them into output trace files.
 %\subsection{Flow Specification}
 
 For this model, we consider the flow specifications
-describing the cache coherence protocols supported in GEM5
+describing the cache coherence protocols supported in GEM5\footnote{The GEM5 cache
+  coherence protocols can be found at
+  \url{http://www.gem5.org/docs/html/gem5MemorySystem.html}.}
 that is used to build the model in Fig~\ref{SoC}.  These
 flow specifications describe data/instruction read
 operations and data write operations initiated from CPUs.
 Three such flows describe the cache coherent protocols for
 each CPU.  As there are two CPUs in this model, there are
-actually six such flows considered for this model.  These
-flow specifications are derived from the cache coherence
-protocols supported in GEM5.\footnote{The GEM5 cache
-  coherence protocols can be found at
-  \url{http://www.gem5.org/docs/html/gem5MemorySystem.html}.}
+actually six such flows considered for this model. 
 
 %% More detailed information about the flow specifications used in this case study will be provided as a supplement document if this paper is accepted for publication.   
 %More detailed information about these protocols and the flow specifications can be found online\footnote{\url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}} to meet the page limit.
@@ -908,12 +908,12 @@ protocols supported in GEM5.\footnote{The GEM5 cache
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Results and Discussions}
 
-We wrote two simple concurrent programs --- one for each CPU
---- to exercise the flows.  They read numbers from a file,
+We wrote two simple concurrent programs, one for each CPU,
+ to exercise the flows.  They read numbers from a file,
 perform some operations on these numbers, and store the
 results back to the file.  How GEM5 supports shared memory
 multi-threaded program execution is unclear.  Therefore,
-there is no data shared in both caches in this test.
+no data are shared in both caches in this test.
 Furthermore, GEM5 does not support true concurrency.  When
 there are two programs running on the CPUs, GEM5 alternates
 the executions between the two CPUs.  To simulate
@@ -962,11 +962,12 @@ reduced to $121138$.
 
 The time taken to remove the irrelevant messages from the
 trace is negligible.  The total runtime and the peak memory
-usage for the trace analysis algorithm to finish the reduced
-trace are 3 seconds and 12MB, respectively.  From the trace,
-Table~\ref{table-case-2} shows the number of instances
-extracted for the six flows describing cache coherent
-read/write operations initiated from both CPUs.
+taken by the trace analysis algorithm on the reduced
+trace are 3 seconds and 12MB, respectively.  Only one flow execution
+scenario is extracted, and 
+Table~\ref{table-case-2} shows the number of flow instances contained in that
+scenario for the six 
+flows describing cache coherent operations initiated from both CPUs.
 \begin{table}[tb]
 \caption{The number of flow instances derived by the trace analysis with the full observability.}
 \begin{center}
@@ -992,9 +993,10 @@ In the second experiment, partial observability is taken into account
 with the four monitors attached to the links between two CPUs and their
 caches are disabled. Then, the trace is generated by the
 remaining five monitors from the SoC model executing the
-same program. After removing all non-observable messages,
-the trace only contains 15089 messages. The numbers of the
-flow instances extracted by the trace analysis method are
+same program.  The new trace contains 15089 messages.  
+Similarly, only one flow execution
+scenario is extracted, and the numbers of the
+flow instances contained in that execution scenario are
 shown in Table~\ref{table-par-obs}.  From these results, the
 numbers of the flow instances are dropped significantly
 compared to the results extracted from the trace with the
@@ -1034,10 +1036,10 @@ CPU2 Write				&  $83$\\
 \label{table-par-obs}
 \end{table}%
 
-In the third experiment, further partial observability is taken into consideration.  In this experiment, only the five links involving the memory bus are still considered.  However, an assumption is made that all events passing the same link are not distinguishable due to the limitation of the observability.  More specifically, the monitors are modified such that whenever an event is captured on one of the links, it dumps a set of events passing through the same link into the trace file.  Therefore, each line of the trace file corresponds to a set of events.  After applying the trace analysis to this trace,  a total of 13944 flow execution scenarios are extracted.    This large number, compared to the number of extracted execution scenarios shown in the Table~\ref{table-case-2} and \ref{table-par-obs}, is due to the ambiguous interpretation of the events with limited observability.  
+In the third experiment, further partial observability is taken into consideration.  In this experiment, only the five links involving the memory bus are still considered.  However, an assumption is made that all events passing the same link are not distinguishable due to the limited observability.  The monitors are modified such that whenever an event is captured on one of the links, it dumps a set of events passing through the same link into the trace file.  Therefore, each line of the trace file corresponds to a set of events.  After applying the trace analysis to this trace,  a total of 13944 flow execution scenarios are extracted.    This large number, compared to the results from the first two experiments, is due to the ambiguous interpretation of the events with limited observability.  
 
 The whole experiment takes about $15$ minutes and $420$~MB to finish as shown in column~4
-in Table~\ref{table-results}, significantly higher than the numbers for analyzing traces where there is no ambiguity in the observed events.  This is due to the fact that a trace of ambiguous events is in fact a set of traces of original events, which lead to large numbers of execution scenarios either during or at the end of the analysis.  In this experiment, the peak number of execution scenarios during the analysis process is $70384$.   Compared to the final number, many of the intermediate execution scenarios are invalid, and removed eventually.  However, controlling the number of intermediate execution scenarios during the trace analysis is critical in order for the analysis to be tractable.  Here, insights from validators can help.    
+in Table~\ref{table-results}, significantly higher than the numbers for analyzing traces where there is no ambiguity in the observed events.  This is due to the fact that a trace of ambiguous events is in fact a set of traces of original events, which lead to large numbers of execution scenarios either during or at the end of the analysis.  In this experiment, the peak number of execution scenarios during the analysis process is $70384$, many of which are invalid and removed eventually.  However, controlling the number of intermediate execution scenarios during the trace analysis is critical in order for the analysis to be tractable.  Here, insights from validators could help, but are not used in this experiment.   
 
 As shown above, the ambiguous interpretation of events can lead to large numbers of intermediate and final execution scenarios, which not only make the trace analysis more time consuming but also make it difficult to gain insightful understanding from the derived execution scenarios.  Careful selection of what to observe may have big impact on results from the trace analysis.  In this last experiment, we relax the assumption made in the previous experiment such that the events passing each link are partitioned into two groups, one for read operations and one for write operations.  Similar to the assumption made in the previous experiment, events in the same group are assumed to be non-distinguishable.  The monitors are modified accordingly such that they output all events in the same group into the trace file if an event from that group is captured.  After the trace analysis on this new partially observed trace is finished, only one execution scenario is derived where the distribution of the numbers of flow instances is the same as those shown in Table~\ref{table-par-obs}.  The peak number of execution scenarios encountered during the trace analysis is $4$.  The total runtime and memory usage are negligible as shown in the last column in Table~\ref{table-results}.  Compared to the results from the previous experiment, the precision and the performance of the trace analysis are improved dramatically as a result of careful selection of observable events. 
 
@@ -1055,7 +1057,7 @@ In~\cite{Singerman2011DAC}, a coherent workflow is described where the result fr
 %--
 \section{Conclusion}
 
-This paper presents a trace analysis based method for post-silicon validation by interpreting observed raw signal traces at the level of system flow specifications.  The derived flow execution scenarios provide more structured information on system operations, which is more understandable to system validators.   This information can help to locate design defects more easily, and also provides a measurement of validation coverage.  
+This paper presents a method for post-silicon validation by interpreting observed raw signal traces at the level of system flow specifications.  The derived flow execution scenarios provide more structured information on system operations, which is more understandable to system validators.   This information can help to locate design defects more easily, and also provides a measurement of validation coverage.  
 
 Due to partial observability, this approach may derive a large number of different flow execution scenarios for a given signal trace.  Insights from system validators can help to eliminate some false scenarios due to the partial observability.  An interesting future direction is formalization of the validators' insights using temporal logic on flows so that the validators can express their intents more precisely and concisely. 
 

@@ -21,6 +21,10 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Patra2007}
+P.~Patra, ``On the cusp of a validation wall,'' \emph{IEEE Des. Test}, vol.~24,
+  no.~2, pp. 193--196, Mar. 2007.
+
 \bibitem{Binkert2011}
 N.~Binkert, B.~Beckmann, G.~Black, S.~K. Reinhardt, A.~Saidi, A.~Basu,
   J.~Hestness, D.~R. Hower, T.~Krishna, S.~Sardashti, R.~Sen, K.~Sewell,

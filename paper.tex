@@ -58,9 +58,9 @@ component of the design validation life-cycle for modern
 microprocessors and SoC designs.  Unfortunately, it is also
 a highly complex component, performed under aggressive
 schedules and accounting for more than $50\%$ of the overall
-design validation cost~\cite{Patra2007}.  Consequently, it is crucial to
-develop techniques for streamlining and automating
-post-silicon validation activities.
+design validation cost~\cite{Patra2007}.  Consequently, it
+is crucial to develop techniques for streamlining and
+automating post-silicon validation activities.
 
 A key component of post-silicon validation of SoC designs is
 to correlate traces from silicon execution with the intended
@@ -718,15 +718,16 @@ audio and Web browsing to initiate until the flows
 participating in boot are completed.  Our framework permits
 incorporating such insights as constraints in trace
 analysis; flow execution scenarios that violate these
-constraints are ignored.  \textcolor{red}{These insights can lead to two advantages.
-First, they help to reduce the potentially large number of partial
-scenarios generated during the trace interpretation step, thus making 
-the analysis more efficient.  Second, they permit the debugger
-to quickly filter out uninteresting combinations of flows and focus on interesting
-interleavings.}
+constraints are ignored.  These insights can lead to two
+advantages.  First, they help to reduce the potentially
+large number of partial scenarios generated during the trace
+interpretation step, thus making the analysis more
+efficient.  Second, they permit the debugger to quickly
+filter out uninteresting combinations of flows and focus on
+interesting interleavings.
 
 This approach can be flexible in that it allows a debugger
-to analyze the observed traces in a trail-and-error manner
+to analyze the observed traces in a trial-and-error manner
 if the precise knowledge of the system (micro-)architecture
 is hard to come by.  For instance, the debugger might
 initially make a very restricted assumption on how the SUD
@@ -786,23 +787,20 @@ results deemed meaningful are produced.
 \label{SoC}
 \end{figure}
 
-In order to find out the efficiency of the trace analysis
-method for more realistic examples, in the case study
-described in this section, a more detailed transaction level
-model of a SoC is constructed within the GEM5
-environment~\cite{Binkert2011}.  This SoC model, as shown in Fig.~\ref{SoC},
-consists of
-two ARM Cortex-A9 cores, each of which contains two separate
+To determine the efficiency of the trace analysis method for
+a realistic example, a transaction level model of a SoC is
+constructed within the GEM5 environment~\cite{Binkert2011}.
+This SoC model, as shown in Fig.~\ref{SoC}, consists of two
+ARM Cortex-A9 cores, each of which contains two separate
 16KB data and instruction caches.  The caches are connected
-to a 1GB memory through a memory bus model. 
-
-In this model, components communicate with each other by
-sending and receiving various request and response messages.
-In order to observe and trace communications occurring
-inside this model during execution, monitors are attached to
-links connecting the components. These monitors record the
-messages flowing through the links they are attached to, and
-store them into output trace files.
+to a 1GB memory through a memory bus model.  Components
+communicate with each other by sending and receiving various
+request and response messages.  In order to observe and
+trace communications occurring inside this model during
+execution, monitors are attached to links connecting the
+components.  These monitors record the messages flowing
+through the links they are attached to, and store them into
+output trace files.
 
 %By combining the informations from all of the nine communication monitors, required communication traces are obtained. As a virtualized SoC platform, GEM5 has three types of request: timing, atomic and functional. Timing request include the modeling of queuing delay and resource contention. Atomic request is a faster than timing request with no delay.  Functional request is used for loading binaries, examining/changing variables in the simulated system, and so on. In our case, we specify all our request to be timed as it's the most detailed one.However, some of the system initiation is still atomic and it's not related to our research, so we only took the messages that are timing request from our collected data. 
 
@@ -810,15 +808,16 @@ store them into output trace files.
 %\subsection{Flow Specification}
 
 For this model, we consider the flow specifications
-describing the cache coherence protocols supported in GEM5\footnote{The GEM5 cache
-  coherence protocols can be found at
+describing the cache coherence protocols supported in
+GEM5\footnote{The GEM5 cache coherence protocols can be
+  found at
   \url{http://www.gem5.org/docs/html/gem5MemorySystem.html}.}
 that is used to build the model in Fig~\ref{SoC}.  These
 flow specifications describe data/instruction read
 operations and data write operations initiated from CPUs.
 Three such flows describe the cache coherent protocols for
-each CPU.  As there are two CPUs in this model, there are
-actually six such flows considered for this model. 
+each CPU.  Since there are two CPUs, there are six flows in
+the model.
 
 %% More detailed information about the flow specifications used in this case study will be provided as a supplement document if this paper is accepted for publication.   
 %More detailed information about these protocols and the flow specifications can be found online\footnote{\url{https://github.com/cao2/paper/blob/master/Flow\%20Specification.pdf}} to meet the page limit.
@@ -1046,22 +1045,102 @@ As shown above, the ambiguous interpretation of events can lead to large numbers
 %=====
 \section{Related Work}
 
-Our work is closely related to communication-centric and transaction based debug.  An early pioneering work is described in~\cite{Goossens2007NOCS}, which advocates the focus on observing activities on the interconnect network among IP blocks, and mapping these activities to transactions for better correlation between computations and communications.  Therefore, the communication transactions, as a result of software execution, provide an interface between computation and communication, and facilitate  system-level debug.  This work is extended in~\cite{Vermeulen2009VLSI-DAT,Goossens2009DATE}.  However, this line of work is focused on the network-on-chip (NoC) architecture for interconnect using the run/stop debug control method.  
+Our work is closely related to communication-centric and
+transaction based debug.  An early pioneering work is
+described in~\cite{Goossens2007NOCS}, which advocates the
+focus on observing activities on the interconnect network
+among IP blocks, and mapping these activities to
+transactions for better correlation between computations and
+communications.  Therefore, the communication transactions,
+as a result of software execution, provide an interface
+between computation and communication, and facilitate
+system-level debug.  This work is extended
+in~\cite{Vermeulen2009VLSI-DAT,Goossens2009DATE}.  However,
+this line of work is focused on the network-on-chip (NoC)
+architecture for interconnect using the run/stop debug
+control method.
 
-A similar transaction-based debug approach is presented in~\cite{Gharehbaghi2012ISQED}.  Furthermore, it proposes an automated extraction of state machines at transaction level from  high level design models.  From an observed failure trace, it performs backtracking on this transaction level state machine to derive a set of transaction traces that lead to the observed failure state.  In the subsequent step, bounded model checking with the constraints on the internal variables is used to refine the set of transaction traces to remove the infeasible traces.  This approach requires user inputs to identify impossible transaction sequences, and may not find the states causing the failure if the transaction traces leading to the observed failure state is long.  Backtracking from the observed failure state requires pre-image computation, which can be computationally expensive.  A transaction-based online debug approach is proposed in~\cite{Dehbash2014} to address these issues.  This approach utilizes a transaction debug pattern specification language~\cite{Gharehbaghi2009ICCD} to define properties that transactions should meet.  These transaction properties are checked at runtime by programming debug units in the on-chip debug infrastructure, and the system can be stopped shortly after a violation is detected for any one of those properties.  In this sense, it can be viewed as the hardware assertion approaches in~\cite{Boule2007ISQED} elevated to the transaction level. 
+A similar transaction-based debug approach is presented
+in~\cite{Gharehbaghi2012ISQED}.  Furthermore, it proposes an
+automated extraction of state machines at transaction level
+from high level design models.  From an observed failure
+trace, it performs backtracking on this transaction level
+state machine to derive a set of transaction traces that
+lead to the observed failure state.  In the subsequent step,
+bounded model checking with the constraints on the internal
+variables is used to refine the set of transaction traces to
+remove the infeasible traces.  This approach requires user
+inputs to identify impossible transaction sequences, and may
+not find the states causing the failure if the transaction
+traces leading to the observed failure state is long.
+Backtracking from the observed failure state requires
+pre-image computation, which can be computationally
+expensive.  A transaction-based online debug approach is
+proposed in~\cite{Dehbash2014} to address these issues.
+This approach utilizes a transaction debug pattern
+specification language~\cite{Gharehbaghi2009ICCD} to define
+properties that transactions should meet.  These transaction
+properties are checked at runtime by programming debug units
+in the on-chip debug infrastructure, and the system can be
+stopped shortly after a violation is detected for any one of
+those properties.  In this sense, it can be viewed as the
+hardware assertion approaches in~\cite{Boule2007ISQED}
+elevated to the transaction level.
 
-In~\cite{Singerman2011DAC}, a coherent workflow is described where the result from the pre-silicon validation stage can be carried over to the post-silicon stage to improve efficiency and productivity of post-silicon debug.  This workflow is centered on a repository of system events and simple transactions defined by architects and IP designers.  It spans across a wide spectrum of the post-silicon validation including DFx instrumentation, test generation, coverage, and debug.  The DFx instruments are automatically inserted into the design RTL code driven by the defined transactions.  This instrumentation is optimized for making a large set of events and transactions observable.   Test generation is also optimized to generate only the necessary but sufficient tests to allow all defined transactions to be exercised.   Moreover, coverage for post-silicon validation is now defined at the abstract level of events and transactions rather than the raw signals, and thus can be evaluated more efficiently.  In~\cite{Abarbanel2014DAC}, a model at an even higher-level of abstraction, {\em flows}, is proposed.  Flows are used to specify more sophisticated cross-IP transactions such as power management, security, etc, and to facilitate reuse of the efforts of the architectural analysis to check HW/SW implementations. 
+In~\cite{Singerman2011DAC}, a coherent workflow is described
+where the result from the pre-silicon validation stage can
+be carried over to the post-silicon stage to improve
+efficiency and productivity of post-silicon debug.  This
+workflow is centered on a repository of system events and
+simple transactions defined by architects and IP designers.
+It spans across a wide spectrum of the post-silicon
+validation including DFx instrumentation, test generation,
+coverage, and debug.  The DFx instruments are automatically
+inserted into the design RTL code driven by the defined
+transactions.  This instrumentation is optimized for making
+a large set of events and transactions observable.  Test
+generation is also optimized to generate only the necessary
+but sufficient tests to allow all defined transactions to be
+exercised.  Moreover, coverage for post-silicon validation
+is now defined at the abstract level of events and
+transactions rather than the raw signals, and thus can be
+evaluated more efficiently.  In~\cite{Abarbanel2014DAC}, a
+model at an even higher-level of abstraction, {\em flows},
+is proposed.  Flows are used to specify more sophisticated
+cross-IP transactions such as power management, security,
+etc, and to facilitate reuse of the efforts of the
+architectural analysis to check HW/SW implementations.
 
 
 %
 %--
 \section{Conclusion}
 
-This paper presents a method for post-silicon validation by interpreting observed raw signal traces at the level of system flow specifications.  The derived flow execution scenarios provide more structured information on system operations, which is more understandable to system validators.   This information can help to locate design defects more easily, and also provides a measurement of validation coverage.  
+This paper presents a method for post-silicon validation by
+interpreting observed raw signal traces at the level of
+system flow specifications.  The derived flow execution
+scenarios provide more structured information on system
+operations, which is more understandable to system
+validators.  This information can help to locate design
+defects more easily, and also provides a measurement of
+validation coverage.
 
-Due to partial observability, this approach may derive a large number of different flow execution scenarios for a given signal trace.  Insights from system validators can help to eliminate some false scenarios due to the partial observability.  An interesting future direction is formalization of the validators' insights using temporal logic on flows so that the validators can express their intents more precisely and concisely. 
+Due to partial observability, this approach may derive a
+large number of different flow execution scenarios for a
+given signal trace.  Insights from system validators can
+help to eliminate some false scenarios due to the partial
+observability.  An interesting future direction is
+formalization of the validators' insights using temporal
+logic on flows so that the validators can express their
+intents more precisely and concisely.
 
-The trace analysis approach presented in this paper needs to be iterated with different observations selected in different iterations in order to eliminate the false scenarios and to root cause system failures as quickly as possible.  The observation selection and stitching signal traces of different observations together for the above goal will also be pursued in the future.
+The trace analysis approach presented in this paper needs to
+be iterated with different observations selected in
+different iterations in order to eliminate the false
+scenarios and to root cause system failures as quickly as
+possible.  The observation selection and stitching signal
+traces of different observations together for the above goal
+will also be pursued in the future.
 
 
 

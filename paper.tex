@@ -1,17 +1,21 @@
 \documentclass[conference]{IEEEtran}
+
+\PassOptionsToPackage{bookmarks={false}}{hyperref}
+
 \usepackage{pifont}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{mybeamer}
 %\usepackage{draftwatermark}
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
-
+%\usepackage[]{hyperref}
+%\hypersetup{
+%    bookmarks    = false,            % show bookmarks bar?
+%    colorlinks=true,
+%    linkcolor=blue,
+%    filecolor=magenta,      
+%    urlcolor=cyan,
+%}
+%
 
 
 \newcommand{\eg}{\mbox{{\em e.g.}}}
@@ -809,11 +813,9 @@ output trace files.
 
 For this model, we consider the flow specifications
 describing the cache coherence protocols supported in
-GEM5\footnote{The GEM5 cache coherence protocols can be
-  found at
-  \url{http://www.gem5.org/docs/html/gem5MemorySystem.html}.}
-that is used to build the model in Fig~\ref{SoC}.  These
-flow specifications describe data/instruction read
+GEM5 that is used to build the model in Fig~\ref{SoC}.
+The GEM5 cache coherence protocols can be found at~\cite{gem5}.
+These flow specifications describe data/instruction read
 operations and data write operations initiated from CPUs.
 Three such flows describe the cache coherent protocols for
 each CPU.  Since there are two CPUs, there are six flows in

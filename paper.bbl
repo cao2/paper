@@ -47,6 +47,10 @@ K.~Basu and P.~Mishra, ``Efficient trace signal selection for post silicon
   validation and debug,'' in \emph{VLSI Design (VLSI Design), 2011 24th
   International Conference on}, jan. 2011, pp. 352 --357.
 
+\bibitem{gem5}
+``The gem5 simulator: A modular platform for computer-system architecture
+  research,'' {http://www.gem5.org/docs/html/gem5MemorySystem.html}.
+
 \bibitem{Goossens2007NOCS}
 K.~Goossens, B.~Vermeulen, R.~v. Steeden, and M.~Bennebroek,
   ``Transaction-based communication-centric debug,'' in \emph{Proceedings of
